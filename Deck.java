@@ -28,6 +28,10 @@ public class Deck {
 
     /**
      * shuffle the deck of cards
+     * use a temp card variable to swap cards
+     * loop 'backwards' through the deck 
+     * swap with int j and i while j takes random 
+     * card position within deck
      */
     public void shuffle() {
         Random r = new Random();
@@ -42,15 +46,16 @@ public class Deck {
     }
 
     /**
-     * shuffle the deck with a riffle shuffle
+     * A riffle shuffle splits the deck in half and 
+     * everyother card exchages postions back into the deck
+     * 
+     * just for fun
+     * 
+     * loop through the deck iterating every two cards
+     * i and i+1 are swapped within the deck
+     * deck.get(i/2) to avoid out of bounds
      */
     public void riffle() {
-        int half = deck.size() / 2;
-
-        List<Card> bottomDeck = new ArrayList<>
-        (deck.subList(0, half));
-        List<Card> topDeck = new ArrayList<>
-        (deck.subList(half, deck.size()));
 
         // each iteration set 2 cards into deck from each sublist
         for (int i = 0; i < deck.size()-1; i+=2) {
