@@ -26,32 +26,30 @@ public class Stock implements Pile {
     /**
      * Stock card can't accept cards from: foundation, tableau
      * Stock cards can only accept cards from the waste once the 
-     * size of the stock cards hits 0, the pile will then take on the cards
-     * in the waste pile and reset the waste pile
+     * size of the stock cards hits 0, the pile will 'recycle' cards
+     * 
+     * for this stock class, since cards won't be moving in and out of stock 
+     * (only on special occasions) we'll leave this false
      */
     @Override
     public boolean canAccept() {
-        
-    }
-
-    /*
-     * Initial draw is from the start of the game, when the tableau's are dealt
-     * This helper method for canAccept that will give an acception to 
-     * accepting cards from the tableau that weren't deal at the start of the game
-     */
-    public boolean initialDraw() {
-        return true;
+        return false;
     }
 
     /**
-     * places (pushes) card onto the pile
-     * this will only happen in the stock pile when the size = 0
-     * then it'll take the cards back from the waste pile
+     * @param -- List of cards being recycled (added to stock pile)
+     * This function adds cards back into stock pile in preserve order (non-reverse)
+     * and ensures the cards are faced down
      */
     @Override
-    public void push() {
-        if (size() == 0) {
-            
+    public void push(List<Card> cards) {
+        Card card = null;
+        for (int i = 0; i < cards.size(); i++) {
+            card = cards.get(i);
+            if (card.isFaceUp()) {
+                card.flip();
+            }
+            stock.add(card);
         }
     }
 

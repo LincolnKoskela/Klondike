@@ -1,3 +1,5 @@
+import java.util.List;
+
 /**
  * Lays out the neccesary methods our piles will 
  * need to perform. The pile classes will implement me
@@ -12,7 +14,7 @@ public interface Pile {
 
     public boolean canAccept(); // is card allowed into pile
 
-    public void push(); // place card onto the pile
+    public void push(List<Card> cards); // place card onto the pile
 
     public Card draw(); // remove top card from pile
 

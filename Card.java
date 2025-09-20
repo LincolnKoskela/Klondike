@@ -69,6 +69,7 @@ public class Card implements Comparable <Card> {
         return suit;
     }
 
+    // initially face down (false)
     public boolean isFaceUp() {
         return faceUp;
     }
