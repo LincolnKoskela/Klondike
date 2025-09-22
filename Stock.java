@@ -19,6 +19,7 @@ public class Stock implements Pile {
         this.stock = new ArrayList<>();
     }
 
+    @Override
     public int size() {
         return stock.size();
     }
@@ -29,7 +30,8 @@ public class Stock implements Pile {
      * size of the stock cards hits 0, the pile will 'recycle' cards
      * 
      * for this stock class, since cards won't be moving in and out of stock 
-     * (only on special occasions) we'll leave this false
+     * (only on special occasions) we'll leave this false and let gameEngine 
+     * handle the special occasions
      */
     @Override
     public boolean canAccept() {
@@ -41,7 +43,6 @@ public class Stock implements Pile {
      * This function adds cards back into stock pile in preserve order (non-reverse)
      * and ensures the cards are faced down
      */
-    @Override
     public void push(List<Card> cards) {
         Card card = null;
         for (int i = 0; i < cards.size(); i++) {
@@ -54,9 +55,22 @@ public class Stock implements Pile {
     }
 
     /**
-     * draw card from the top of the deck
+     * Rarely will you add a single card to the stock
+     * but there are instances when you'll need to do so
+     * such as theres only one card from waste being recycled
+     */
+    @Override
+    public void push(Card card) {
+        stock.add(card);
+        if (card.isFaceUp()) {
+            card.flip();
+        }
+    }
+
+    /**
+     * This function is a series of instructions 
+     * to draw card from the top of the deck from
      * the last element in the index
-     * pop()
      * then remove that card from this pile
      * return nextCard obj
      */

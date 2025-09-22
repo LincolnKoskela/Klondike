@@ -128,7 +128,12 @@ public class Card implements Comparable <Card> {
      */
     @Override
     public String toString() {
-        return rank + " of " + suit;
+        if (isFaceUp()) {
+            return rank + " of " + suit;
+        } else {
+            return "Face Down";
+        }
+        
     }
 
     public static void main(String[] args) {

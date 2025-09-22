@@ -1,11 +1,12 @@
-import java.util.List;
-
 /**
- * Lays out the neccesary methods our piles will 
- * need to perform. The pile classes will implement me
- * The 4 piles are Tableau, Foundation, Stock, and Waste
- * Each pile agrees to these functions but implements the 
+ * Lays out the neccesary functions our pile classes will 
+ * need to perform. The pile classes will implement me.
+ * The 4 pile classes are Tableau, Foundation, Stock, and Waste
+ * Each pile class agrees to these functions but implements the 
  * rules differently
+ * 
+ * Override these functions
+ * you may need to Overload these functions as well
  */
 
 public interface Pile {
@@ -14,7 +15,7 @@ public interface Pile {
 
     public boolean canAccept(); // is card allowed into pile
 
-    public void push(List<Card> cards); // place card onto the pile
+    public void push(Card card); // place card onto the pile
 
     public Card draw(); // remove top card from pile
 
