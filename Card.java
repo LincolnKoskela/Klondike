@@ -109,6 +109,14 @@ public class Card implements Comparable <Card> {
     }
 
     /**
+     * Check if two cards have the same suit
+     */
+    public boolean hasSameSuit(Card other) {
+        return other != null &&
+        this.getSuit() == other.getSuit();
+    }
+
+    /**
      * defines how Card objects will be compared
      * @param other -- Card object being compared to
      * @return int value
@@ -164,6 +172,17 @@ public class Card implements Comparable <Card> {
         /////////////// equals ////////////////////
         System.out.println(c1.equals(c4));
         Card c5 = new Card(Rank.ACE, Suit.SPADES);
-        System.out.println(c1.equals(c5));   
+        System.out.println(c1.equals(c5)); 
+        
+        ////////////// sameSuit ///////////////////
+        System.out.println();
+        System.out.println("Testing hasSameSuit");
+        Card c6 = new Card(Rank.TEN, Suit.SPADES);
+        Card c7 = new Card(Rank.FOUR, Suit.SPADES);
+        Card c8 = new Card(Rank.EIGHT, Suit.CLUBS);
+
+        System.out.println(c6.hasSameSuit(c8)); // false
+        System.out.println(c7.hasSameSuit(c8)); // false
+        System.out.println(c6.hasSameSuit(c7)); // true
     }
 }

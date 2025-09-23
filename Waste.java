@@ -28,7 +28,7 @@ public class Waste implements Pile {
      * Only cards played into waste are from stock
      */
     @Override
-    public boolean canAccept() {
+    public boolean canAccept(Card card) {
         return false;
     }
 

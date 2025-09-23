@@ -11,6 +11,8 @@
 
 import java.util.*;
 
+import Card.Rank;
+
 public class Stock implements Pile {
     private List<Card> stock;
 
@@ -34,7 +36,7 @@ public class Stock implements Pile {
      * handle the special occasions
      */
     @Override
-    public boolean canAccept() {
+    public boolean canAccept(Card card) {
         return false;
     }
 
@@ -84,5 +86,11 @@ public class Stock implements Pile {
         }
 
         return null;
+    }
+
+    public static void main(String[] args) {
+        Card c1 = new Card(Card.Rank.ACE, Card.Suit.CLUBS);
+        Card c2 = new Card(Card.Rank.KING, Card.Suit.HEARTS);
+        Card c3 = new Card(Card.Rank.JACK, Card.Suit.HEARTS);
     }
 }

@@ -13,7 +13,7 @@ public interface Pile {
     
     public int size(); // return size of pile
 
-    public boolean canAccept(); // is card allowed into pile
+    public boolean canAccept(Card card); // is card allowed into pile
 
     public void push(Card card); // place card onto the pile
 
