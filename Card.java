@@ -132,15 +132,16 @@ public class Card implements Comparable <Card> {
     }
 
     /**
-     * String representation of a Card
+     * String representation of a Card object
      */
     @Override
     public String toString() {
-        if (isFaceUp()) {
-            return rank + " of " + suit;
+        if (faceUp) {
+            return rank + " of " + suit + " : Face Up \n";
         } else {
-            return "Face Down";
+            return rank + " of " + suit + " : Face Down \n"; 
         }
+        
         
     }
 
