@@ -48,8 +48,8 @@ public class Foundation implements Pile {
         if (difference != 1) {
             return false;
         }
-        
-        
+
+
         
     }
 
