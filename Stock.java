@@ -11,8 +11,6 @@
 
 import java.util.*;
 
-import Card.Rank;
-
 public class Stock implements Pile {
     private List<Card> stock;
 
@@ -88,9 +86,81 @@ public class Stock implements Pile {
         return null;
     }
 
+    /**
+     * String representation of a stock pile
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < stock.size(); i++) {
+            sb.append(stock.get(i));
+        }
+        return sb.toString();
+    }
+
     public static void main(String[] args) {
+        ////////////////////// TESTING /////////////////////////
+        /// 
+        /// 
+        //////////////////////// CARDS ////////////////////////
         Card c1 = new Card(Card.Rank.ACE, Card.Suit.CLUBS);
         Card c2 = new Card(Card.Rank.KING, Card.Suit.HEARTS);
         Card c3 = new Card(Card.Rank.JACK, Card.Suit.HEARTS);
+        Card c4 = new Card(Card.Rank.SIX, Card.Suit.SPADES);
+        Card c5 = new Card(Card.Rank.SEVEN, Card.Suit.DIAMONDS);
+        Card c6 = new Card(Card.Rank.SIX, Card.Suit.DIAMONDS);
+        Card c7 = new Card(Card.Rank.FOUR, Card.Suit.CLUBS);
+        Card c8 = new Card(Card.Rank.JACK, Card.Suit.SPADES);
+        Card c9 = new Card(Card.Rank.JACK, Card.Suit.DIAMONDS);
+        Card c10 = new Card(Card.Rank.EIGHT, Card.Suit.SPADES);
+
+
+        //////////////// push() ///////////////////////////
+        System.out.println("----------- Testing push() function ------------");
+        Stock stock = new Stock();
+
+        c1.flip();
+        c2.flip();
+        c3.flip();
+
+        // face down
+        System.out.print(c1); // ace of clubs
+        System.out.print(c2); // king of hearts
+        System.out.print(c3); // jack of hearts
+
+        // all face down 
+        stock.push(c1); // Ace of clubs
+        stock.push(c2); // King of hearts
+        stock.push(c3); // Jack of hearts
+        stock.push(c4); // Six of spades
+        stock.push(c5); // seven of diamonds
+        stock.push(c6); // six of diamonds
+        stock.push(c7); // four of clubs
+        stock.push(c8); // jack of spades
+        stock.push(c9); // jack of diamonds
+        stock.push(c10); // eight of spades
+        System.out.println(stock); // print out the stock
+        System.out.println();
+
+
+        ////////////// push(List<Card> card) /////////////////
+        System.out.println("----------- Testing push(List<Card>) function ------------");
+        List<Card> list = new ArrayList<>();
+        c1.flip();
+        c2.flip();
+        list.add(c1);
+        list.add(c2);
+        list.add(c3);
+
+        Stock stock2 = new Stock();
+        stock2.push(list);
+
+        System.out.println(stock2); 
+        // Ace of clubs : face down
+        // king of hearts : face down
+        // jack of hearts : face down
+
+        System.out.println();
+        
     }
 }
