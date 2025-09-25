@@ -61,9 +61,11 @@ public class Stock implements Pile {
      */
     @Override
     public void push(Card card) {
-        stock.add(card);
-        if (card.isFaceUp()) {
+        if (card != null) {
+            stock.add(card);
+            if (card.isFaceUp()) {
             card.flip();
+            }
         }
     }
 
@@ -80,6 +82,7 @@ public class Stock implements Pile {
         if (size() > 0) {
             nextCard = stock.get(size()-1);
             stock.remove(size()-1);
+            nextCard.flip();
             return nextCard;
         }
 
@@ -113,6 +116,7 @@ public class Stock implements Pile {
         Card c8 = new Card(Card.Rank.JACK, Card.Suit.SPADES);
         Card c9 = new Card(Card.Rank.JACK, Card.Suit.DIAMONDS);
         Card c10 = new Card(Card.Rank.EIGHT, Card.Suit.SPADES);
+        Card cNullCard = null;
 
 
         //////////////// push() ///////////////////////////
@@ -123,7 +127,7 @@ public class Stock implements Pile {
         c2.flip();
         c3.flip();
 
-        // face down
+        // face up
         System.out.print(c1); // ace of clubs
         System.out.print(c2); // king of hearts
         System.out.print(c3); // jack of hearts
@@ -139,6 +143,7 @@ public class Stock implements Pile {
         stock.push(c8); // jack of spades
         stock.push(c9); // jack of diamonds
         stock.push(c10); // eight of spades
+        stock.push(cNullCard); 
         System.out.println(stock); // print out the stock
         System.out.println();
 
@@ -159,8 +164,46 @@ public class Stock implements Pile {
         // Ace of clubs : face down
         // king of hearts : face down
         // jack of hearts : face down
-
         System.out.println();
-        
+
+        ////////////////// canAccept() ///////////////
+        System.out.println("-------Testing canAccept----------");
+        System.out.println(stock.canAccept(c1)); // false
+        System.out.println(stock.canAccept(c2)); // fasle
+        System.out.println(stock.canAccept(c3)); // false
+        System.out.println(stock.canAccept(c4)); // fasle
+        System.out.println(stock.canAccept(c5)); // false
+        System.out.println(stock.canAccept(c6)); // fasle
+        // every test should be false as we assume stock won't accept any cards 
+        // game engine will logically define what the stock can accept
+        System.out.println();
+
+        ///////////// draw() and size() ///////////////
+        System.out.println("*****Testing draw and size functions*****");
+        System.out.println(stock.size()); // 10
+        Card nextCard = stock.draw();
+        System.out.print(nextCard); // Eight of spades : face up
+        System.out.println(stock.size()); // 9
+        nextCard = stock.draw();
+        System.out.print(nextCard); // Jack of diamonds : face up
+        System.out.println(stock.size()); // 8
+        nextCard = stock.draw(); 
+        System.out.print(nextCard); // jack of spades : face up
+        System.out.println(stock.size()); // 7
+
+        System.out.println(stock2.size()); // 3
+        Card myNextCard = null;
+        System.out.println(myNextCard); // null
+        myNextCard = stock2.draw(); 
+        System.out.print(myNextCard); // jack of hearts : face up
+        System.out.println(stock2.size()); // 2
+        myNextCard = stock2.draw();
+        myNextCard = stock2.draw();
+        System.out.print(myNextCard); // ace of clubs : face up
+        System.out.println(stock2.size()); // 0
+
+        myNextCard = stock2.draw(); 
+        System.out.println(myNextCard); // null
+        System.out.println(stock2.size()); // 0
     }
 }
