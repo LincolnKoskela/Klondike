@@ -17,6 +17,6 @@ public interface Pile {
 
     public void push(Card card); // place card onto the pile
 
-    public Card draw(); // remove top card from pile
+    public Card draw(); // remove top card from pile returning type Card
 
 }
