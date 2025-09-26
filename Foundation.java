@@ -19,9 +19,20 @@ public class Foundation implements Pile {
         this.foundation = new ArrayList<>();
     }
 
+    /**
+     * Get size of foundation
+     */
     @Override
     public int size() {
         return foundation.size();
+    }
+
+    /**
+     * Clean helper method to get topCard
+     * @return -- Card obj 
+     */
+    public Card topCard() {
+        return foundation.get(size()-1);
     }
 
     /**
@@ -31,28 +42,78 @@ public class Foundation implements Pile {
      * So check if empty and handle that edge case
      * Then card must be same suit and +1 rank 
      * 
-     * @param -- Card being asked about
+     * @param -- Card being played into foundation
      */
     @Override
     public boolean canAccept(Card card) {
-        Card currentCard = foundation.get(size()-1);
+        Card currentCard = topCard();
 
+        // null check
+        if (card == null) {
+            return false;
+        }
+
+        // if empty only accept an ace
         if (foundation.isEmpty() && card.getRank().getValue() != 1) {
             return false;
         }
-        if (currentCard.getSuit() != card.getSuit()) {
+
+        // card must have same suit as top card
+        if (card.getSuit() != currentCard.getSuit()) {
             return false;
         }
 
+        // rank must be one higher than top card
         int difference = card.getRank().getValue() - currentCard.getRank().getValue();
         if (difference != 1) {
             return false;
         }
 
-
-        
+        return true;
     }
 
+    /**
+     * Assumed move is legal and performs the action
+     */
+    @Override
+    public void push(Card card) {
+        if (card != null) {
+            foundation.add(card);
+            if (!card.isFaceUp()) {
+                card.flip();
+            }
+        }
+    }
 
+    /**
+     * Draw a card from foundation
+     * This function performs the action
+     * @return Card drawn from the foundation
+     */
+    @Override
+    public Card draw() {
+        Card nextCard = null;
+        if (size() > 0) {
+            nextCard = topCard();
+            foundation.remove(topCard());
+            return nextCard;
+        }
+        return null;
+    }
 
+    /**
+     * String representation of a Foundation pile
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < foundation.size(); i++) {
+            sb.append(foundation.get(i));
+        }
+        return sb.toString();
+    }
+
+    public static void main(String[] args) {
+        
+    }
 }
