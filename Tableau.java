@@ -28,7 +28,10 @@ public class Tableau implements Pile {
      * @return -- Card obj
      */
     public Card topCard() {
-        return tableau.get(size()-1);
+        if (size() > 0) {
+            return tableau.get(size()-1);
+        } else return null;
+        
     }
 
     /**
@@ -86,6 +89,9 @@ public class Tableau implements Pile {
         return null;
     }
 
+    /**
+     * String representation of a tableau pile
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

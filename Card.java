@@ -185,5 +185,20 @@ public class Card implements Comparable <Card> {
         System.out.println(c6.hasSameSuit(c8)); // false
         System.out.println(c7.hasSameSuit(c8)); // false
         System.out.println(c6.hasSameSuit(c7)); // true
+
+
+        //////////// get suit etc ///////////////
+        System.out.println();
+        
+        Card x1 = new Card(Rank.ACE, Suit.SPADES);
+        Card x2 = new Card(Rank.JACK, Suit.SPADES);
+
+        System.out.println(x1.getSuit());
+        System.out.println(x2.getSuit());
+        System.out.println(x1.getRank());
+        System.out.println(x1.getRank().getValue());
+        System.out.println(x2.getRank().getValue());
+        System.out.println(x1.getSuit().getColor());
+        System.out.println(x2.getSuit().getColor());
     }
 }
