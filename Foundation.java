@@ -28,11 +28,22 @@ public class Foundation implements Pile {
     }
 
     /**
+     * @return true if list is empty
+     */
+    public boolean isEmpty() {
+        if (size() == 0) return true;
+        return false;
+    }
+
+    /**
      * Clean helper method to get topCard
      * @return -- Card obj 
      */
     public Card topCard() {
-        return foundation.get(size()-1);
+        if (size() > 0) {
+            return foundation.get(size()-1);
+        }
+        else return null;
     }
 
     /**
@@ -59,16 +70,20 @@ public class Foundation implements Pile {
         }
 
         // card must have same suit as top card
-        if (card.getSuit() != currentCard.getSuit()) {
-            return false;
+        // top card can't pt to null reference
+        if (currentCard != null) {
+            if (currentCard.getSuit() != card.getSuit()) {
+                return false;
+            }
         }
 
         // rank must be one higher than top card
-        int difference = card.getRank().getValue() - currentCard.getRank().getValue();
-        if (difference != 1) {
-            return false;
-        }
-
+        if (currentCard != null) {
+            int difference = 0;
+            difference = card.getRank().getValue() - currentCard.getRank().getValue();
+            if (difference != 1) return false;
+        } 
+        
         return true;
     }
 
@@ -114,6 +129,98 @@ public class Foundation implements Pile {
     }
 
     public static void main(String[] args) {
+        ////////////////////// TESTING Foundation //////////////////
+        ///                                                 ///
+        ///                                                 ///
+        //////////////////////// CARDS ////////////////////////
+        Card c1 = new Card(Card.Rank.ACE, Card.Suit.CLUBS);
+        Card c2 = new Card(Card.Rank.KING, Card.Suit.HEARTS);
+        Card c3 = new Card(Card.Rank.JACK, Card.Suit.HEARTS);
+        Card c4 = new Card(Card.Rank.SIX, Card.Suit.SPADES);
+        Card c5 = new Card(Card.Rank.SEVEN, Card.Suit.DIAMONDS);
+        Card c6 = new Card(Card.Rank.SIX, Card.Suit.DIAMONDS);
+        Card c7 = new Card(Card.Rank.FOUR, Card.Suit.CLUBS);
+        Card c8 = new Card(Card.Rank.JACK, Card.Suit.SPADES);
+        Card c9 = new Card(Card.Rank.JACK, Card.Suit.DIAMONDS);
+        Card c10 = new Card(Card.Rank.EIGHT, Card.Suit.SPADES);
+        Card cNullCard = null; // shouldn't push this card into pile
+
+
+        /*
+         * Cards should all be face up in the foundation!
+         */
+
+        //////////// push ////////////////////
+        
+        System.out.print(c1); // ace of clubs : face down
+        System.out.print(c2); // king of hearts : face down
+        System.out.println();
+
+        System.out.println("Testing push");
+        Foundation f1 = new Foundation();
+        f1.push(c1); // ace of clubs
+        f1.push(c2); // king of hearts
+        f1.push(c3); // jack of hearts
+        f1.push(c4); // six of spades
+        f1.push(c5); // seven of diamonds
+        f1.push(c6); // six of diamonds
+        f1.push(c7); // four of clubs
+        f1.push(c8); // jack of spades
+        f1.push(c9); // jack of diamonds
+        f1.push(c10); // eight of spades
+        f1.push(cNullCard); // null
+
+        System.out.println(f1); 
+        System.out.println(f1.size()); // 10
+        System.out.println();
+
+        
+
+         ////////// canAccept ///////////////
+        System.out.println("Testing canAccept function: ");
+        Card s1 = new Card(Card.Rank.ACE, Card.Suit.SPADES);
+        Card s2 = new Card(Card.Rank.TWO, Card.Suit.SPADES);
+        Card s3 = new Card(Card.Rank.THREE, Card.Suit.SPADES);
+        Card s4 = new Card(Card.Rank.FOUR, Card.Suit.SPADES);
+        Card s5 = new Card(Card.Rank.FIVE, Card.Suit.SPADES);
+        Card sj = new Card(Card.Rank.JACK, Card.Suit.SPADES);
+        Card sq = new Card(Card.Rank.QUEEN, Card.Suit.SPADES);
+        Card sk = new Card(Card.Rank.KING, Card.Suit.SPADES);
+
+        Card h1 = new Card(Card.Rank.ACE, Card.Suit.HEARTS);
+        Card h2 = new Card(Card.Rank.TWO, Card.Suit.HEARTS);
+        Card h3 = new Card(Card.Rank.THREE, Card.Suit.HEARTS);
+        Card h4 = new Card(Card.Rank.FOUR, Card.Suit.HEARTS);
+        Card h5 = new Card(Card.Rank.FIVE, Card.Suit.HEARTS);
+
+        /*
+         * Testing foundations can accept function that can only 
+         * accept the first card in the pile as it being an ace
+         * It must be 1 rank higher the following cards and same suit!
+         */
+
+         Foundation spades = new Foundation();
+         Foundation hearts = new Foundation();
+
+        System.out.println(spades.canAccept(s1)); // true 
+        System.out.println(spades.canAccept(s3)); // false 
+        System.out.println(spades.canAccept(s2)); // false
+
+        spades.push(s1);
+        System.out.println(spades.canAccept(s2)); // true
+        System.out.println(spades.canAccept(s3)); // false
+        spades.push(s2);
+        System.out.println(spades.canAccept(s3)); // true
+        System.out.println(spades.canAccept(s4)); // false
+        System.out.println(spades.canAccept(h3)); // false -- diff suit'
+        System.out.println(spades.canAccept(cNullCard)); // false
+        
+        System.out.println(spades.isEmpty()); // false
+        spades.draw();
+        spades.draw();
+        System.out.println(spades.isEmpty()); // true
+
+        
         
     }
 }
