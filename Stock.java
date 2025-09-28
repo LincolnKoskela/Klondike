@@ -24,6 +24,12 @@ public class Stock implements Pile {
         return stock.size();
     }
 
+    @Override
+    public boolean isEmpty() {
+        if (size() == 0) return true;
+        else return false;
+    }
+
     /**
      * Stock card can't accept cards from: foundation, tableau
      * Stock cards can only accept cards from the waste once the 
@@ -96,7 +102,7 @@ public class Stock implements Pile {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < stock.size(); i++) {
-            sb.append(stock.get(i));
+            sb.append(stock.get(i) + "\n");
         }
         return sb.toString();
     }
@@ -205,5 +211,8 @@ public class Stock implements Pile {
         myNextCard = stock2.draw(); 
         System.out.println(myNextCard); // null
         System.out.println(stock2.size()); // 0
+
+        System.out.println(stock.isEmpty()); // false
+        System.out.println(stock2.isEmpty()); // true
     }
 }

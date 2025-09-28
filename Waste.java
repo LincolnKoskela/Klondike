@@ -22,6 +22,12 @@ public class Waste implements Pile {
         return waste.size();
     }
 
+    @Override
+    public boolean isEmpty() {
+        if (size() == 0) return true;
+        else return false;
+    }
+
     /**
      * Game engine will handle logic if card from stock isn't played
      * This function provides basic accepting rules into waste
@@ -78,7 +84,7 @@ public class Waste implements Pile {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < waste.size(); i++) {
-            sb.append(waste.get(i));
+            sb.append(waste.get(i) + "\n");
         }
 
         return sb.toString();
@@ -165,5 +171,6 @@ public class Waste implements Pile {
         myNextCard = waste2.draw(); 
         System.out.println(myNextCard); // null
         System.out.println(waste2.size()); // 0
+        
     }
 }
