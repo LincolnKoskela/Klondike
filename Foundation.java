@@ -123,7 +123,7 @@ public class Foundation implements Pile {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < foundation.size(); i++) {
-            sb.append(foundation.get(i));
+            sb.append(foundation.get(i) + "\n");
         }
         return sb.toString();
     }
@@ -199,8 +199,8 @@ public class Foundation implements Pile {
          * It must be 1 rank higher the following cards and same suit!
          */
 
-         Foundation spades = new Foundation();
-         Foundation hearts = new Foundation();
+        Foundation spades = new Foundation();
+        Foundation hearts = new Foundation();
 
         System.out.println(spades.canAccept(s1)); // true 
         System.out.println(spades.canAccept(s3)); // false 
@@ -214,13 +214,61 @@ public class Foundation implements Pile {
         System.out.println(spades.canAccept(s4)); // false
         System.out.println(spades.canAccept(h3)); // false -- diff suit'
         System.out.println(spades.canAccept(cNullCard)); // false
+        System.out.println(hearts.canAccept(h1)); // true
+        System.out.println(hearts.canAccept(h2)); // false
+        System.out.println(hearts.canAccept(cNullCard)); // false
+        System.out.println(spades.canAccept(sk)); // false
+        System.out.println();
         
+        // is empty
+        System.out.println("isEmpty()");
         System.out.println(spades.isEmpty()); // false
+        System.out.print(spades); // s1 and s2
         spades.draw();
+        System.out.print(spades); // s1
         spades.draw();
         System.out.println(spades.isEmpty()); // true
+        System.out.println();
 
+        ///////// push //////////
         
+        System.out.println("Testing push");
+        hearts.push(cNullCard);
+        hearts.push(h1);
+        hearts.push(h2);
+        hearts.push(h3);
+        hearts.push(h4);
+        hearts.push(h5);
+        System.out.print(hearts); // h1, h2, h3, h4, h5 all face up
+        System.out.println(hearts.size()); // 5
+        System.out.println();
+
+        //////// draw ////////
+        System.out.println("TESTING DRAW");
+        System.out.println(hearts.topCard()); // 5h
+        Card nextCard = hearts.draw(); 
+        System.out.println(nextCard); // 5h
+        System.out.println();
+        System.out.print(hearts);
+        System.out.println(hearts.size());
+
+        hearts.draw();
+        hearts.draw();
+        hearts.draw();
+        System.out.print(hearts); // acehearts
+        System.out.println(hearts.size()); // 1
+
+        hearts.draw();
+        System.out.println(hearts.size()); // 0
+
+        Card theNextCard = hearts.draw();
+        System.out.println(theNextCard); // null -- hearts is empty
+        System.out.println(hearts.isEmpty()); // true
+
+
+
+
+
         
     }
 }
