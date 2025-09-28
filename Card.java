@@ -137,9 +137,9 @@ public class Card implements Comparable <Card> {
     @Override
     public String toString() {
         if (faceUp) {
-            return rank + " of " + suit + " : Face Up \n";
+            return rank + " of " + suit + " : Face Up";
         } else {
-            return rank + " of " + suit + " : Face Down \n"; 
+            return rank + " of " + suit + " : Face Down"; 
         }
         
         
