@@ -42,6 +42,8 @@ public class Tableau implements Pile {
      * What can a tableau pile accept? 
      * Alternating color
      * One rank lower than currentCard
+     * 
+     * If the column is empty, only accept king
      */
     @Override
     public boolean canAccept(Card card) {
@@ -50,23 +52,28 @@ public class Tableau implements Pile {
             return false;
         }
 
-        // card can't have same color, must alternate colors between red and black
-        if(currentCard != null) {
-            if (currentCard.getSuit().getColor() == card.getSuit().getColor()) {
-            return false;
-            }
-        }
-        
-
-        // top card should be one rank higher than card being played, so a difference of 1
-        if (currentCard != null) {
-            int difference = 0;
-            difference = currentCard.getRank().getValue() - card.getRank().getValue(); 
-            if (difference != 1) { // if not differnce of 1, return false
+        // first card played down must be a king on empty column
+        if (isEmpty()) {
+            if (card.getRank().getValue() != 13) {
                 return false;
             }
-        }
+        } else {
+            // card can't have same color, must alternate colors between red and black
+            if (currentCard != null) {
+                if (currentCard.getSuit().getColor() == card.getSuit().getColor()) {
+                return false;
+                }
+            }
 
+            // top card should be one rank higher than card being played, so a difference of 1
+            if (currentCard != null) {
+                int difference = 0;
+                difference = currentCard.getRank().getValue() - card.getRank().getValue(); 
+                if (difference != 1) { // if not differnce of 1, return false
+                    return false;
+                }
+            }
+        }
         return true;
     }
 
@@ -91,12 +98,6 @@ public class Tableau implements Pile {
         if (size() > 0) {
             nextCard = topCard();
             tableau.remove(topCard());
-            if (topCard() != null) {
-                if (!topCard().isFaceUp()) { // if the card is face down flip it
-                topCard().flip();
-                }
-            }
-            
             return nextCard;
         }
         return null;
@@ -115,7 +116,7 @@ public class Tableau implements Pile {
     }
 
     public static void main(String[] args) {
-        ////////////////////// TESTING Foundation //////////////////
+        ////////////////////// TESTING tableau //////////////////
         ///                                                 ///
         ///                                                 ///
         //////////////////////// CARDS ////////////////////////
@@ -133,6 +134,8 @@ public class Tableau implements Pile {
 
 
         //////////////////// push! //////////////////////////
+        /// game engine will handle when/if push is allowed
+        /// here we just care if the push action is working as it should
         System.out.println("Testing push");
         Tableau t1 = new Tableau();
         t1.push(c1);
@@ -168,31 +171,81 @@ public class Tableau implements Pile {
         Card x8 = new Card(Card.Rank.QUEEN, Card.Suit.SPADES);
         Card x9 = new Card(Card.Rank.QUEEN, Card.Suit.DIAMONDS);
         System.out.println(tab.isEmpty()); // true
-        System.out.println(tab.canAccept(x1)); // true
+        System.out.println(tab.canAccept(x1)); // false -- not king
         tab.push(x1);
         System.out.print(tab); // jd
-        System.out.println(tab.canAccept(x2)); // true
+        System.out.println(tab.canAccept(x2)); // true -- 1 less rank and alt color
         tab.push(x2);
         System.out.println(tab.canAccept(x3)); // true
         System.out.println(tab.canAccept(x4)); // false
         System.out.println(tab.canAccept(cNullCard)); // false
+        System.out.println();
 
         Tableau tab2 = new Tableau();
+        System.out.println(tab2.isEmpty());
         System.out.println(tab2.canAccept(x6)); // true
         tab2.push(x6);
         System.out.println(tab2.canAccept(x7)); // false
         System.out.println(tab2.canAccept(x8)); // false
         System.out.println(tab2.canAccept(x9)); // true
-
-
+        System.out.println();
 
         //////// test the draw function ///////////
+        /// when you draw you're removing from the tableau
+        /// within same col it's suppose to flip the topcard
+        /// game engine will handle this, we just want to test
+        /// removing a card from the tableau column
 
+        System.out.println("TESTING DRAW / REMOVE function");
+        System.out.print(tab2);
         tab2.draw();
         System.out.println(tab2.size()); // 0
 
         Card next = tab2.draw();
         System.out.println(next); // null
+
+        tab2.push(x6);
+        tab2.push(x7);
+        tab2.push(x5);
+        System.out.print(tab2);
+
+        next = tab2.draw();
+        System.out.println("Draw top card -> " + next); // 7h
+        System.out.print(tab2);
+        System.out.println(tab2.size()); // 2
+        System.out.println(tab2.isEmpty()); // false
+
+        next = tab2.draw();
+        System.out.println("Draw top card -> " + next); // QC
+        System.out.print(tab2); // just KS left
+        System.out.println(tab2.size()); // 1
+        System.out.println(tab2.isEmpty()); // false
+
+        next = tab2.draw();
+        System.out.println("Draw top card -> " + next); // KS
+        System.out.println(tab2); // **blank**
+        System.out.println(tab2.size()); // 0
+        System.out.println(tab2.isEmpty()); // true
+        System.out.println(tab2.canAccept(x6)); // true
+        System.out.println(tab2.canAccept(cNullCard)); // false
+        System.out.println(tab2.canAccept(x7)); // false
+
+        System.out.println(next); // KS
+
+        if (tab2.canAccept(next)) {
+            tab2.push(next);
+        }
+
+        System.out.print(tab2); // KS
+        next = tab2.draw();
+        System.out.println(tab2.isEmpty()); // true
+
+        if (tab2.canAccept(x7)) {
+            tab2.push(x7);
+        }
+
+        System.out.println(tab2.isEmpty()); // true
+
 
         
 
