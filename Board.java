@@ -2,9 +2,8 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- * Board class will take on the 4 list of piles 
- * It contains the essentials on the board. 
- * Provides the overall game state
+ * The Board class creates 7 tableau piles, 4 foundation piles, 1 stock and 1 waste. 
+ * This class will also handle the initial deal onto the board
  */
 
 public class Board {
