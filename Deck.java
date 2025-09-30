@@ -73,6 +73,25 @@ public class Deck {
         return set.size() < deck.size();
     }
 
+    public int getCardsRemaining() {
+        return cardsRemaining;
+    }
+
+    public int size() {
+        return cardsRemaining;
+    }
+
+    public Card topCard() {
+        Card nextCard = deck.get(size());
+        return nextCard;
+    }
+
+    // public Card draw() {
+    //     Card nextCard = null;
+    //     nextCard = deck.get(topCard());
+    //     deck.remove(deck.size()-1);
+    // }
+
     public static void main(String[] args) {
         Deck deck = new Deck();
         System.out.println(deck);
