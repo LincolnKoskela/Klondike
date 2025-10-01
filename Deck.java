@@ -7,7 +7,6 @@ import java.util.HashSet;
 public class Deck {
     
     private List<Card> deck = new ArrayList<>();
-    private int cardsRemaining;
 
     /**
      * Construct a deck of playing cards
@@ -23,7 +22,6 @@ public class Deck {
             }
         }
         shuffle();
-        cardsRemaining = 52;
     }
 
     /**
@@ -73,29 +71,36 @@ public class Deck {
         return set.size() < deck.size();
     }
 
-    public int getCardsRemaining() {
-        return cardsRemaining;
-    }
-
     public int size() {
-        return cardsRemaining;
+        return deck.size();
     }
 
     public Card topCard() {
-        Card nextCard = deck.get(size());
-        return nextCard;
+        if (!isEmpty()) {
+            return deck.get(size()-1);
+        } else {
+            return null;
+        }
     }
 
-    // public Card draw() {
-    //     Card nextCard = null;
-    //     nextCard = deck.get(topCard());
-    //     deck.remove(deck.size()-1);
-    // }
+    public boolean isEmpty() {
+        return deck.isEmpty();
+    }
+
+    public Card draw() {
+        Card nextCard = null;
+        if (!isEmpty()) {
+            nextCard = topCard();
+            deck.remove(topCard());
+            return nextCard;
+        } else {
+            return null;
+        }
+    }
 
     public static void main(String[] args) {
         Deck deck = new Deck();
         System.out.println(deck);
         System.out.println(deck.hasDuplicates());
-        System.out.println(deck.cardsRemaining);
     }
 }
