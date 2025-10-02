@@ -89,16 +89,6 @@ public class Card implements Comparable <Card> {
         return this.getRank() == card.getRank()
         && this.getSuit() == card.getSuit();
     }
-
-    /**
-     * rank.hashCode() -- gives an int hashcode for the rank
-     * suit.hashCode()
-     */
-    @Override
-    public int hashCode() {
-        return 31 * rank.hashCode() + suit.hashCode();
-    }
-
     
     /**
      * Check if two cards have the same rank
@@ -137,9 +127,9 @@ public class Card implements Comparable <Card> {
     @Override
     public String toString() {
         if (faceUp) {
-            return rank.getValue() + "" + suit.name().substring(0, 1) + ":F";
+            return rank.getValue() + "" + suit.name().substring(0, 1) + ":F\n";
         } else {
-            return rank.getValue() + "" + suit.name().substring(0, 1) + ":X";
+            return rank.getValue() + "" + suit.name().substring(0, 1) + ":X\n";
         }
         
         
