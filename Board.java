@@ -9,6 +9,7 @@ import java.util.EnumMap;
 
 public class Board {
     
+    // private fields -> no outside class can directly change 
     private Stock stock;
     private Waste waste;
     private EnumMap<Card.Suit, Foundation> foundations; // for each suit, associate 1 foundation
@@ -39,5 +40,63 @@ public class Board {
         
     }
 
-    // Initialization
+    /*
+     * public getters allow access to private fields
+     */
+    public Stock getStock() {
+        return stock;
+    }
+
+    public Waste getWaste() {
+        return waste;
+    }
+
+    public Foundation getFoundation(Card.Suit suit) {
+        if (suit == null) {
+            throw new IllegalArgumentException("Suit cannot be null.");
+        }
+        return foundations.get(suit);
+    }
+
+    public Tableau getTableau(int column) {
+        if (column > 7 || column < 1) {
+            throw new IllegalArgumentException("Invalid Column Input.");
+        }
+        int index = column - 1;
+        return tableaus.get(index);
+    }
+
+    /**
+     * Theres 7 tableau columns
+     * @return -- 7
+     */
+    public int getTableauColumns() {
+        return 7;
+    }
+
+    /**
+     * This function empties all the piles and sets up
+     * a redeal. Clean slate. This function can be called
+     * instead of making a new board object each time.
+     * 
+     * Looping through the enum, the values() function gives you 
+     * all the foundation objects in the enummap. 
+     */
+    public void clear() {
+        stock.clear();
+        waste.clear();
+
+        for (Foundation f : foundations.values()) {
+            f.clear();
+        }
+
+        for (int i = 0; i < getTableauColumns(); i++) {
+            tableaus.get(i).clear();
+        }
+    }
+    
+    @Override
+    public String toString() {
+
+    }
 }
