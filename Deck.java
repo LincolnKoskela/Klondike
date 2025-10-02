@@ -63,11 +63,13 @@ public class Deck {
     }
 
     /**
-     * Set returns no duplicates
-     * @return
+     * @return false if there is no duplicates
      */
     public boolean hasDuplicates() {
         Set<Card> set = new HashSet<>();
+        for (int i = 0; i < deck.size(); i++) {
+            set.add(deck.get(i));
+        }
         return set.size() < deck.size();
     }
 
@@ -98,9 +100,20 @@ public class Deck {
         }
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < deck.size(); i++) {
+            sb.append(deck.get(i));
+        }
+        return sb.toString();
+    }
+
     public static void main(String[] args) {
         Deck deck = new Deck();
         System.out.println(deck);
         System.out.println(deck.hasDuplicates());
+        
+
     }
 }
