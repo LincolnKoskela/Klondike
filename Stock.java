@@ -24,6 +24,14 @@ public class Stock implements Pile {
         return stock.size();
     }
 
+    /**
+     * Empties the pile. Removes all cards
+     */
+    @Override
+    public void clear() {
+        stock.clear();
+    }
+
     @Override
     public boolean isEmpty() {
         if (size() == 0) return true;

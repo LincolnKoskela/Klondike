@@ -22,6 +22,14 @@ public class Tableau implements Pile {
         return tableau.size();
     }
 
+    /**
+     * Empties the pile. Removes all cards
+     */
+    @Override
+    public void clear() {
+        tableau.clear();
+    }
+
     public boolean isEmpty() {
         if (size() == 0) return true;
         else return false;

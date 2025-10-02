@@ -22,6 +22,14 @@ public class Waste implements Pile {
         return waste.size();
     }
 
+    /**
+     * Empties the pile. Removes all cards
+     */
+    @Override
+    public void clear() {
+        waste.clear();
+    }
+
     @Override
     public boolean isEmpty() {
         if (size() == 0) return true;

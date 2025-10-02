@@ -21,4 +21,6 @@ public interface Pile {
 
     public boolean isEmpty();
 
+    public void clear(); // empties piles
+
 }

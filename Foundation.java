@@ -28,6 +28,14 @@ public class Foundation implements Pile {
     }
 
     /**
+     * Empties the pile. Removes all cards
+     */
+    @Override
+    public void clear() {
+        foundation.clear();
+    }
+
+    /**
      * @return true if list is empty
      */
     public boolean isEmpty() {
