@@ -94,9 +94,38 @@ public class Board {
             tableaus.get(i).clear();
         }
     }
+
+    /**
+     * Check if one of the piles is not full. Full means to have 
+     * size of 13 cards and king on top, ranked from Ace up to King
+     * @return -- false if one pile is not full
+     */
+    public boolean isGameWon() {
+        for (Foundation f : foundations.values()) {
+            if (!f.isFull()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * @return -- Total cards on the board, should be 52
+     */
+    public int totalCardCount() {
+        int size = foundations.size() + stock.size() 
+        + waste.size() + tableaus.size(); 
+        return size;
+    }
+
+    public int foundationsComplete() {
+        
+    }
     
     @Override
     public String toString() {
 
     }
+
+
 }
