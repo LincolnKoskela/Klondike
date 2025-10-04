@@ -44,6 +44,24 @@ public class Foundation implements Pile {
     }
 
     /**
+     * This function looks for if the top card is a king, 
+     * and has a size of 13 from Ace to King
+     * which would mean the foundation is full. This function can be used
+     * to help determine whether a game has been won by checking if 
+     * all the foundations are full.
+     * @return -- true if value is equal to king value
+     */
+    public boolean isFull() {
+        if (topCard() != null 
+        && topCard().getRank().getValue() == 13 
+        && size() == 13) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Clean helper method to get topCard
      * @return -- Card obj 
      */
@@ -272,11 +290,6 @@ public class Foundation implements Pile {
         Card theNextCard = hearts.draw();
         System.out.println(theNextCard); // null -- hearts is empty
         System.out.println(hearts.isEmpty()); // true
-
-
-
-
-
         
     }
 }
