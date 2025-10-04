@@ -3,7 +3,10 @@
  * and enforces the game rules
  * 
  * 
- * extra notes : tableau pile moves
+ * extra notes : 
+ * 
+ * -- tableau pile moves 
+ * -- validate foundation piles stacked correctly by suit and rank when added canAccept then add
  */
 
 public class GameEngine {
