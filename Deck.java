@@ -73,6 +73,7 @@ public class Deck {
         return set.size() < deck.size();
     }
 
+    
     public int size() {
         return deck.size();
     }
@@ -113,6 +114,7 @@ public class Deck {
         Deck deck = new Deck();
         System.out.println(deck);
         System.out.println(deck.hasDuplicates());
+        System.out.println(deck.size());
         
 
     }
