@@ -34,7 +34,7 @@ public class Board {
         foundations.put(Card.Suit.SPADES, new Foundation());
 
         this.tableaus = new ArrayList<>();
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < getTableauColumns(); i++) {
             this.tableaus.add(new Tableau());
         }
         
@@ -118,14 +118,74 @@ public class Board {
         return size;
     }
 
+    // needs testing
     public int foundationsComplete() {
-        
+        int count = 0;
+        for (Foundation f : foundations.values()) {
+            if (f.isFull()) {
+                count++;
+            }
+        }
+
+        return count;
     }
     
     @Override
     public String toString() {
+        StringBuilder swPile = new StringBuilder();
+        StringBuilder fPile = new StringBuilder();
+        StringBuilder tPiles = new StringBuilder();
 
+        // stock waste piles
+        swPile.append(stock); 
+        swPile.append(" "); 
+        swPile.append(waste); 
+        swPile.append(" ");
+
+        // foundation piles
+        for (Foundation f : foundations.values()) {
+            fPile.append(f + " ");
+        }
+
+        // tableau piles
+        for (int i = 0; i < getTableauColumns(); i++) {
+            tPiles.append(tableaus.get(i) + " ");
+        }
+
+        return swPile.toString() + " " + fPile.toString() + "\n"
+        + tPiles.toString();
     }
 
+    public static void main(String[] args) {
+        // makes some cards
+        Deck deck = new Deck();
+        System.out.println(deck); // all cards are face down (X)
+
+
+        Board board = new Board();
+        board.stock.push(deck.draw()); 
+        board.stock.push(deck.draw());  
+        board.stock.push(deck.draw()); 
+        board.stock.push(deck.draw()); 
+
+        board.waste.push(deck.draw());
+
+        for (int i = 0 ; i < board.getTableauColumns(); i++) {
+            board.tableaus.get(i).push(deck.draw());
+        }
+
+        for (Foundation f : board.foundations.values()) {
+            f.push(deck.draw());
+        }
+
+        System.out.println(board);
+
+        /*
+         * need to work on your toSTrings and have the cards stack, not print out one by one like a card class, 
+         * card and deck class thats fine but every other class should be in a deck that only reveals top card
+         */
+
+        
+    }
 
 }
