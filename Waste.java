@@ -36,6 +36,13 @@ public class Waste implements Pile {
         else return false;
     }
 
+    public Card topCard() {
+        if (size() > 0) {
+            return waste.get(size()-1);
+        } else return null;
+        
+    }
+
     /**
      * Game engine will handle logic if card from stock isn't played
      * This function provides basic accepting rules into waste
@@ -96,6 +103,16 @@ public class Waste implements Pile {
         }
 
         return sb.toString();
+    }
+
+    /**
+     * From the players perspective. 
+     * @return -- String representation of the pile only revealing
+     * what the player should see when playing the game
+     */
+    public String toDisplay() {
+        Card card = topCard();
+        return card.toString();
     }
 
     public static void main(String[] args) {

@@ -144,7 +144,7 @@ public class Board {
 
         // foundation piles
         for (Foundation f : foundations.values()) {
-            fPile.append(f + " ");
+            fPile.append(f);
         }
 
         // tableau piles
@@ -169,6 +169,7 @@ public class Board {
         board.stock.push(deck.draw()); 
 
         board.waste.push(deck.draw());
+        board.waste.push(deck.draw());
 
         for (int i = 0 ; i < board.getTableauColumns(); i++) {
             board.tableaus.get(i).push(deck.draw());
@@ -179,13 +180,6 @@ public class Board {
         }
 
         System.out.println(board);
-
-        /*
-         * need to work on your toSTrings and have the cards stack, not print out one by one like a card class, 
-         * card and deck class thats fine but every other class should be in a deck that only reveals top card
-         */
-
-        
     }
 
 }

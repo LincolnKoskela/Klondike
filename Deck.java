@@ -115,6 +115,8 @@ public class Deck {
         System.out.println(deck);
         System.out.println(deck.hasDuplicates());
         System.out.println(deck.size());
+
+        
         
 
     }

@@ -127,12 +127,20 @@ public class Card implements Comparable <Card> {
     @Override
     public String toString() {
         if (faceUp) {
-            return rank.getValue() + "" + suit.name().substring(0, 1) + ":F";
+            return rank.getValue() + "" + suit.name().substring(0, 1);
         } else {
             return rank.getValue() + "" + suit.name().substring(0, 1) + ":X";
         }
-        
-        
+    }
+
+    /**
+     * To represent cards from a players perspective.
+     * @return -- face of cards if face up but xx if face down
+     */
+    public String toDisplay() {
+        if (faceUp) return rank.getValue() + ""
+        + suit.name().substring(0, 1);
+        else return "XX";
     }
 
     public static void main(String[] args) {
