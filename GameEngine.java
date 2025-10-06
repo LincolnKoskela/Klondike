@@ -10,5 +10,14 @@
  */
 
 public class GameEngine {
+
+    private Board board;
+    private Deck deck;
+    
+    public GameEngine () {
+        this.board = new Board();
+        this.deck = new Deck();
+    }
+
     
 }
