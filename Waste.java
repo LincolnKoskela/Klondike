@@ -107,12 +107,12 @@ public class Waste implements Pile {
 
     /**
      * From the players perspective. 
+     * Can only see the top card in the waste pile.
      * @return -- String representation of the pile only revealing
      * what the player should see when playing the game
      */
     public String toDisplay() {
-        Card card = topCard();
-        return card.toString();
+        return topCard().toString();
     }
 
     public static void main(String[] args) {
@@ -196,6 +196,25 @@ public class Waste implements Pile {
         myNextCard = waste2.draw(); 
         System.out.println(myNextCard); // null
         System.out.println(waste2.size()); // 0
+
+        System.out.println();
+
+        /////////// toDisplay() //////////////
+        System.out.println("TESTING TODISPLAY ");
+        Card a1 = new Card(Card.Rank.ACE, Card.Suit.SPADES);
+        Card a2 = new Card(Card.Rank.ACE, Card.Suit.CLUBS);
+        Card a3 = new Card(Card.Rank.ACE, Card.Suit.HEARTS);
+        Card a4 = new Card(Card.Rank.ACE, Card.Suit.DIAMONDS);
+
+        Waste waste3 = new Waste();
+        waste3.push(a1);
+        waste3.push(a2);
+        waste3.push(a3);
+        waste3.push(a4); // should be faced up~!
+
+        System.out.println(waste3.toDisplay()); // 1d is top card
+
+
         
     }
 }
