@@ -39,6 +39,15 @@ public class Stock implements Pile {
     }
 
     /**
+     * @return Top Card of Stock pile
+     */
+    public Card topCard() {
+        if (size() > 0) {
+            return stock.get(size()-1);
+        } else return null;
+    }
+
+    /**
      * Stock card can't accept cards from: foundation, tableau
      * Stock cards can only accept cards from the waste once the 
      * size of the stock cards hits 0, the pile will 'recycle' cards
@@ -113,6 +122,15 @@ public class Stock implements Pile {
             sb.append(stock.get(i) + "\n");
         }
         return sb.toString();
+    }
+
+    /**
+     * @return -- Players view of the Stock pile
+     */
+    public String toDisplay() {
+        if (topCard() != null) {
+            return "XX";
+        } else return "[ ]";
     }
 
     public static void main(String[] args) {
@@ -222,5 +240,11 @@ public class Stock implements Pile {
 
         System.out.println(stock.isEmpty()); // false
         System.out.println(stock2.isEmpty()); // true
+
+        stock2.push(c1);
+        stock2.push(c2);
+        stock2.push(c3);
+        System.out.println(stock2.topCard());
+        System.out.println(stock2.toDisplay());
     }
 }
