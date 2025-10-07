@@ -198,5 +198,19 @@ public class Card implements Comparable <Card> {
         System.out.println(x2.getRank().getValue());
         System.out.println(x1.getSuit().getColor());
         System.out.println(x2.getSuit().getColor());
+
+
+        // toDisplay //
+
+        System.out.println();
+        Card a1 = new Card(Card.Rank.ACE, Card.Suit.SPADES);
+        Card a2 = new Card(Card.Rank.ACE, Card.Suit.CLUBS);
+
+        System.out.println(a1.toDisplay());
+        System.out.println(a2.toDisplay());
+        a1.flip();
+        a2.flip();
+        System.out.println(a1.toDisplay());
+        System.out.println(a2.toDisplay());
     }
 }
