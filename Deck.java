@@ -110,11 +110,20 @@ public class Deck {
         return sb.toString();
     }
 
+    /**
+     * @return -- String representation of top card in the deck
+     */
+    public String toDisplay() {
+        return topCard().toString();
+    }
+
     public static void main(String[] args) {
         Deck deck = new Deck();
         System.out.println(deck);
         System.out.println(deck.hasDuplicates());
         System.out.println(deck.size());
+
+        System.out.println(deck.toDisplay());
 
         
         
