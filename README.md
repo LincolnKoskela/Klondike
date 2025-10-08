@@ -1,35 +1,51 @@
-# Klondike
-Using Java to create a classic card game of Klondike Solitaire
+# Klondike Solitaire (Java)
+A fully object-oriented implementation of Klondike Solitaire written in Java. 
+The project is designed to model the full logic of the game, including deck handling, 
+pile behaviors, move validation, and board setup. 
 
-In the game of Klondike the board is split into 4 main sections. 
-You have the Stock pile, Waste pile, the Foundation pile(s), and the Tableau pile(s)
+This version runs on the console. 
 
-The Tableau pile is split into 7 sections across the board and is where the main action is happening. 
-This is where you're sorting the cards by alt color and rank, drawing from the Stock pile. 
-For the initial deck distribution when the game starts, the shuffled cards neatly placed into the 
-7 tableau piles. Starting in the 1st pile, most left, with 1 card face up. The adjacent pile to the right
-now has 2 cards, with only top card face up. All the way through the tableau until the last section increasing
-by one card, with only top card face up.
+## Current State of Game
+### Console-based logic and testing
+### Card/Deck creation, basic pile functionalities and acceptance
+### Latest edits -- adding display methods `toDisplay()` to the piles for playable board view
+### Tableau toDisplay is work in progress
 
-The Stock pile is where cards are drawn from to sort cards on the Tableau. After the initial deck distribution 
-from the tableau, the rest of the cards will go to the stock pile. From here you draw a card to see if you can play 
-it on the tableau, or into the foundation if you're lucky:), or if you need to place in the waste pile. 
-Once you're out of cards in the stock, you 'recycle' the cards from waste back into stock. Game on.
+## Features
+### Object Oriented Design
+Clear seperation of responsibilities across classes and interfaces
+### Complete Game Logic
+Implements Solitaire's core rules: alternating colors, descending order, foundation suit stacking,
+and stock/waste recycling
+### Encapsulation and Extensibility
+Designed for easy expansion to GUI or web environments.
+### Player Perspective Rendering
+Each pile supports `toDisplay()` method for player facing views (showing only visible cards)
+### Debug friendly
+Each object has a `toString()` output for testing and debugging the internal state
 
-The Waste pile is where cards are placed if they're not played into the tableau or into the foundation.
-Cards here can be 'recycled' back into the Stock when the Stock runs out of cards
+## Class Architecture
+| **Component** | **Responsibility** |
+|----------------|--------------------|
+| **Card** | Represents a single playing card (Rank, Suit, and face-up/face-down state). |
+| **Pile (Interface)** | Defines common pile operations (`push`, `draw/pop`, `canAccept`, `size`, `clear`). |
+| **Stock** | Manages the draw pile (face-down cards, handles recycling). |
+| **Waste** | Holds drawn cards (face-up). |
+| **Foundation** | Builds up cards by suit from Ace to King. |
+| **Tableau** | Manages seven columns where cards build down in alternating color. |
+| **Board** | Holds all piles, manages layout, and provides getters and clear/reset functions. |
+| **GameEngine** | Controls rules, moves, validations, and overall game progression (`deal`, `move`, `checkWin`). |
+| **Deck** | Creates and shuffles a standard 52-card deck. |
 
-Then theres where all the magic happens. The Foundation pile is where you sort the cards by suit and rank. 
-Spades get their own along with Clubs, Hearts, and Diamonds. The way to sort these cards is from Ace to 
-King. You can also pull cards from the sorted foundation to help sort the tableau. That's where things get 
-tough and you have to see it before you miss the opportunity. 
+## Future Roadmap
+| **Milestone** | **Description** |
+|----------------|--------------------|
+| **GameEngine completion** | Full movement management, stock/waste, foudations, and tableau's in fluidity. |
+| **Interactive terminal UI** | Add input commands for moves (ex. `move t1 fSpades`) |
+| **Graphic interface** | Implement a GUI version. Swing/JavaFX or JS/web | 
+| **Save/load system** | Save game state and resume for later |
 
-Once the foundation is sorted of all 4 Suits by their ranks, you've officially won the game!
-
-This project is currently a work in progress. I contribute about an hour a day. 
-This is the first real personal project im doing. It's teaching me
-alot about OOP and encapsulation and algorithms. And I love playing this game so why not make 
-one of my own!
-
-
-Right now I'm tackling the Stock.java class. 
+## Tech
+**Langauge:** Java
+**IDE:** VS CODE
+**Version Control:** Git & Github
