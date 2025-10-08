@@ -123,6 +123,13 @@ public class Tableau implements Pile {
         return sb.toString();
     }
 
+    public String toDisplay() {
+        if (size() == 0) return "[ ]";
+        else {
+            
+        }
+    }
+
     public static void main(String[] args) {
         ////////////////////// TESTING tableau //////////////////
         ///                                                 ///

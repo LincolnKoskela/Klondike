@@ -112,7 +112,9 @@ public class Waste implements Pile {
      * what the player should see when playing the game
      */
     public String toDisplay() {
-        return topCard().toString();
+        if (topCard() != null) return topCard().toString();
+        else return "[ ]";
+        
     }
 
     public static void main(String[] args) {
@@ -213,6 +215,7 @@ public class Waste implements Pile {
         waste3.push(a4); // should be faced up~!
 
         System.out.println(waste3.toDisplay()); // 1d is top card
+        System.out.println(waste2.toDisplay()); // [ ]
 
 
         

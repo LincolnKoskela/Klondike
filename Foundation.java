@@ -154,6 +154,11 @@ public class Foundation implements Pile {
         return sb.toString();
     }
 
+    public String toDisplay() {
+        if (topCard() != null) return topCard().toString();
+        else return "[ ]";
+    }
+
     public static void main(String[] args) {
         ////////////////////// TESTING Foundation //////////////////
         ///                                                 ///
@@ -290,6 +295,12 @@ public class Foundation implements Pile {
         Card theNextCard = hearts.draw();
         System.out.println(theNextCard); // null -- hearts is empty
         System.out.println(hearts.isEmpty()); // true
+
+        Foundation fxy = new Foundation();
+        System.out.println(fxy.toDisplay());
+        fxy.push(c1);
+        fxy.push(c2);
+        System.out.println(fxy.toDisplay());
         
     }
 }

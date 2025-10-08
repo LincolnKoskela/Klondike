@@ -214,24 +214,24 @@ public class Stock implements Pile {
         System.out.println("*****Testing draw and size functions*****");
         System.out.println(stock.size()); // 10
         Card nextCard = stock.draw();
-        System.out.print(nextCard); // Eight of spades : face up
+        System.out.println(nextCard); // Eight of spades : face up
         System.out.println(stock.size()); // 9
         nextCard = stock.draw();
-        System.out.print(nextCard); // Jack of diamonds : face up
+        System.out.println(nextCard); // Jack of diamonds : face up
         System.out.println(stock.size()); // 8
         nextCard = stock.draw(); 
-        System.out.print(nextCard); // jack of spades : face up
+        System.out.println(nextCard); // jack of spades : face up
         System.out.println(stock.size()); // 7
 
         System.out.println(stock2.size()); // 3
         Card myNextCard = null;
         System.out.println(myNextCard); // null
         myNextCard = stock2.draw(); 
-        System.out.print(myNextCard); // jack of hearts : face up
+        System.out.println(myNextCard); // jack of hearts : face up
         System.out.println(stock2.size()); // 2
         myNextCard = stock2.draw();
         myNextCard = stock2.draw();
-        System.out.print(myNextCard); // ace of clubs : face up
+        System.out.println(myNextCard); // ace of clubs : face up
         System.out.println(stock2.size()); // 0
 
         myNextCard = stock2.draw(); 
