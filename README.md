@@ -6,22 +6,22 @@ pile behaviors, move validation, and board setup.
 This version runs on the console. 
 
 ## Current State of Game
-### Console-based logic and testing
-### Card/Deck creation, basic pile functionalities and acceptance
-### Latest edits -- adding display methods `toDisplay()` to the piles for playable board view
-### Tableau toDisplay is work in progress
+- Console-based logic and testing
+- Card/Deck creation, basic pile functionalities and acceptance
+- Latest edits -- adding display methods `toDisplay()` to the piles for playable board view
+- Tableau toDisplay is work in progress
 
 ## Features
-### Object Oriented Design
+- Object Oriented Design
 Clear seperation of responsibilities across classes and interfaces
-### Complete Game Logic
+- Complete Game Logic
 Implements Solitaire's core rules: alternating colors, descending order, foundation suit stacking,
 and stock/waste recycling
-### Encapsulation and Extensibility
+- Encapsulation and Extensibility
 Designed for easy expansion to GUI or web environments.
-### Player Perspective Rendering
+- Player Perspective Rendering
 Each pile supports `toDisplay()` method for player facing views (showing only visible cards)
-### Debug friendly
+- Debug friendly
 Each object has a `toString()` output for testing and debugging the internal state
 
 ## Class Architecture
@@ -46,6 +46,6 @@ Each object has a `toString()` output for testing and debugging the internal sta
 | **Save/load system** | Save game state and resume for later |
 
 ## Tech
-**Langauge:** Java
-**IDE:** VS CODE
-**Version Control:** Git & Github
+- Langauge: Java
+- IDE: VS CODE
+- Version Control: Git & Github
