@@ -36,6 +36,7 @@ public class Waste implements Pile {
         else return false;
     }
 
+    @Override
     public Card topCard() {
         if (size() > 0) {
             return waste.get(size()-1);
@@ -112,7 +113,7 @@ public class Waste implements Pile {
      * what the player should see when playing the game
      */
     public String toDisplay() {
-        if (topCard() != null) return topCard().toString();
+        if (topCard() != null) return "[" + topCard().toString() + "]";
         else return "[ ]";
         
     }
