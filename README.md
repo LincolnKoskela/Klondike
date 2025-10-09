@@ -9,7 +9,9 @@ This version runs on the console.
 - Console-based logic and testing
 - Card/Deck creation, basic pile functionalities and acceptance
 - Latest edits -- adding display methods `toDisplay()` to the piles for playable board view
-- Tableau toDisplay is work in progress
+- Tableau toDisplay was tested and complete. `toDisplay()` functions are complete. 
+- There is minor bug with Card.java `toDisplay()` function not working when other classes try to call the function. May temporarily edit `Card.toString()` function to represent toDisplay function.
+- Currently working on adding to gameEngine basic functionalities and will get into more complex logic as I build upon the class. Also need gameEngine to deal inital board to test Boards display. 
 
 ## Features
 - Object Oriented Design
