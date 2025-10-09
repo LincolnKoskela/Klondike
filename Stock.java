@@ -41,6 +41,7 @@ public class Stock implements Pile {
     /**
      * @return Top Card of Stock pile
      */
+    @Override
     public Card topCard() {
         if (size() > 0) {
             return stock.get(size()-1);
@@ -129,7 +130,7 @@ public class Stock implements Pile {
      */
     public String toDisplay() {
         if (topCard() != null) {
-            return "XX";
+            return "[XX]";
         } else return "[ ]";
     }
 
