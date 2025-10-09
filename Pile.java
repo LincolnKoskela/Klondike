@@ -19,8 +19,10 @@ public interface Pile {
 
     public Card draw(); // remove top card from pile returning type Card
 
-    public boolean isEmpty();
+    public boolean isEmpty(); // is pile empty
 
     public void clear(); // empties piles
+
+    public Card topCard(); // get top card
 
 }
