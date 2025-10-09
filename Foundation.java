@@ -65,6 +65,7 @@ public class Foundation implements Pile {
      * Clean helper method to get topCard
      * @return -- Card obj 
      */
+    @Override
     public Card topCard() {
         if (size() > 0) {
             return foundation.get(size()-1);
@@ -115,6 +116,7 @@ public class Foundation implements Pile {
 
     /**
      * Assumed move is legal and performs the action
+     * Adds playing card to a foundation pile
      */
     @Override
     public void push(Card card) {
@@ -155,7 +157,7 @@ public class Foundation implements Pile {
     }
 
     public String toDisplay() {
-        if (topCard() != null) return topCard().toString();
+        if (topCard() != null) return "[" + topCard().toString() + "]";
         else return "[ ]";
     }
 
