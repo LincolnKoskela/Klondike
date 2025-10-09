@@ -39,6 +39,7 @@ public class Tableau implements Pile {
      * Top card on the pile
      * @return -- Card obj
      */
+    @Override
     public Card topCard() {
         if (size() > 0) {
             return tableau.get(size()-1);
@@ -85,13 +86,13 @@ public class Tableau implements Pile {
         return true;
     }
 
+    /**
+     * Add single playing card to a tableau
+     */
     @Override
     public void push(Card card) {
         if (card != null) {
             tableau.add(card);
-            if (!card.isFaceUp()) {
-                card.flip();
-            }
         }
     }
 
@@ -124,10 +125,18 @@ public class Tableau implements Pile {
     }
 
     public String toDisplay() {
+        StringBuilder sb = new StringBuilder();
         if (size() == 0) return "[ ]";
         else {
-            
+            for (Card card : tableau) {
+                if (!card.isFaceUp()) {
+                    sb.append("[XX]\n");
+                } else {
+                    sb.append("[" + card.toString() + "]");
+                }
+            }
         }
+        return sb.toString();
     }
 
     public static void main(String[] args) {
@@ -260,6 +269,18 @@ public class Tableau implements Pile {
         }
 
         System.out.println(tab2.isEmpty()); // true
+        System.out.println();
+
+        System.out.println("Testing toDisplay() ");
+        Tableau t = new Tableau();
+        t.push(c1);
+        t.push(c2);
+        t.push(c3);
+        t.push(c4);
+        c5.flip();
+        t.push(c5);
+
+        System.out.println(t.toDisplay());
 
 
         
