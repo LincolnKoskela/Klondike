@@ -5,8 +5,9 @@
  * 
  * extra notes : 
  * 
- * -- tableau pile moves 
+ * -- tableau pile moves, pushing a list vs a single card, tab class only handles single pushes
  * -- validate foundation piles stacked correctly by suit and rank when added canAccept then add
+ * -- tableau needs to address flips in specific movements
  */
 
 public class GameEngine {
