@@ -138,8 +138,7 @@ public class Card implements Comparable <Card> {
      * @return -- face of cards if face up but xx if face down
      */
     public String toDisplay() {
-        if (faceUp) return rank.getValue() + ""
-        + suit.name().substring(0, 1);
+        if (faceUp) return rank.getValue() + suit.name().substring(0, 1);
         else return "XX";
     }
 
