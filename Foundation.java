@@ -122,9 +122,6 @@ public class Foundation implements Pile {
     public void push(Card card) {
         if (card != null) {
             foundation.add(card);
-            if (!card.isFaceUp()) {
-                card.flip();
-            }
         }
     }
 

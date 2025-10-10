@@ -73,14 +73,17 @@ public class Deck {
         return set.size() < deck.size();
     }
 
-    
-    public int size() {
+    /**
+     * size of deck
+     * @return -- 52
+     */
+    public int getSize() {
         return deck.size();
     }
 
     public Card topCard() {
         if (!isEmpty()) {
-            return deck.get(size()-1);
+            return deck.get(getSize()-1);
         } else {
             return null;
         }
@@ -121,7 +124,7 @@ public class Deck {
         Deck deck = new Deck();
         System.out.println(deck);
         System.out.println(deck.hasDuplicates());
-        System.out.println(deck.size());
+        System.out.println(deck.getSize());
 
         System.out.println(deck.toDisplay());
 

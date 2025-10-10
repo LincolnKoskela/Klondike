@@ -87,9 +87,6 @@ public class Stock implements Pile {
     public void push(Card card) {
         if (card != null) {
             stock.add(card);
-            if (card.isFaceUp()) {
-            card.flip();
-            }
         }
     }
 

@@ -63,9 +63,6 @@ public class Waste implements Pile {
     public void push(Card card) {
         if (card != null) {
             waste.add(card);
-            if(!card.isFaceUp()) {
-                card.flip();
-            }
         }
     }
 
