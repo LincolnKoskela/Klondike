@@ -11,7 +11,9 @@ This version runs on the console.
 - Latest edits -- adding display methods `toDisplay()` to the piles for playable board view
 - Tableau toDisplay was tested and complete. `toDisplay()` functions are complete. 
 - There is minor bug with Card.java `toDisplay()` function not working when other classes try to call the function. May temporarily edit `Card.toString()` function to represent toDisplay function.
-- Currently working on adding to gameEngine basic functionalities and will get into more complex logic as I build upon the class. Also need gameEngine to deal inital board to test Boards display. 
+- **Currently** working on adding to gameEngine basic functionalities and will get into more complex logic as I build upon the class. Also need gameEngine to deal inital board to test Boards display. 
+- Found another bug not just with `toDisplay()` but also now `deck.getSize()` and also noticed old functions 
+that I deleted are popping up. Pausing until I debug this issue. 
 
 ## Features
 - Object Oriented Design
