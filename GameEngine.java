@@ -8,16 +8,33 @@
  * -- tableau pile moves, pushing a list vs a single card, tab class only handles single pushes
  * -- validate foundation piles stacked correctly by suit and rank when added canAccept then add
  * -- tableau needs to address flips in specific movements
+ * -- waste and stock draw/recycle function
+ * -- post move flips in the tableaus (if source is new, to flip)
  */
 
 public class GameEngine {
 
     private Board board;
     private Deck deck;
+    private boolean gameOver;
     
+    // constructor
     public GameEngine () {
         this.board = new Board();
         this.deck = new Deck();
+        this.gameOver = false;
+    }
+
+    /**
+     * This function deals the deck of cards into the 7 tableau columns. 
+     * The rest of the cards go into the stock. Handle the face of the cards. 
+     * Only the top card in the tabs should be faced up, the rest face down. 
+     * The stock cards are all face down.
+     */
+    public void dealNewGame() {
+        for (int i = 0; i < 52; i++) {
+
+        }
     }
 
     
