@@ -14,6 +14,7 @@ This version runs on the console.
 - **Currently** working on adding to gameEngine basic functionalities and will get into more complex logic as I build upon the class. Also need gameEngine to deal inital board to test Boards display. 
 - Found another bug not just with `toDisplay()` but also now `deck.getSize()` and also noticed old functions 
 that I deleted are popping up. Pausing until I debug this issue. 
+- Moving Project to clean folder.
 
 ## Features
 - Object Oriented Design
