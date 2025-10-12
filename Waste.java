@@ -110,7 +110,7 @@ public class Waste implements Pile {
      * what the player should see when playing the game
      */
     public String toDisplay() {
-        if (topCard() != null) return "[" + topCard().toString() + "]";
+        if (topCard() != null) return "[" + topCard().toDisplay() + "]";
         else return "[ ]";
         
     }

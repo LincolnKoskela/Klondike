@@ -132,7 +132,7 @@ public class Tableau implements Pile {
                 if (!card.isFaceUp()) {
                     sb.append("[XX]\n");
                 } else {
-                    sb.append("[" + card.toString() + "]");
+                    sb.append("[" + card.toDisplay() + "]");
                 }
             }
         }

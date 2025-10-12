@@ -154,7 +154,7 @@ public class Foundation implements Pile {
     }
 
     public String toDisplay() {
-        if (topCard() != null) return "[" + topCard().toString() + "]";
+        if (topCard() != null) return "[" + topCard().toDisplay() + "]";
         else return "[ ]";
     }
 

@@ -157,29 +157,7 @@ public class Board {
     }
 
     public static void main(String[] args) {
-        // makes some cards
-        Deck deck = new Deck();
-        System.out.println(deck); // all cards are face down (X)
-
-
-        Board board = new Board();
-        board.stock.push(deck.draw()); 
-        board.stock.push(deck.draw());  
-        board.stock.push(deck.draw()); 
-        board.stock.push(deck.draw()); 
-
-        board.waste.push(deck.draw());
-        board.waste.push(deck.draw());
-
-        for (int i = 0 ; i < board.getTableauColumns(); i++) {
-            board.tableaus.get(i).push(deck.draw());
-        }
-
-        for (Foundation f : board.foundations.values()) {
-            f.push(deck.draw());
-        }
-
-        System.out.println(board);
+        
     }
 
 }
