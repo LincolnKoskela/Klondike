@@ -8,9 +8,12 @@ This version runs on the console.
 ## Current State of Game
 - Console-based logic and testing
 - Card/Deck creation, basic pile functionalities and acceptance
-- Latest edits -- adding display methods `toDisplay()` to the piles for playable board view
-- Tableau toDisplay was tested and complete. `toDisplay()` functions are complete. 
+- Latest edits -- Fixed bug issues that weren't allowing certain functions to be called. 
+Issue resolved by cloning the project into new folder. 
 - **Currently** working on adding to gameEngine basic functionalities and will get into more complex logic as I build upon the class. Also need gameEngine to deal inital board to test Boards display. 
+
+## Todays Progress
+- Working through the initial deal function `dealNewGame()` in the game engine. 
 
 ## Features
 - Object Oriented Design
