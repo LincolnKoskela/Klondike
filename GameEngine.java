@@ -32,10 +32,19 @@ public class GameEngine {
      * The stock cards are all face down.
      */
     public void dealNewGame() {
-        for (int i = 0; i < 52; i++) {
+        int column = 1;
+        int tableausAreFilled = 28; // 28 cards into tabs
 
+        for (int i = 0; i < deck.getSize(); i++) {
+
+            // fill the tabs 
+            Card nextCard = deck.draw();
+            board.getTableau(column).push(nextCard);
+
+            if (board.getTableau(column).size() == column) {
+                board.getTableau(column).topCard().flip(); // flip the top card to face up
+                column++;
+            }
         }
     }
-
-    
 }
