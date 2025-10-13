@@ -30,20 +30,34 @@ public class GameEngine {
      * The rest of the cards go into the stock. Handle the face of the cards. 
      * Only the top card in the tabs should be faced up, the rest face down. 
      * The stock cards are all face down.
+     * 
+     * Loop through the deck. Fill each tableau column until the column equals size.
+     * Flip that last card and move to the next column. Once all tabs are filled, 
+     * move the rest of the deck to the stock pile. 
      */
     public void dealNewGame() {
         int column = 1;
-        int tableausAreFilled = 28; // 28 cards into tabs
+        boolean tabsFilled = false;
+        int count = 0; // card count
 
         for (int i = 0; i < deck.getSize(); i++) {
-
-            // fill the tabs 
             Card nextCard = deck.draw();
-            board.getTableau(column).push(nextCard);
+            // fill the tabs 
+            if (tabsFilled == false) {
+                board.getTableau(column).push(nextCard);
+                count++;
 
-            if (board.getTableau(column).size() == column) {
-                board.getTableau(column).topCard().flip(); // flip the top card to face up
-                column++;
+                // flip the top card and move to next column
+                if (board.getTableau(column).size() == column) {
+                    board.getTableau(column).topCard().flip(); 
+                    if (column < 7) {
+                        column++;
+                    }
+                }
+                if (count == 28) tabsFilled = true; // end filling tabs
+            } else {
+                // fill the stock
+                board.getStock().push(nextCard);
             }
         }
     }
