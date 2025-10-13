@@ -10,10 +10,10 @@ This version runs on the console.
 - Card/Deck creation, basic pile functionalities and acceptance
 - Latest edits -- Fixed bug issues that weren't allowing certain functions to be called. 
 Issue resolved by cloning the project into new folder. 
-- **Currently** working on adding to gameEngine basic functionalities and will get into more complex logic as I build upon the class. Also need gameEngine to deal inital board to test Boards display. 
+- **Currently** working on getting the board to display initial deal of cards onto tableau's and stock piles. 
 
-## Todays Progress
-- Working through the initial deal function `dealNewGame()` in the game engine. 
+## Todays Progress 10/13/25
+- `dealNewGame()` function complete, needs to be tested. Will work through boards display to test.
 
 ## Features
 - Object Oriented Design
