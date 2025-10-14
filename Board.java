@@ -4,7 +4,6 @@ import java.util.EnumMap;
 
 /**
  * The Board class creates 7 tableau piles, 4 foundation piles, 1 stock and 1 waste. 
- * This class will also handle the initial deal onto the board
  */
 
 public class Board {
@@ -137,28 +136,74 @@ public class Board {
         StringBuilder tPiles = new StringBuilder();
 
         // stock waste piles
-        swPile.append(stock); 
+        swPile.append(stock.toDisplay()); 
         swPile.append(" "); 
-        swPile.append(waste); 
+        swPile.append(waste.toDisplay()); 
         swPile.append(" ");
 
         // foundation piles
         for (Foundation f : foundations.values()) {
-            fPile.append(f);
+            fPile.append(f.toDisplay());
         }
 
         // tableau piles
         for (int i = 0; i < getTableauColumns(); i++) {
-            tPiles.append(tableaus.get(i) + " ");
+            tPiles.append(tableaus.get(i).toDisplay() + " ");
         }
 
-        return swPile.toString() + " " + fPile.toString() + "\n"
+        // board layout
+        return swPile.toString() + "       " + fPile.toString() + "\n"
         + tPiles.toString();
     }
 
     public static void main(String[] args) {
+
+        // test the board output, don't worry about logic, focus on display
         Board board = new Board();
+        Deck deck = new Deck();
+        Card c1 = deck.draw();
+        Card c2 = deck.draw();
+        Card c3 = deck.draw();
+        Card c4 = deck.draw();
+        Card c5 = deck.draw();
+        Card c6 = deck.draw();
+        Card c7 = deck.draw();
+        Card c8 = deck.draw();
+        Card c9 = deck.draw();
+        Card c10 = deck.draw();
+
+        board.getStock().push(c1);
+        board.getStock().push(c2);
+        board.getFoundation(Card.Suit.SPADES).push(c3);
+        board.getFoundation(Card.Suit.DIAMONDS).push(c4);
+        board.getFoundation(Card.Suit.SPADES).push(c4);
+        board.getFoundation(Card.Suit.SPADES).push(c5);
+        board.getFoundation(Card.Suit.CLUBS).push(c6);
+        board.getFoundation(Card.Suit.HEARTS).push(c7);
+        board.getWaste().push(c8);
+        board.getTableau(1).push(c9);
+        board.getTableau(1).push(c10);
+
+        Card c11 = deck.draw();
+        Card c12 = deck.draw();
+        Card c13 = deck.draw();
+        Card c14 = deck.draw();
+        Card c15 = deck.draw();
+        Card c16 = deck.draw();
+        Card c17 = deck.draw();
+        Card c18 = deck.draw();
+        Card c19 = deck.draw();
+        Card c20 = deck.draw();
+
+        board.getTableau(2).push(c11);
+        board.getTableau(2).push(c12);
+        board.getTableau(2).push(c13);
+
         System.out.println(board);
+
+        
+
+
     }
 
 }
