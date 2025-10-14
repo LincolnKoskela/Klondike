@@ -124,6 +124,10 @@ public class Tableau implements Pile {
         return sb.toString();
     }
 
+    /**
+     * Displays one tableau
+     * @return -- players perspective view
+     */
     public String toDisplay() {
         StringBuilder sb = new StringBuilder();
         if (size() == 0) return "[ ]";
