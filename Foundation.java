@@ -117,11 +117,15 @@ public class Foundation implements Pile {
     /**
      * Assumed move is legal and performs the action
      * Adds playing card to a foundation pile
+     * flips card 
      */
     @Override
     public void push(Card card) {
         if (card != null) {
             foundation.add(card);
+            if (!card.isFaceUp()) {
+                card.flip();
+            }
         }
     }
 
