@@ -10,10 +10,13 @@ This version runs on the console.
 - Card/Deck creation, basic pile functionalities and acceptance
 - Latest edits -- Fixed bug issues that weren't allowing certain functions to be called. 
 Issue resolved by cloning the project into new folder. 
-- **Currently** working on getting the board to display initial deal of cards onto tableau's and stock piles. 
+- **Currently** working on displaying board tabs correctly / debugging Tableau `toDisplay()` function.
 
-## Todays Progress 10/13/25
-- `dealNewGame()` function complete, needs to be tested. Will work through boards display to test.
+## Todays Progress 10/14/25
+- Displaying board is working except the tabs aren't displaying correctly. Need to figure out how to
+print cards on new line in the specific tab, and not push all the tabs down with it. For each card that 
+goes into the tab, there needs to be a new line, but only for that specific tab. Will continute to work through 
+this display function.
 
 ## Features
 - Object Oriented Design
