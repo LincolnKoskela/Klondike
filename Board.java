@@ -73,6 +73,14 @@ public class Board {
         return 7;
     }
 
+
+    public int depth() {
+        int max = 0;
+        // for (Card card : tableaus) {
+
+        // }
+    }
+
     /**
      * This function empties all the piles and sets up
      * a redeal. Clean slate. This function can be called
@@ -131,9 +139,9 @@ public class Board {
     
     @Override
     public String toString() {
-        StringBuilder swPile = new StringBuilder();
-        StringBuilder fPile = new StringBuilder();
-        StringBuilder tPiles = new StringBuilder();
+        StringBuilder swPile = new StringBuilder(); 
+        StringBuilder fPile = new StringBuilder(); 
+        StringBuilder tPiles = new StringBuilder(); 
 
         // stock waste piles
         swPile.append(stock.toDisplay()); 

@@ -48,6 +48,14 @@ public class Tableau implements Pile {
     }
 
     /**
+     * Helper function to loop through columns
+     * @return 7
+     */
+    public int getTableauColumns() {
+        return 7;
+    }
+
+    /**
      * What can a tableau pile accept? 
      * Alternating color
      * One rank lower than currentCard
@@ -125,7 +133,7 @@ public class Tableau implements Pile {
     }
 
     /**
-     * Displays one tableau
+     * Represents displaying one tableau
      * @return -- players perspective view
      */
     public String toDisplay() {
@@ -133,11 +141,7 @@ public class Tableau implements Pile {
         if (size() == 0) return "[ ]";
         else {
             for (Card card : tableau) {
-                if (!card.isFaceUp()) {
-                    sb.append("[XX]\n");
-                } else {
-                    sb.append("[" + card.toDisplay() + "]");
-                }
+                sb.append("[" + card.toDisplay() + "]\n");
             }
         }
         return sb.toString();
