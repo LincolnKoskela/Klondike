@@ -12,11 +12,9 @@ This version runs on the console.
 Issue resolved by cloning the project into new folder. 
 - **Currently** working on displaying board tabs correctly / debugging Tableau `toDisplay()` function.
 
-## Todays Progress 10/14/25
-- Displaying board is working except the tabs aren't displaying correctly. Need to figure out how to
-print cards on new line in the specific tab, and not push all the tabs down with it. For each card that 
-goes into the tab, there needs to be a new line, but only for that specific tab. Will continute to work through 
-this display function.
+## Todays Progress 10/15/25
+- Working through displaying tabs. Need to loop through the rows instead of columns but need to find 
+depth of the columns. Working through it. 
 
 ## Features
 - Object Oriented Design
