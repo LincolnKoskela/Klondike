@@ -48,11 +48,12 @@ public class Tableau implements Pile {
     }
 
     /**
-     * Helper function to loop through columns
-     * @return 7
+     * This function can be used to get a specific card at a given index. 
+     * @param index of the card in a given row or column on the tableau. 
+     * @return card type
      */
-    public int getTableauColumns() {
-        return 7;
+    public Card getCard(int index) {
+        return tableau.get(index);
     }
 
     /**
