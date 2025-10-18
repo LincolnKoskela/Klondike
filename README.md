@@ -10,11 +10,12 @@ This version runs on the console.
 - Card/Deck creation, basic pile functionalities and acceptance
 - Latest edits -- Fixed bug issues that weren't allowing certain functions to be called. 
 Issue resolved by cloning the project into new folder. 
-- **Currently** working on displaying board tabs correctly / debugging Tableau `toDisplay()` function.
+- **Currently** just finished testing dealing new game on new board display. Needs alignment work. 
+And also prints off an extra row. Will debug with tab counter, checking edge cases on the tab distribution. 
 
-## Todays Progress 10/15/25
-- Working through displaying tabs. Need to loop through the rows instead of columns but need to find 
-depth of the columns. Working through it. 
+## Todays Progress 10/18/25
+- Board display is working, now need to handle logical flipping of the cards to ensure display is working correctly.
+Also tested deal new game function. Needs work. 
 
 ## Features
 - Object Oriented Design
