@@ -33,7 +33,7 @@ public class Board {
         foundations.put(Card.Suit.SPADES, new Foundation());
 
         this.tableaus = new ArrayList<>();
-        for (int i = 0; i < getTableauColumns(); i++) {
+        for (int i = 0; i < getColumns(); i++) {
             this.tableaus.add(new Tableau());
         }
         
@@ -66,19 +66,13 @@ public class Board {
     }
 
     /**
-     * Theres 7 tableau columns
-     * @return -- 7
+     * Theres 7 tableau columns in Klondikes Tableau section 
+     * of the board. This function is used for looping through
+     * the columns instead of hardcoding to make more understandable. 
+     * @return 7
      */
-    public int getTableauColumns() {
+    public int getColumns() {
         return 7;
-    }
-
-
-    public int depth() {
-        int max = 0;
-        // for (Card card : tableaus) {
-
-        // }
     }
 
     /**
@@ -97,7 +91,7 @@ public class Board {
             f.clear();
         }
 
-        for (int i = 0; i < getTableauColumns(); i++) {
+        for (int i = 0; i < getColumns(); i++) {
             tableaus.get(i).clear();
         }
     }
@@ -105,7 +99,7 @@ public class Board {
     /**
      * Check if one of the piles is not full. Full means to have 
      * size of 13 cards and king on top, ranked from Ace up to King
-     * @return -- false if one pile is not full
+     * @return - false if one pile is not full
      */
     public boolean isGameWon() {
         for (Foundation f : foundations.values()) {
@@ -154,9 +148,25 @@ public class Board {
             fPile.append(f.toDisplay());
         }
 
-        // tableau piles
-        for (int i = 0; i < getTableauColumns(); i++) {
-            tPiles.append(tableaus.get(i).toDisplay() + " ");
+        // tableau columns 
+        int max = 0;
+        for (Tableau t : tableaus) {
+            if (t.size() > max) {
+                max = t.size();
+            }
+        }
+
+        for (int row = 0; row < max; row++) {
+            for (int col = 0; col < getColumns(); col++) {
+                Tableau t = tableaus.get(col);
+                if (row < t.size()) {
+                    tPiles.append("[").append(t.getCard(row).toDisplay()).append("]");
+                } else {
+                    tPiles.append("[  ]");
+                }
+                tPiles.append(" ");
+            }
+            tPiles.append("\n"); // next row
         }
 
         // board layout
@@ -191,6 +201,7 @@ public class Board {
         board.getWaste().push(c8);
         board.getTableau(1).push(c9);
         board.getTableau(1).push(c10);
+        board.getTableau(1).push(c9);
 
         Card c11 = deck.draw();
         Card c12 = deck.draw();
@@ -203,15 +214,30 @@ public class Board {
         Card c19 = deck.draw();
         Card c20 = deck.draw();
 
-        board.getTableau(2).push(c11);
+        board.getTableau(1).push(c11);
         board.getTableau(2).push(c12);
         board.getTableau(2).push(c13);
+        board.getTableau(3).push(c14);
+        board.getTableau(4).push(c15);
+        board.getTableau(5).push(c16);
+        board.getTableau(6).push(c17);
+        board.getTableau(7).push(c18);
+        board.getTableau(5).push(c19);
+        board.getTableau(3).push(c20);
 
-        System.out.println(board);
+        System.out.print(board);
 
-        
+        /*
+         * col 1 = 4 cards
+         * 2 - 2
+         * 3 - 2
+         * 4 - 1
+         * 5 - 2
+         * 6 - 1
+         * 7 - 1
+         */
 
-
+        Board b = new Board();
     }
 
 }
