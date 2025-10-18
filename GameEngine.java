@@ -38,14 +38,12 @@ public class GameEngine {
     public void dealNewGame() {
         int column = 1;
         boolean tabsFilled = false;
-        int count = 0; // card count
 
-        for (int i = 0; i < deck.getSize(); i++) {
+        for (int index = 0; index < 52; index++) {
             Card nextCard = deck.draw();
             // fill the tabs 
             if (tabsFilled == false) {
                 board.getTableau(column).push(nextCard);
-                count++;
 
                 // flip the top card and move to next column
                 if (board.getTableau(column).size() == column) {
@@ -54,11 +52,24 @@ public class GameEngine {
                         column++;
                     }
                 }
-                if (count == 28) tabsFilled = true; // end filling tabs
+                if (index == 28) tabsFilled = true; // end filling tabs
             } else {
                 // fill the stock
                 board.getStock().push(nextCard);
             }
         }
+    }
+
+    @Override
+    public String toString() {
+        return board.toString();
+    }
+
+    public static void main(String[] args) {
+        GameEngine game = new GameEngine();
+        game.dealNewGame();
+        System.out.println(game);
+        
+        
     }
 }
