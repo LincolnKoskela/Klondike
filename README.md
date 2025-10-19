@@ -14,7 +14,7 @@ This version runs on the console.
 Need to push list of cards -> stock pile from waste. push waste draw stock. Move must 
 be validated. 
 
-## Todays Progress 10/18/25
+## Todays Progress 10/19/25
 - Debugged Boards output. Alignment fixed itself and is good for now but expecting alignment issues with further testing
 as cards move around the piles. Started waste/stock recycle function. 
 - In gameEngine main, we did couple sanity checks for cards distribution because 29
