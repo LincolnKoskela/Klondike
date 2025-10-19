@@ -6,16 +6,19 @@ pile behaviors, move validation, and board setup.
 This version runs on the console. 
 
 ## Current State of Game
+- Pile interface lays out basic pile functions for `Stock` `Waste` `Foundation` `Tableau`
 - Console-based logic and testing
 - Card/Deck creation, basic pile functionalities and acceptance
-- Latest edits -- Fixed bug issues that weren't allowing certain functions to be called. 
-Issue resolved by cloning the project into new folder. 
-- **Currently** just finished testing dealing new game on new board display. Needs alignment work. 
-And also prints off an extra row. Will debug with tab counter, checking edge cases on the tab distribution. 
+- Deal a new board with initial card layout of all tableaus and stock pile
+- **Currently** finished debugging `dealNewGame()` function. Working on recycle function.
+Need to push list of cards -> stock pile from waste. push waste draw stock. Move must 
+be validated. 
 
 ## Todays Progress 10/18/25
-- Board display is working, now need to handle logical flipping of the cards to ensure display is working correctly.
-Also tested deal new game function. Needs work. 
+- Debugged Boards output. Alignment fixed itself and is good for now but expecting alignment issues with further testing
+as cards move around the piles. Started waste/stock recycle function. 
+- In gameEngine main, we did couple sanity checks for cards distribution because 29
+cards we're going to the tableau and 23 to stock. Had to edit the start and end to the for loop. 
 
 ## Features
 - Object Oriented Design
