@@ -17,12 +17,15 @@ public class GameEngine {
     private Board board;
     private Deck deck;
     private boolean gameOver;
+    private int count; // count the cards
+
     
     // constructor
     public GameEngine () {
         this.board = new Board();
         this.deck = new Deck();
         this.gameOver = false;
+        this.count = 0;
     }
 
     /**
@@ -39,11 +42,12 @@ public class GameEngine {
         int column = 1;
         boolean tabsFilled = false;
 
-        for (int index = 0; index < 52; index++) {
+        for (int index = 1; index <= 52; index++) {
             Card nextCard = deck.draw();
             // fill the tabs 
             if (tabsFilled == false) {
                 board.getTableau(column).push(nextCard);
+                count++;
 
                 // flip the top card and move to next column
                 if (board.getTableau(column).size() == column) {
@@ -56,7 +60,25 @@ public class GameEngine {
             } else {
                 // fill the stock
                 board.getStock().push(nextCard);
+                count++;
             }
+        }
+    }
+
+    /**
+     * You can recycle the waste pile of cards back into the stock
+     * when the stock is empty. This function checks if the stock is empty
+     * and if so, push all the cards from the waste into the stock. This
+     * makes cards playable from the stock again. 
+     * 
+     * Waste Pile (face up) -> Stock pile (face down) 
+     */
+    public void recycle() {
+        if (!board.getStock().isEmpty()) {
+            throw new IllegalArgumentException("Cannot recycle: the stock is not empty.");
+        } else {
+            // push cards onto stock from waste pile // needs testing
+            board.getStock().push(board.getWaste().draw());
         }
     }
 
@@ -69,6 +91,15 @@ public class GameEngine {
         GameEngine game = new GameEngine();
         game.dealNewGame();
         System.out.println(game);
+        System.out.println(game.count); // 52
+        System.out.println(game.board.getStock().size());
+        int tableauSize = 0; 
+        for (int i = 1; i <= game.board.getColumns(); i++) { 
+            tableauSize += game.board.getTableau(i).size();
+        }
+
+        System.out.println(tableauSize);
+        
         
         
     }
