@@ -12,6 +12,8 @@
  * -- post move flips in the tableaus (if source is new, to flip)
  */
 
+ import java.util.*;
+
 public class GameEngine {
 
     private Board board;
@@ -77,9 +79,23 @@ public class GameEngine {
         if (!board.getStock().isEmpty()) {
             throw new IllegalArgumentException("Cannot recycle: the stock is not empty.");
         } else {
-            // push cards onto stock from waste pile // needs testing
+            // while waste is not empty, draw card from waste push stock
+            while(!board.getWaste().isEmpty())
             board.getStock().push(board.getWaste().draw());
         }
+    }
+
+    /**
+     * This function uses canAccept() function to ensure validation of card moves 
+     * on the tab columns. If user wants to sort cards on the tableau, 
+     * cards or list of cards will get pushed from one column to another 
+     * column on the tab section of the board.
+     * 
+     * @param source - column moving cards from
+     * @param dest - destination pile of cards being moved to
+     */
+    public void tabRuns(int source, int dest) {
+        
     }
 
     @Override
