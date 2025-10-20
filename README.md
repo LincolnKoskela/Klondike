@@ -10,15 +10,14 @@ This version runs on the console.
 - Console-based logic and testing
 - Card/Deck creation, basic pile functionalities and acceptance
 - Deal a new board with initial card layout of all tableaus and stock pile
-- **Currently** finished debugging `dealNewGame()` function. Working on recycle function.
-Need to push list of cards -> stock pile from waste. push waste draw stock. Move must 
-be validated. 
+- **Currently** working through `tabRuns` function to move cards among the tab columns
+sorting the cards from userInput. 
 
-## Todays Progress 10/19/25
-- Debugged Boards output. Alignment fixed itself and is good for now but expecting alignment issues with further testing
-as cards move around the piles. Started waste/stock recycle function. 
-- In gameEngine main, we did couple sanity checks for cards distribution because 29
-cards we're going to the tableau and 23 to stock. Had to edit the start and end to the for loop. 
+## Todays Progress 10/20/25
+- Finished `recycle()` function added a while loop to push cards onto stock until waste is empty 
+- Started `tabRuns(source, dest)` function. Function can be broken down into getting source col
+and dest col tabs, canAccept and moving the cards if valid. 
+- Created `Play.java` to start thinking about how Play will interact with `GameEngine`
 
 ## Features
 - Object Oriented Design
@@ -45,6 +44,7 @@ Each object has a `toString()` output for testing and debugging the internal sta
 | **Board** | Holds all piles, manages layout, and provides getters and clear/reset functions. |
 | **GameEngine** | Controls rules, moves, validations, and overall game progression (`deal`, `move`, `checkWin`). |
 | **Deck** | Creates and shuffles a standard 52-card deck. |
+| **Play** | User plays the game, it's the intermediary between gameengine and player
 
 ## Future Roadmap
 | **Milestone** | **Description** |
