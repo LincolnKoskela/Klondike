@@ -36,15 +36,28 @@ public class Tableau implements Pile {
     }
 
     /**
-     * Top card on the pile
-     * @return -- Card obj
+     * @return Head of the tableau
+     * will be used to validate moves and 
+     * few other functions to help compare cards
      */
-    @Override
-    public Card topCard() {
+    public Card head() {
         if (size() > 0) {
             return tableau.get(size()-1);
         } else return null;
-        
+    }
+
+    /**
+     * Due to the nature of the game, the topcard for a tableau 
+     * can be viewed differently than other piles, becuase the columns
+     * reveal each card, the top card would be the 0 index in a tab. 
+     * The head() function above acts as how you'd normally think of the topcard
+     * This function will rarely be used.
+     */
+    @Override
+    public Card topCard() {
+        if (!isEmpty()) {
+            return tableau.get(0);
+        } else return null;
     }
 
     /**
@@ -65,7 +78,7 @@ public class Tableau implements Pile {
      */
     @Override
     public boolean canAccept(Card card) {
-        Card currentCard = topCard(); // card being compared
+        Card currentCard = head(); // card being compared
         if (card == null) {
             return false;
         }
@@ -114,8 +127,8 @@ public class Tableau implements Pile {
     public Card draw() {
         Card nextCard = null;
         if (size() > 0) {
-            nextCard = topCard();
-            tableau.remove(topCard());
+            nextCard = head();
+            tableau.remove(head());
             return nextCard;
         }
         return null;
