@@ -1,6 +1,8 @@
 /**
  * Ask piles whether moves are legal, applies moves, 
- * and enforces the game rules
+ * and enforces the game rules. This class will be passed 
+ * info from the Play.java class, and Play.java will talk 
+ * to the user/player
  * 
  * 
  * extra notes : 
@@ -86,16 +88,35 @@ public class GameEngine {
     }
 
     /**
-     * This function uses canAccept() function to ensure validation of card moves 
-     * on the tab columns. If user wants to sort cards on the tableau, 
-     * cards or list of cards will get pushed from one column to another 
-     * column on the tab section of the board.
+     * This function validates the users tab moves. 
+     * You only need to validate the head of the move since if there is 
+     * cards below the head, they've already been validated
+     * @param source is the tableau column user wants to select from
+     * @param sourceRow is the row of the source column to get the card(s)
+     * @param dest is the destination column of where the user wants to place the card(s)
      * 
-     * @param source - column moving cards from
-     * @param dest - destination pile of cards being moved to
+     * @return true if destination canAccept the card from the source
      */
-    public void tabRuns(int source, int dest) {
+    public boolean canMove(int source, int sourceRow, int dest) {
+        Tableau s = board.getTableau(source);
+        Tableau d = board.getTableau(dest);
         
+        Card card = s.getCard(sourceRow);
+        if (!card.isFaceUp()) return false;
+
+        if (d.canAccept(card)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * This function moves the card(s) from one tableau to another tableau if 
+     * the canMove() function says so.
+     */
+    public void move(int source, int sourceRow, int dest) {
+
     }
 
     @Override
