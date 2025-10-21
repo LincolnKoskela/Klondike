@@ -5,19 +5,21 @@ pile behaviors, move validation, and board setup.
 
 This version runs on the console. 
 
+## Weeks Progress 10/20/2025 - 10/26/2025
+- Finished `recycle()` function added a while loop to push cards onto stock until waste is empty 
+- Started `tabRuns(source, dest)` function. Function can be broken down into getting source col
+and dest col tabs, canAccept and moving the cards if valid. 
+- Created `Play.java` to start thinking about how Play will interact with `GameEngine`
+- Edited what was `topCard()` in tableau class to be called `head()` and added `topCard()` 
+function to return the first card in a tab. 
+- Finished `canMove()` function which validates moving cards from one tableau to another
+
 ## Current State of Game
 - Pile interface lays out basic pile functions for `Stock` `Waste` `Foundation` `Tableau`
 - Console-based logic and testing
 - Card/Deck creation, basic pile functionalities and acceptance
 - Deal a new board with initial card layout of all tableaus and stock pile
-- **Currently** working through `tabRuns` function to move cards among the tab columns
-sorting the cards from userInput. 
-
-## Todays Progress 10/20/25
-- Finished `recycle()` function added a while loop to push cards onto stock until waste is empty 
-- Started `tabRuns(source, dest)` function. Function can be broken down into getting source col
-and dest col tabs, canAccept and moving the cards if valid. 
-- Created `Play.java` to start thinking about how Play will interact with `GameEngine`
+- **Currently** working on `move()` function since I just finished the `canMove()` validation
 
 ## Features
 - Object Oriented Design
@@ -42,7 +44,7 @@ Each object has a `toString()` output for testing and debugging the internal sta
 | **Foundation** | Builds up cards by suit from Ace to King. |
 | **Tableau** | Manages seven columns where cards build down in alternating color. |
 | **Board** | Holds all piles, manages layout, and provides getters and clear/reset functions. |
-| **GameEngine** | Controls rules, moves, validations, and overall game progression (`deal`, `move`, `checkWin`). |
+| **GameEngine** | Controls rules, moves, validations, and overall game progression (`initial deal`, `move`, `checkWin`). |
 | **Deck** | Creates and shuffles a standard 52-card deck. |
 | **Play** | User plays the game, it's the intermediary between gameengine and player
 
