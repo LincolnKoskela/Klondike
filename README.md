@@ -1,25 +1,33 @@
 # Klondike Solitaire (Java)
-A fully object-oriented implementation of Klondike Solitaire written in Java. 
+A fully object-oriented program of Klondike Solitaire written in Java. 
 The project is designed to model the full logic of the game, including deck handling, 
 pile behaviors, move validation, and board setup. 
 
-This version runs on the console. 
-
 ## Weeks Progress 10/20/2025 - 10/26/2025
 - Finished `recycle()` function added a while loop to push cards onto stock until waste is empty 
-- Started `tabRuns(source, dest)` function. Function can be broken down into getting source col
-and dest col tabs, canAccept and moving the cards if valid. 
 - Created `Play.java` to start thinking about how Play will interact with `GameEngine`
 - Edited what was `topCard()` in tableau class to be called `head()` and added `topCard()` 
 function to return the first card in a tab. 
 - Finished `canMove()` function which validates moving cards from one tableau to another
+- Added `remove(card)` function to Tableau class to be able to remove card from column without
+returning a value, like the `draw()` function
+- Added `isGameWon()` to GameEngine
+- Finished `move()` function
+
+## Needs Testing 
+- `canMove()` GameEngine
+- `recycle()` GameEngine
+- `move()` GameEngine
+- `remove()` Tableau
+- `foundationsComplete()` Board
+- `isGameWon()` Board & GameEngine
 
 ## Current State of Game
 - Pile interface lays out basic pile functions for `Stock` `Waste` `Foundation` `Tableau`
-- Console-based logic and testing
+- Terminal logic and testing
 - Card/Deck creation, basic pile functionalities and acceptance
 - Deal a new board with initial card layout of all tableaus and stock pile
-- **Currently** working on `move()` function since I just finished the `canMove()` validation
+- **Currently** Need to test all your `needs testing` functions
 
 ## Features
 - Object Oriented Design
@@ -27,8 +35,6 @@ Clear seperation of responsibilities across classes and interfaces
 - Complete Game Logic
 Implements Solitaire's core rules: alternating colors, descending order, foundation suit stacking,
 and stock/waste recycling
-- Encapsulation and Extensibility
-Designed for easy expansion to GUI or web environments.
 - Player Perspective Rendering
 Each pile supports `toDisplay()` method for player facing views (showing only visible cards)
 - Debug friendly
