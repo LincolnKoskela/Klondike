@@ -8,7 +8,7 @@ import java.util.EnumMap;
 
 public class Board {
     
-    // private fields -> no outside class can directly change 
+    // boards private fields
     private Stock stock;
     private Waste waste;
     private EnumMap<Card.Suit, Foundation> foundations; // for each suit, associate 1 foundation
@@ -39,9 +39,7 @@ public class Board {
         
     }
 
-    /*
-     * public getters allow access to private fields
-     */
+    // get me
     public Stock getStock() {
         return stock;
     }
@@ -99,7 +97,7 @@ public class Board {
     /**
      * Check if one of the piles is not full. Full means to have 
      * size of 13 cards and king on top, ranked from Ace up to King
-     * @return - false if one pile is not full
+     * @return false if one pile is not full
      */
     public boolean isGameWon() {
         for (Foundation f : foundations.values()) {
@@ -111,7 +109,7 @@ public class Board {
     }
 
     /**
-     * @return -- Total cards on the board, should be 52
+     * @return Total cards on the board, should be 52
      */
     public int totalCardCount() {
         int size = foundations.size() + stock.size() 
@@ -119,7 +117,6 @@ public class Board {
         return size;
     }
 
-    // needs testing
     public int foundationsComplete() {
         int count = 0;
         for (Foundation f : foundations.values()) {
