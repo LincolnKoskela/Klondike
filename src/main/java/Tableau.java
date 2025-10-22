@@ -135,6 +135,17 @@ public class Tableau implements Pile {
     }
 
     /**
+     * This function is similar to draw() except it does NOT return any value, 
+     * it just simply removes the card from the tableau. This function will be used
+     * to remove from one tableau and go to another tableau. Helpful if looping through 
+     * cards and removing them from a source column. 
+     * @param card being removed
+     */
+    public void remove(Card card) {
+        tableau.remove(card);
+    }
+
+    /**
      * String representation of a tableau pile
      */
     @Override
