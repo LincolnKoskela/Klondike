@@ -2,7 +2,7 @@
  * Ask piles whether moves are legal, applies moves, 
  * and enforces the game rules. This class will be passed 
  * info from the Play.java class, and Play.java will talk 
- * to the user/player
+ * to the user/player.
  * 
  * 
  * extra notes : 
@@ -76,6 +76,7 @@ public class GameEngine {
      * makes cards playable from the stock again. 
      * 
      * Waste Pile (face up) -> Stock pile (face down) 
+     * Stock push function will flip the cards no need to do that here
      */
     public void recycle() {
         if (!board.getStock().isEmpty()) {
@@ -114,9 +115,45 @@ public class GameEngine {
     /**
      * This function moves the card(s) from one tableau to another tableau if 
      * the canMove() function says so.
+     * 
+     * @param source is the tab column getting cards from
+     * @param sourceRow is the row in the source column. Will give us the card
+     * @param dest is the destination column
+     * 
+     * int max: variable is used in for loop for when to stop iterating
+     * through the size of the source tableau
+     * Card card: getsCard at row, gets pushed to dest tableau, then removed from source tab
+     * for each iteration
+     * Card flipCard: is card variable to determine if the card needs to be flipped
+     * post tableau move
      */
     public void move(int source, int sourceRow, int dest) {
+        int max = board.getTableau(source).size();
+        Card card;
+        
+        if (canMove(source, sourceRow, dest)) {
+            for (int row = sourceRow; row <= max; row++) {
+                card = board.getTableau(source).getCard(row);
+                board.getTableau(dest).push(card);
+                board.getTableau(source).remove(card);
+            }
 
+            /*
+            * the card before the initial card (sourceRow - 1), does it need to be fliped?
+            * if its not face up, after the move, flip the card
+            */ 
+            Card flipCard = board.getTableau(source).getCard(sourceRow - 1);
+            if (!flipCard.isFaceUp()) {
+                flipCard.flip();
+            }
+        } 
+    }
+
+    /**
+     * @return true if all foundations are full
+     */
+    public boolean isGameWon() {
+        return board.isGameWon();
     }
 
     @Override
@@ -125,6 +162,8 @@ public class GameEngine {
     }
 
     public static void main(String[] args) {
+
+        ////////// test out the initial deal ///////////////
         GameEngine game = new GameEngine();
         game.dealNewGame();
         System.out.println(game);
@@ -136,6 +175,8 @@ public class GameEngine {
         }
 
         System.out.println(tableauSize);
+
+        /////////////////////////////////////////////////////////
         
         
         
