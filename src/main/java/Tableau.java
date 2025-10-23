@@ -315,6 +315,17 @@ public class Tableau implements Pile {
 
         System.out.println(t.toDisplay());
 
+        System.out.println();
+
+
+        /////////// remove //////////////////
+        System.out.println("Test remove Function");
+        System.out.println(t.toDisplay());
+        t.remove(c5);
+        System.out.println(t.toDisplay());
+        t.remove(c4);
+        System.out.println(t.toDisplay());
+
 
         
 
