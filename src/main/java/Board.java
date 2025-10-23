@@ -109,14 +109,9 @@ public class Board {
     }
 
     /**
-     * @return Total cards on the board, should be 52
+     * Count the number of foundations complete
+     * @return int value of foundations complete
      */
-    public int totalCardCount() {
-        int size = foundations.size() + stock.size() 
-        + waste.size() + tableaus.size(); 
-        return size;
-    }
-
     public int foundationsComplete() {
         int count = 0;
         for (Foundation f : foundations.values()) {
@@ -128,6 +123,9 @@ public class Board {
         return count;
     }
     
+    /**
+     * Board layout
+     */
     @Override
     public String toString() {
         StringBuilder swPile = new StringBuilder(); 
@@ -176,6 +174,7 @@ public class Board {
         // test the board output, don't worry about logic, focus on display
         Board board = new Board();
         Deck deck = new Deck();
+        System.out.println("Deck card count: " + deck.getSize());
         Card c1 = deck.draw();
         Card c2 = deck.draw();
         Card c3 = deck.draw();
@@ -224,17 +223,131 @@ public class Board {
 
         System.out.print(board);
 
-        /*
-         * col 1 = 4 cards
-         * 2 - 2
-         * 3 - 2
-         * 4 - 1
-         * 5 - 2
-         * 6 - 1
-         * 7 - 1
-         */
+        /////////////////////////////////////////////////////////
 
+        System.out.println();
+        System.out.println("///////////////////////////");
+        System.out.println("Foundations complete Test");
+        // foundations complete, fill a foundation
         Board b = new Board();
+        ////////////// SPADES ///////////////
+        Card s1 = new Card(Card.Rank.ACE, Card.Suit.SPADES);
+        Card s2 = new Card(Card.Rank.TWO, Card.Suit.SPADES);
+        Card s3 = new Card(Card.Rank.THREE, Card.Suit.SPADES);
+        Card s4 = new Card(Card.Rank.FOUR, Card.Suit.SPADES);
+        Card s5 = new Card(Card.Rank.FIVE, Card.Suit.SPADES);
+        Card s6 = new Card(Card.Rank.SIX, Card.Suit.SPADES);
+        Card s7 = new Card(Card.Rank.SEVEN, Card.Suit.SPADES);
+        Card s8 = new Card(Card.Rank.EIGHT, Card.Suit.SPADES);
+        Card s9 = new Card(Card.Rank.NINE, Card.Suit.SPADES);
+        Card s10 = new Card(Card.Rank.TEN, Card.Suit.SPADES);
+        Card sj = new Card(Card.Rank.JACK, Card.Suit.SPADES);
+        Card sq = new Card(Card.Rank.QUEEN, Card.Suit.SPADES);
+        Card sk = new Card(Card.Rank.KING, Card.Suit.SPADES);
+        b.getFoundation(Card.Suit.SPADES).push(s1);
+        b.getFoundation(Card.Suit.SPADES).push(s2);
+        b.getFoundation(Card.Suit.SPADES).push(s3);
+        b.getFoundation(Card.Suit.SPADES).push(s4);
+        b.getFoundation(Card.Suit.SPADES).push(s5);
+        b.getFoundation(Card.Suit.SPADES).push(s6);
+        b.getFoundation(Card.Suit.SPADES).push(s7);
+        b.getFoundation(Card.Suit.SPADES).push(s8);
+        b.getFoundation(Card.Suit.SPADES).push(s9);
+        b.getFoundation(Card.Suit.SPADES).push(s10);
+        b.getFoundation(Card.Suit.SPADES).push(sj);
+        b.getFoundation(Card.Suit.SPADES).push(sq);
+        b.getFoundation(Card.Suit.SPADES).push(sk);
+        System.out.println(b.foundationsComplete());
+
+        ///////////// CLUBS ////////////////
+        Card u1 = new Card(Card.Rank.ACE, Card.Suit.CLUBS);
+        Card u2 = new Card(Card.Rank.TWO, Card.Suit.CLUBS);
+        Card u3 = new Card(Card.Rank.THREE, Card.Suit.CLUBS);
+        Card u4 = new Card(Card.Rank.FOUR, Card.Suit.CLUBS);
+        Card u5 = new Card(Card.Rank.FIVE, Card.Suit.CLUBS);
+        Card u6 = new Card(Card.Rank.SIX, Card.Suit.CLUBS);
+        Card u7 = new Card(Card.Rank.SEVEN, Card.Suit.CLUBS);
+        Card u8 = new Card(Card.Rank.EIGHT, Card.Suit.CLUBS);
+        Card u9 = new Card(Card.Rank.NINE, Card.Suit.CLUBS);
+        Card u10 = new Card(Card.Rank.TEN, Card.Suit.CLUBS);
+        Card uj = new Card(Card.Rank.JACK, Card.Suit.CLUBS);
+        Card uq = new Card(Card.Rank.QUEEN, Card.Suit.CLUBS);
+        Card uk = new Card(Card.Rank.KING, Card.Suit.CLUBS);
+        b.getFoundation(Card.Suit.CLUBS).push(u1);
+        b.getFoundation(Card.Suit.CLUBS).push(u2);
+        b.getFoundation(Card.Suit.CLUBS).push(u3);
+        b.getFoundation(Card.Suit.CLUBS).push(u4);
+        b.getFoundation(Card.Suit.CLUBS).push(u5);
+        b.getFoundation(Card.Suit.CLUBS).push(u6);
+        b.getFoundation(Card.Suit.CLUBS).push(u7);
+        b.getFoundation(Card.Suit.CLUBS).push(u8);
+        b.getFoundation(Card.Suit.CLUBS).push(u9);
+        b.getFoundation(Card.Suit.CLUBS).push(u10);
+        b.getFoundation(Card.Suit.CLUBS).push(uj);
+        b.getFoundation(Card.Suit.CLUBS).push(uq);
+        b.getFoundation(Card.Suit.CLUBS).push(uk);
+        System.out.println(b.foundationsComplete());
+
+        ///////////////// DIAMONDS /////////////////
+        Card d1 = new Card(Card.Rank.ACE, Card.Suit.DIAMONDS);
+        Card d2 = new Card(Card.Rank.TWO, Card.Suit.DIAMONDS);
+        Card d3 = new Card(Card.Rank.THREE, Card.Suit.DIAMONDS);
+        Card d4 = new Card(Card.Rank.FOUR, Card.Suit.DIAMONDS);
+        Card d5 = new Card(Card.Rank.FIVE, Card.Suit.DIAMONDS);
+        Card d6 = new Card(Card.Rank.SIX, Card.Suit.DIAMONDS);
+        Card d7 = new Card(Card.Rank.SEVEN, Card.Suit.DIAMONDS);
+        Card d8 = new Card(Card.Rank.EIGHT, Card.Suit.DIAMONDS);
+        Card d9 = new Card(Card.Rank.NINE, Card.Suit.DIAMONDS);
+        Card d10 = new Card(Card.Rank.TEN, Card.Suit.DIAMONDS);
+        Card dj = new Card(Card.Rank.JACK, Card.Suit.DIAMONDS);
+        Card dq = new Card(Card.Rank.QUEEN, Card.Suit.DIAMONDS);
+        Card dk = new Card(Card.Rank.KING, Card.Suit.DIAMONDS);
+        b.getFoundation(Card.Suit.DIAMONDS).push(d1);
+        b.getFoundation(Card.Suit.DIAMONDS).push(d2);
+        b.getFoundation(Card.Suit.DIAMONDS).push(d3);
+        b.getFoundation(Card.Suit.DIAMONDS).push(d4);
+        b.getFoundation(Card.Suit.DIAMONDS).push(d5);
+        b.getFoundation(Card.Suit.DIAMONDS).push(d6);
+        b.getFoundation(Card.Suit.DIAMONDS).push(d7);
+        b.getFoundation(Card.Suit.DIAMONDS).push(d8);
+        b.getFoundation(Card.Suit.DIAMONDS).push(d9);
+        b.getFoundation(Card.Suit.DIAMONDS).push(d10);
+        b.getFoundation(Card.Suit.DIAMONDS).push(dj);
+        b.getFoundation(Card.Suit.DIAMONDS).push(dq);
+        b.getFoundation(Card.Suit.DIAMONDS).push(dk);
+
+        //////////////////// HEARTS ///////////////////
+        Card h1 = new Card(Card.Rank.ACE, Card.Suit.HEARTS);
+        Card h2 = new Card(Card.Rank.TWO, Card.Suit.HEARTS);
+        Card h3 = new Card(Card.Rank.THREE, Card.Suit.HEARTS);
+        Card h4 = new Card(Card.Rank.FOUR, Card.Suit.HEARTS);
+        Card h5 = new Card(Card.Rank.FIVE, Card.Suit.HEARTS);
+        Card h6 = new Card(Card.Rank.SIX, Card.Suit.HEARTS);
+        Card h7 = new Card(Card.Rank.SEVEN, Card.Suit.HEARTS);
+        Card h8 = new Card(Card.Rank.EIGHT, Card.Suit.HEARTS);
+        Card h9 = new Card(Card.Rank.NINE, Card.Suit.HEARTS);
+        Card h10 = new Card(Card.Rank.TEN, Card.Suit.HEARTS);
+        Card hj = new Card(Card.Rank.JACK, Card.Suit.HEARTS);
+        Card hq = new Card(Card.Rank.QUEEN, Card.Suit.HEARTS);
+        Card hk = new Card(Card.Rank.KING, Card.Suit.HEARTS);
+        b.getFoundation(Card.Suit.HEARTS).push(h1);
+        b.getFoundation(Card.Suit.HEARTS).push(h2);
+        b.getFoundation(Card.Suit.HEARTS).push(h3);
+        b.getFoundation(Card.Suit.HEARTS).push(h4);
+        b.getFoundation(Card.Suit.HEARTS).push(h5);
+        b.getFoundation(Card.Suit.HEARTS).push(h6);
+        b.getFoundation(Card.Suit.HEARTS).push(h7);
+        b.getFoundation(Card.Suit.HEARTS).push(h8);
+        b.getFoundation(Card.Suit.HEARTS).push(h9);
+        b.getFoundation(Card.Suit.HEARTS).push(h10);
+        b.getFoundation(Card.Suit.HEARTS).push(hj);
+        b.getFoundation(Card.Suit.HEARTS).push(hq);
+        b.getFoundation(Card.Suit.HEARTS).push(hk);
+
+        System.out.println(b.foundationsComplete()); // 4
+        System.out.println(b.isGameWon()); // true
+        
+
     }
 
 }
