@@ -55,7 +55,7 @@ public class GameEngine {
 
                 // flip the top card and move to next column
                 if (board.getTableau(column).size() == column) {
-                    board.getTableau(column).topCard().flip(); 
+                    board.getTableau(column).head().flip(); 
                     if (column < 7) {
                         column++;
                     }
@@ -150,12 +150,15 @@ public class GameEngine {
     }
 
     /**
-     * @return true if all foundations are full
+     * @return 
      */
-    public boolean isGameWon() {
-        return board.isGameWon();
-    }
+    // public boolean isGameOver() {
+        
+    // }
 
+    /**
+     * Board
+     */
     @Override
     public String toString() {
         return board.toString();
@@ -176,7 +179,7 @@ public class GameEngine {
 
         System.out.println(tableauSize);
 
-        /////////////////////////////////////////////////////////
+        /////////////////seed the board to manually test/////////////////////
         
         
         
