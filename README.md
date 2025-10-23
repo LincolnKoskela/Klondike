@@ -1,7 +1,9 @@
 # Klondike Solitaire (Java)
-A fully object-oriented program of Klondike Solitaire written in Java. 
+A fully playable Java implementation of Klondike Solitaire, built from scratch using OOP principles. 
 The project is designed to model the full logic of the game, including deck handling, 
 pile behaviors, move validation, and board setup. 
+
+Currently a work in progress with daily contributions.
 
 ## Weeks Progress 10/20/2025 - 10/26/2025
 - Finished `recycle()` function added a while loop to push cards onto stock until waste is empty 
@@ -18,16 +20,14 @@ returning a value, like the `draw()` function
 - `canMove()` GameEngine
 - `recycle()` GameEngine
 - `move()` GameEngine
-- `remove()` Tableau
-- `foundationsComplete()` Board
-- `isGameWon()` Board & GameEngine
 
 ## Current State of Game
 - Pile interface lays out basic pile functions for `Stock` `Waste` `Foundation` `Tableau`
 - Terminal logic and testing
 - Card/Deck creation, basic pile functionalities and acceptance
 - Deal a new board with initial card layout of all tableaus and stock pile
-- **Currently** Need to test all your `needs testing` functions
+- **Currently** Need to test all your `needs testing` functions. For gameengine functions
+manually seed the board to test. 
 
 ## Features
 - Object Oriented Design
@@ -61,6 +61,8 @@ Each object has a `toString()` output for testing and debugging the internal sta
 | **Interactive terminal UI** | Add input commands for moves (ex. `move t1 fSpades`) |
 | **Graphic interface** | Implement a GUI version. Swing/JavaFX or JS/web | 
 | **Save/load system** | Save game state and resume for later |
+| **Make CPU strategies** | Make AI's to revert to specific strategies (ex. always select from tab before stock) |hjhj
+| **Statistical Analysis** | (ex. when x card is played, outcomes of winning changes) |
 
 ## Tech
 - Langauge: Java
