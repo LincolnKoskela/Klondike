@@ -7,7 +7,7 @@ and plan to build several more in the future.
 
 This project is currently in active development with daily commits as part of my learning journey in Java and object-oriented design.
 
-## Weekly Progress Log(Oct 20-26, 2025)
+## Weekly Progress Log (Oct 20-26, 2025)
 - Finished `recycle()` function added a while loop to push cards onto stock until waste is empty 
 - Created `Play.java` to start thinking about how Play will interact with `GameEngine`
 - Edited what was `topCard()` in tableau class to be called `head()` and added `topCard()` 
