@@ -1,15 +1,21 @@
 # Klondike Solitaire (Java)
 A fully playable Java implementation of Klondike Solitaire, built from scratch using OOP principles. 
 The project is designed to model the full logic of the game, including deck handling, 
-pile behaviors, move validation, and board setup. 
+pile behaviors, move validation, and board setup. The goal of this project is to expand my 
+knowledge and skillset in object oriented principles and designs in Java. I enjoy building card games, 
+and plan to build several more in the future.
 
-Currently a work in progress with daily contributions.
+This project is currently in active development with daily commits as part of my learning journey in Java and object-oriented design.
 
-## Weeks Progress 10/27/2025 - 11/02/2025
+<<<<<<< HEAD
+## Weekly Progress Log
+
+### This weeks: (Oct 26-Nov 02, 2025)
 - Added unshuffled deck overload along with gameengine overload to use unshuffled 
 decks for more efficient testing.
 
-## Last Weeks Progress 10/20/2025 - 10/26/2025
+### Last weeks: (Oct 20-26, 2025)
+
 - Finished `recycle()` function added a while loop to push cards onto stock until waste is empty 
 - Created `Play.java` to start thinking about how Play will interact with `GameEngine`
 - Edited what was `topCard()` in tableau class to be called `head()` and added `topCard()` 
@@ -69,6 +75,12 @@ Each object has a `toString()` output for testing and debugging the internal sta
 | **Save/load system** | Save game state and resume for later |
 | **Make CPU strategies** | Make AI's to revert to specific strategies (ex. always select from tab before stock) |hjhj
 | **Statistical Analysis** | (ex. when x card is played, outcomes of winning changes) |
+
+## How to Run
+1. Clone the repository  
+2. Open in VS Code  
+3. Compile all `.java` files  
+4. Run `Play.java` from the terminal  
 
 ## Tech
 - Langauge: Java
