@@ -13,7 +13,7 @@ public class Deck {
      * shuffle the cards
      */
     public Deck() {
-        
+
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 13; j++) {
                 deck.add(new Card
@@ -22,6 +22,30 @@ public class Deck {
             }
         }
         shuffle();
+    }
+
+    /**
+     * This constructor will be used more for testing
+     * @param d List of cards, d short for deck
+     */
+    public Deck(Deck d) {
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 13; j++) {
+                d.addCard(new Card
+                (Card.Rank.values()[j], 
+                Card.Suit.values()[i]));
+            }
+        }
+    }
+
+    /**
+     * Use this function as a helper for testing, espically for 
+     * using unshuffled decks in the gameengine. 
+     */
+    public void addCard(Card card) {
+        if (card != null) {
+            deck.add(card);
+        }
     }
 
     /**
@@ -81,6 +105,13 @@ public class Deck {
         return deck.size();
     }
 
+    /**
+     * Use this function will be helpful in a loop to access each card
+     */
+    public Card getCard(int index) {
+        return deck.get(index);
+    }
+
     public Card topCard() {
         if (!isEmpty()) {
             return deck.get(getSize()-1);
@@ -114,10 +145,14 @@ public class Deck {
     }
 
     /**
-     * @return -- String representation of top card in the deck
+     * @return Return more visual display of the deck
      */
     public String toDisplay() {
-        return topCard().toString();
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < deck.size(); i++) {
+            sb.append(deck.get(i).toDisplay() + "\n");
+        }
+        return sb.toString();
     }
 
     public static void main(String[] args) {
@@ -127,6 +162,12 @@ public class Deck {
         System.out.println(deck.getSize());
 
         System.out.println(deck.toDisplay());
+
+        System.out.println();
+        System.out.println("Unshuffled...");
+        
+        System.out.println();
+
 
         
         

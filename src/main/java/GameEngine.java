@@ -33,6 +33,19 @@ public class GameEngine {
     }
 
     /**
+     * Overloaded constructor for easier testing of the 
+     * game engine functions
+     * @param unshuffled is passed through a new Deck
+     * appending unshuffled list type card
+     */
+    public GameEngine(Deck unshuffled) {
+        this.board = new Board();
+        this.deck = new Deck(unshuffled);
+        this.gameOver = false;
+        this.count = 0;
+    }
+
+    /**
      * This function deals the deck of cards into the 7 tableau columns. 
      * The rest of the cards go into the stock. Handle the face of the cards. 
      * Only the top card in the tabs should be faced up, the rest face down. 
@@ -180,7 +193,16 @@ public class GameEngine {
         System.out.println(tableauSize);
 
         /////////////////seed the board to manually test/////////////////////
+        Deck unshuffleCards = new Deck();
+        Deck d = new Deck(unshuffleCards);
+        GameEngine seeded = new GameEngine(d);
         
+        for (int i = 0; i < d.getSize(); i++) {
+            d.getCard(i).flip();
+        }
+
+        // System.out.println("Unshuffled Deck for testing");
+        // System.out.println(d.toDisplay());
         
         
     }
