@@ -7,7 +7,6 @@ and plan to build several more in the future.
 
 This project is currently in active development with daily commits as part of my learning journey in Java and object-oriented design.
 
-<<<<<<< HEAD
 ## Weekly Progress Log
 
 ### This weeks: (Oct 26-Nov 02, 2025)
