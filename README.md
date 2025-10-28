@@ -5,7 +5,11 @@ pile behaviors, move validation, and board setup.
 
 Currently a work in progress with daily contributions.
 
-## Weeks Progress 10/20/2025 - 10/26/2025
+## Weeks Progress 10/27/2025 - 11/02/2025
+- Added unshuffled deck overload along with gameengine overload to use unshuffled 
+decks for more efficient testing.
+
+## Last Weeks Progress 10/20/2025 - 10/26/2025
 - Finished `recycle()` function added a while loop to push cards onto stock until waste is empty 
 - Created `Play.java` to start thinking about how Play will interact with `GameEngine`
 - Edited what was `topCard()` in tableau class to be called `head()` and added `topCard()` 
@@ -14,7 +18,7 @@ function to return the first card in a tab.
 - Added `remove(card)` function to Tableau class to be able to remove card from column without
 returning a value, like the `draw()` function
 - Added `isGameWon()` to GameEngine
-- Finished `move()` function
+- Finished `move()` function 
 
 ## Needs Testing 
 - `canMove()` GameEngine
@@ -26,8 +30,10 @@ returning a value, like the `draw()` function
 - Terminal logic and testing
 - Card/Deck creation, basic pile functionalities and acceptance
 - Deal a new board with initial card layout of all tableaus and stock pile
-- **Currently** Need to test all your `needs testing` functions. For gameengine functions
-manually seed the board to test. 
+- **Left off at:** Need to test all your `needs testing` functions. For gameengine functions
+manually seed the board to test. Working through using unshuffled deck, then making overloaded 
+`GameEngine` constructor that takes in unshuffled deck, then using that in testing in the main method.
+
 
 ## Features
 - Object Oriented Design
