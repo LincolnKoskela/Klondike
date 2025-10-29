@@ -12,40 +12,16 @@ public class Deck {
      * Construct a deck of playing cards
      * shuffle the cards
      */
-    public Deck() {
+    public Deck(boolean shuffled) {
 
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 13; j++) {
-                deck.add(new Card
+                this.deck.add(new Card
                 (Card.Rank.values()[j], 
                 Card.Suit.values()[i]));
             }
         }
-        shuffle();
-    }
-
-    /**
-     * This constructor will be used more for testing
-     * @param d List of cards, d short for deck
-     */
-    public Deck(Deck d) {
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 13; j++) {
-                d.addCard(new Card
-                (Card.Rank.values()[j], 
-                Card.Suit.values()[i]));
-            }
-        }
-    }
-
-    /**
-     * Use this function as a helper for testing, espically for 
-     * using unshuffled decks in the gameengine. 
-     */
-    public void addCard(Card card) {
-        if (card != null) {
-            deck.add(card);
-        }
+        if (shuffled == true) shuffle();
     }
 
     /**
@@ -156,7 +132,7 @@ public class Deck {
     }
 
     public static void main(String[] args) {
-        Deck deck = new Deck();
+        Deck deck = new Deck(true);
         System.out.println(deck);
         System.out.println(deck.hasDuplicates());
         System.out.println(deck.getSize());
@@ -167,10 +143,5 @@ public class Deck {
         System.out.println("Unshuffled...");
         
         System.out.println();
-
-
-        
-        
-
     }
 }

@@ -25,22 +25,9 @@ public class GameEngine {
 
     
     // constructor
-    public GameEngine () {
+    public GameEngine (boolean shuffled) {
         this.board = new Board();
-        this.deck = new Deck();
-        this.gameOver = false;
-        this.count = 0;
-    }
-
-    /**
-     * Overloaded constructor for easier testing of the 
-     * game engine functions
-     * @param unshuffled is passed through a new Deck
-     * appending unshuffled list type card
-     */
-    public GameEngine(Deck unshuffled) {
-        this.board = new Board();
-        this.deck = new Deck(unshuffled);
+        this.deck = new Deck(shuffled);
         this.gameOver = false;
         this.count = 0;
     }
@@ -112,8 +99,8 @@ public class GameEngine {
      * @return true if destination canAccept the card from the source
      */
     public boolean canMove(int source, int sourceRow, int dest) {
-        Tableau s = board.getTableau(source);
-        Tableau d = board.getTableau(dest);
+        Tableau s = board.getTableau(source); 
+        Tableau d = board.getTableau(dest); 
         
         Card card = s.getCard(sourceRow);
         if (!card.isFaceUp()) return false;
@@ -180,7 +167,7 @@ public class GameEngine {
     public static void main(String[] args) {
 
         ////////// test out the initial deal ///////////////
-        GameEngine game = new GameEngine();
+        GameEngine game = new GameEngine(true);
         game.dealNewGame();
         System.out.println(game);
         System.out.println(game.count); // 52
@@ -191,19 +178,48 @@ public class GameEngine {
         }
 
         System.out.println(tableauSize);
+        System.out.println();
 
         /////////////////seed the board to manually test/////////////////////
-        Deck unshuffleCards = new Deck();
-        Deck d = new Deck(unshuffleCards);
-        GameEngine seeded = new GameEngine(d);
-        
-        for (int i = 0; i < d.getSize(); i++) {
-            d.getCard(i).flip();
+        GameEngine test = new GameEngine(false);
+        test.dealNewGame();
+        System.out.println(test);
+
+        /*
+         * Test recycle:
+         * 1) is stock empty?
+         * 2) empty stock
+         * 3) recycle()
+         * 4) is stock full of cards from waste?
+         */
+
+        // test.recycle(); this throws IllegalArgumentException [good]
+        System.out.println(test.board.getStock().size()); // 24
+        Card nextCard = null;
+        while (!test.board.getStock().isEmpty()) { // while stock is NOT empty
+            nextCard = test.board.getStock().draw();
+            test.board.getWaste().push(nextCard);
         }
 
-        // System.out.println("Unshuffled Deck for testing");
-        // System.out.println(d.toDisplay());
+        System.out.println("Stock size after emptying: " + test.board.getStock().size()); // 0
+        System.out.println("Waste size after pushing: " + test.board.getWaste().size()); // 24
+
+        test.recycle();
+
+        System.out.println();
+        System.out.println("Stock size: " + test.board.getStock().size()); // 24
+        System.out.println("Waste size: " + test.board.getWaste().size()); // 0
         
-        
+        //////////// test out some functionalities before canMove() ///////////////////////
+        test.board.getWaste().push(test.board.getStock().draw()); // 1S
+        System.out.println(test);
+        test.board.getWaste().push(test.board.getStock().draw()); // 2S
+        System.out.println(test);
+        test.board.getWaste().push(test.board.getStock().draw()); // 3S
+        System.out.println(test);
+
+        // push 3S onto 4H (4th column)
+
+
     }
 }
