@@ -11,7 +11,10 @@ This project is currently in active development with daily commits as part of my
 
 ### This weeks: (Oct 26-Nov 02, 2025)
 - Added unshuffled deck overload along with gameengine overload to use unshuffled 
-decks for more efficient testing.
+decks for more efficient testing. 
+- Edited Deck constructor to give the option to shuffle or not, and edited `GameEngine` constructor 
+to follow similar structure. This helps with testing out functions
+
 
 ### Last weeks: (Oct 20-26, 2025)
 
@@ -22,12 +25,10 @@ function to return the first card in a tab.
 - Finished `canMove()` function which validates moving cards from one tableau to another
 - Added `remove(card)` function to Tableau class to be able to remove card from column without
 returning a value, like the `draw()` function
-- Added `isGameWon()` to GameEngine
 - Finished `move()` function 
 
-## Needs Testing 
+## Needs Testing
 - `canMove()` GameEngine
-- `recycle()` GameEngine
 - `move()` GameEngine
 
 ## Current State of Game
@@ -35,9 +36,8 @@ returning a value, like the `draw()` function
 - Terminal logic and testing
 - Card/Deck creation, basic pile functionalities and acceptance
 - Deal a new board with initial card layout of all tableaus and stock pile
-- **Left off at:** Need to test all your `needs testing` functions. For gameengine functions
-manually seed the board to test. Working through using unshuffled deck, then making overloaded 
-`GameEngine` constructor that takes in unshuffled deck, then using that in testing in the main method.
+- **Left off at:** Need a function to move from waste to foundations, and waste onto the 
+tableau's. Tabs to foundations, foundations to tabs.
 
 
 ## Features
