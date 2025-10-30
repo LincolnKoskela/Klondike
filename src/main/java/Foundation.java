@@ -145,6 +145,11 @@ public class Foundation implements Pile {
         return null;
     }
 
+    
+    public void remove(Card card) {
+        foundation.remove(card);
+    }
+
     /**
      * String representation of a Foundation pile
      */
