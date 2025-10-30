@@ -43,6 +43,10 @@ returning a value, like the `draw()` function
 - **Left off at:** Working on pushing and removing @param List<Card> in `Tableau` class for 
 moving tabs around using sublist. Also editing `move()` function in `GameEngine.java`
 
+## Project Management
+You can view my Agile board and current development progress here:
+
+[Klondike Agile Board](https://github.com/LincolnKoskela/Klondike/projects/1)
 
 ## Features
 - Object Oriented Design

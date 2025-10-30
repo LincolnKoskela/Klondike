@@ -126,7 +126,7 @@ public class Tableau implements Pile {
     public void push(List<Card> list) {
         if (list != null) {
             for (Card card : list) {
-                list.add(card);
+                tableau.add(card);
             }
         }
     }
