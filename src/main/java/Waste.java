@@ -94,6 +94,16 @@ public class Waste implements Pile {
     }
 
     /**
+     * This function is similar to draw() except it does NOT return any value, 
+     * it just simply removes the card from the waste pile. This function will be used
+     * when moving card from waste to a foundation or tab pile
+     * @param card being removed
+     */
+    public void remove(Card card) {
+        waste.remove(card);
+    }
+
+    /**
      * String representation of a waste pile
      */
     @Override
