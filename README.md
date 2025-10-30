@@ -14,6 +14,10 @@ This project is currently in active development with daily commits as part of my
 decks for more efficient testing. 
 - Edited Deck constructor to give the option to shuffle or not, and edited `GameEngine` constructor 
 to follow similar structure. This helps with testing out functions
+- Added move functions for each pile ex) `moveFoundationToTableau(Card.Suit suit, int dest)`
+- Added `remove` function `Foundation.java` and `Waste.java`
+- Added `sublist` function to `Tableau.java` for moving sublist around within tabs.
+
 
 
 ### Last weeks: (Oct 20-26, 2025)
@@ -29,15 +33,15 @@ returning a value, like the `draw()` function
 
 ## Needs Testing
 - `canMove()` GameEngine
-- `move()` GameEngine
+- `move()` GameEngine (all move functions)
 
 ## Current State of Game
 - Pile interface lays out basic pile functions for `Stock` `Waste` `Foundation` `Tableau`
 - Terminal logic and testing
 - Card/Deck creation, basic pile functionalities and acceptance
 - Deal a new board with initial card layout of all tableaus and stock pile
-- **Left off at:** Need a function to move from waste to foundations, and waste onto the 
-tableau's. Tabs to foundations, foundations to tabs.
+- **Left off at:** Working on pushing and removing @param List<Card> in `Tableau` class for 
+moving tabs around using sublist. Also editing `move()` function in `GameEngine.java`
 
 
 ## Features
