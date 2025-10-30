@@ -128,15 +128,15 @@ public class GameEngine {
      * post tableau move
      */
     public void move(int source, int sourceRow, int dest) {
-        int max = board.getTableau(source).size();
+        int bottom = board.getTableau(source).size();
         Card card;
+
+        // sublist that's being moved
+        List<Card> list = board.getTableau(source).sublist(sourceRow, bottom);
         
         if (canMove(source, sourceRow, dest)) {
-            for (int row = sourceRow; row <= max; row++) {
-                card = board.getTableau(source).getCard(row);
-                board.getTableau(dest).push(card);
-                board.getTableau(source).remove(card);
-            }
+            board.getTableau(dest).push(list);
+            board.getTableau(source).remove(list);
 
             /*
             * the card before the initial card (sourceRow - 1), does it need to be fliped?
@@ -149,6 +149,38 @@ public class GameEngine {
         } 
     }
 
+    public void moveWastetoFoundation(Card.Suit suit) {
+        Card card = board.getWaste().topCard();
+        if (board.getFoundation(suit).canAccept(card)) {
+            board.getFoundation(suit).push(card);
+            board.getWaste().remove(card);
+        }
+    }
+
+    public void moveWasteToTableau(int dest) {
+        Card card = board.getWaste().topCard();
+        if (board.getTableau(dest).canAccept(card)) {
+            board.getTableau(dest).push(card);
+            board.getWaste().remove(card);
+        }
+    }
+
+    public void moveFoundationToTableau(Card.Suit suit, int dest) {
+        Card card = board.getFoundation(suit).topCard();
+        if (board.getTableau(dest).canAccept(card)) {
+            board.getTableau(dest).push(card);
+            board.getFoundation(suit).remove(card);
+        }
+    }
+
+    public void moveTableauToFoundation(int source, int sourceRow, Card.Suit suit) {
+        Card card = board.getTableau(source).getCard(sourceRow);
+        if (board.getFoundation(suit).canAccept(card)) {
+            board.getFoundation(suit).push(card);
+            board.getTableau(source).remove(card);
+        }
+    }
+ 
     /**
      * @return 
      */
@@ -218,7 +250,7 @@ public class GameEngine {
         test.board.getWaste().push(test.board.getStock().draw()); // 3S
         System.out.println(test);
 
-        // push 3S onto 4H (4th column)
+        
 
 
     }
