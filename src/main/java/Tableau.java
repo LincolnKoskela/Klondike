@@ -66,7 +66,12 @@ public class Tableau implements Pile {
      * @return card type
      */
     public Card getCard(int index) {
-        return tableau.get(index);
+        if (tableau.get(index) != null) {
+            return tableau.get(index);
+        } else {
+            return null;
+        }
+        
     }
 
     /**
@@ -118,6 +123,14 @@ public class Tableau implements Pile {
         }
     }
 
+    public void push(List<Card> list) {
+        if (list != null) {
+            for (Card card : list) {
+                list.add(card);
+            }
+        }
+    }
+
     /**
      * Think of this as removing the card from tableau
      * like a pop() function
@@ -143,6 +156,28 @@ public class Tableau implements Pile {
      */
     public void remove(Card card) {
         tableau.remove(card);
+    }
+
+    public void remove(List<Card> list) {
+        if (list != null) {
+            for (Card card : list) {
+                remove(card);
+            }
+        }
+    }
+
+    /**
+     * This function shallow copies moving cards between piles, 
+     * Use this function to move cards around in tableaus getting sublist of cards
+     * from the tableau arraylist
+     * @param fromIndex inclusive
+     * @param toIndex inclusive
+     * @return an independent list with no shared structure from original tableua
+     * List can be modified throughout the GameEngine
+     */
+    public List<Card> sublist(int fromIndex, int toIndex) {
+        List <Card> list = new ArrayList<>(tableau.subList(fromIndex, toIndex + 1));
+        return list;
     }
 
     /**
