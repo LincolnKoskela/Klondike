@@ -172,7 +172,7 @@ public class Tableau implements Pile {
      * Use this function to move cards around in tableaus getting sublist of cards
      * from the tableau arraylist
      * @param fromIndex inclusive
-     * @param toIndex inclusive
+     * @param toIndex exclusive
      * @return an independent list w/ ranged params with no shared structure from original tableau.
      * List can be modified throughout the GameEngine
      */
