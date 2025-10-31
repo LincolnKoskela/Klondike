@@ -122,6 +122,19 @@ public class Board {
 
         return count;
     }
+
+    /*
+     * Width 3 characters wide left aligned 
+     */
+    private static final String CELL_FORMAT = "[%-3s] ";
+
+    /**
+     * Helper function for board display. Takes the CELL_FORMAT variable and handles 
+     * nulls using tenary operator. 
+     */
+    private static String cell(String str) {
+        return String.format(CELL_FORMAT, (str == null || str.isEmpty()) ? "" : str);
+    }
     
     /**
      * Board layout
@@ -131,16 +144,15 @@ public class Board {
         StringBuilder swPile = new StringBuilder(); 
         StringBuilder fPile = new StringBuilder(); 
         StringBuilder tPiles = new StringBuilder(); 
-
+        StringBuilder colCounter = new StringBuilder();
+        
         // stock waste piles
-        swPile.append(stock.toDisplay()); 
-        swPile.append(" "); 
-        swPile.append(waste.toDisplay()); 
-        swPile.append(" ");
+        swPile.append(cell(stock.toDisplay())); 
+        swPile.append(cell(waste.toDisplay())); 
 
         // foundation piles
         for (Foundation f : foundations.values()) {
-            fPile.append(f.toDisplay());
+            fPile.append(cell(f.toDisplay()));
         }
 
         // tableau columns 
@@ -151,21 +163,27 @@ public class Board {
             }
         }
 
+        // for (int col = 0; col < getColumns(); col++) {
+        //     colCounter.append(col);
+        // }
+
         for (int row = 0; row < max; row++) {
+            tPiles.append(row + " "); // print row num indexed 0-based
             for (int col = 0; col < getColumns(); col++) {
                 Tableau t = tableaus.get(col);
                 if (row < t.size()) {
-                    tPiles.append("[").append(t.getCard(row).toDisplay()).append("]");
+                    tPiles.append(cell(t.getCard(row).toDisplay()));
                 } else {
-                    tPiles.append("[  ]");
+                    tPiles.append(cell(""));
                 }
-                tPiles.append(" ");
             }
             tPiles.append("\n"); // next row
         }
 
         // board layout
-        return swPile.toString() + "       " + fPile.toString() + "\n"
+        return "-----------------------------------------\n" + 
+        swPile.toString() + "\t" + fPile.toString() + "\n"
+        + "\n"
         + tPiles.toString();
     }
 
@@ -173,7 +191,7 @@ public class Board {
 
         // test the board output, don't worry about logic, focus on display
         Board board = new Board();
-        Deck deck = new Deck();
+        Deck deck = new Deck(true);
         System.out.println("Deck card count: " + deck.getSize());
         Card c1 = deck.draw();
         Card c2 = deck.draw();
