@@ -7,6 +7,8 @@
  * 
  * extra notes : 
  * 
+ * COLUMNS ARE 1 BASED ROWS ARE 0 BASED WILL GET THEM ON SAME PAGE IN PLAY.JAVA
+ * 
  * -- tableau pile moves, pushing a list vs a single card, tab class only handles single pushes
  * -- validate foundation piles stacked correctly by suit and rank when added canAccept then add
  * -- tableau needs to address flips in specific movements
@@ -14,7 +16,7 @@
  * -- post move flips in the tableaus (if source is new, to flip)
  */
 
- import java.util.*;
+import java.util.*;
 
 public class GameEngine {
 
@@ -99,17 +101,21 @@ public class GameEngine {
      * @return true if destination canAccept the card from the source
      */
     public boolean canMove(int source, int sourceRow, int dest) {
-        Tableau s = board.getTableau(source); 
+        Tableau s = board.getTableau(source); // source tab
         Tableau d = board.getTableau(dest); 
         
         Card card = s.getCard(sourceRow);
-        if (!card.isFaceUp()) return false;
-
-        if (d.canAccept(card)) {
-            return true;
-        } else {
+        if (!card.isFaceUp()) {
+            System.out.println("Invalid selection.");
             return false;
         }
+         
+
+        if (!d.canAccept(card)) {
+            System.out.println("Destination can't accept.");
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -120,18 +126,16 @@ public class GameEngine {
      * @param sourceRow is the row in the source column. Will give us the card
      * @param dest is the destination column
      * 
-     * int max: variable is used in for loop for when to stop iterating
-     * through the size of the source tableau
-     * Card card: getsCard at row, gets pushed to dest tableau, then removed from source tab
-     * for each iteration
-     * Card flipCard: is card variable to determine if the card needs to be flipped
+     * @var int bottom: bottom of column. The variable is used in for loop for when to stop iterating
+     * through the size of the source tableau.
+
+     * @var Card flipCard: is card variable to determine if the card needs to be flipped
      * post tableau move
      */
     public void move(int source, int sourceRow, int dest) {
         int bottom = board.getTableau(source).size();
-        Card card;
 
-        // sublist that's being moved
+        // sublist that's being moved (inclusv -> inclusv)
         List<Card> list = board.getTableau(source).sublist(sourceRow, bottom);
         
         if (canMove(source, sourceRow, dest)) {
@@ -146,7 +150,9 @@ public class GameEngine {
             if (!flipCard.isFaceUp()) {
                 flipCard.flip();
             }
-        } 
+        } else {
+            throw new IllegalArgumentException("Move invalid.");
+        }
     }
 
     public void moveWastetoFoundation(Card.Suit suit) {
@@ -179,6 +185,14 @@ public class GameEngine {
             board.getFoundation(suit).push(card);
             board.getTableau(source).remove(card);
         }
+    }
+
+    /**
+     * A players draw from stock to waste
+     */
+    public void draw() {
+        Card card = board.getStock().draw();
+        board.getWaste().push(card);
     }
  
     /**
@@ -243,14 +257,156 @@ public class GameEngine {
         System.out.println("Waste size: " + test.board.getWaste().size()); // 0
         
         //////////// test out some functionalities before canMove() ///////////////////////
-        test.board.getWaste().push(test.board.getStock().draw()); // 1S
+        test.draw(); // 1S
+        test.moveWastetoFoundation(Card.Suit.SPADES);
         System.out.println(test);
-        test.board.getWaste().push(test.board.getStock().draw()); // 2S
+        test.draw(); // 2S
         System.out.println(test);
-        test.board.getWaste().push(test.board.getStock().draw()); // 3S
+        test.draw(); // 3S
         System.out.println(test);
 
-        
+        test.moveWasteToTableau(4);
+        System.out.println(test); // lets go!~ it works 3S moved under 4H
+
+        // try a failed one // nothing should happen becuase it can't accept
+        test.moveWasteToTableau(4);
+        System.out.println(test);
+        test.draw();
+        System.out.println(test);
+        test.draw();
+        test.draw();
+        test.draw();
+        System.out.println(test);
+        test.moveWasteToTableau(3);
+        System.out.println(test); // good
+        test.draw();
+        test.draw();
+        test.draw();
+        System.out.println(test);
+        test.moveWasteToTableau(2);
+        System.out.println(test);
+        test.draw();
+        test.draw();
+        System.out.println(test);
+        test.moveWasteToTableau(1);
+        System.out.println(test);
+        test.draw();
+        test.draw();
+        System.out.println(test);
+        test.moveWastetoFoundation(Card.Suit.DIAMONDS);
+        System.out.println(test);
+        test.draw();
+        System.out.println(test);
+        test.moveWasteToTableau(4);
+        System.out.println(test);
+        test.move(2, 1, 1);
+        System.out.println(test);
+        test.draw();
+        System.out.println(test);
+        test.moveWastetoFoundation(Card.Suit.DIAMONDS); // didnt work need to move from tab to foundation first
+        System.out.println(test);
+
+        test.moveTableauToFoundation(4, 5, Card.Suit.DIAMONDS);
+        System.out.println(test);
+        test.moveWastetoFoundation(Card.Suit.DIAMONDS);
+        System.out.println(test);
+        test.draw();
+        System.out.println(test);
+        test.draw();
+        test.moveWasteToTableau(6);
+        System.out.println(test);
+        test.draw();
+        System.out.println(test);
+        test.moveWasteToTableau(3);
+        System.out.println(test);
+        test.draw();
+        test.draw();
+        System.out.println(test);
+        test.draw();
+        System.out.println(test);
+        test.moveWasteToTableau(1);
+        System.out.println(test);
+        test.draw();
+        test.draw();
+        System.out.println(test);
+        test.draw();
+        System.out.println(test);
+        test.recycle();
+        System.out.println(test);
+        test.draw();
+        System.out.println(test);
+        test.moveWastetoFoundation(Card.Suit.SPADES);
+        test.moveTableauToFoundation(4, 4, Card.Suit.SPADES);
+        System.out.println(test);
+        test.draw();
+        System.out.println(test);
+        test.moveWasteToTableau(6);
+        System.out.println(test);
+        test.draw();
+        System.out.println(test);
+        test.moveWasteToTableau(3);
+        test.move(4, 3, 3);
+        System.out.println(test);
+        test.draw();
+        System.out.println(test);
+        test.draw();
+        System.out.println(test);
+        test.moveWasteToTableau(1);
+        System.out.println(test);
+        test.draw();
+        test.draw();
+        System.out.println(test);
+        test.moveWasteToTableau(2);
+        System.out.println(test);
+        test.draw();
+        System.out.println(test);
+        test.move(2, 1, 7);
+        System.out.println(test);
+        test.draw();
+        System.out.println(test);
+        test.moveWastetoFoundation(Card.Suit.DIAMONDS);
+        System.out.println(test);
+        test.draw();
+
+        System.out.println(test);
+        test.moveWasteToTableau(1);
+        System.out.println(test);
+        test.draw();
+        System.out.println(test);
+        test.draw();
+        System.out.println(test);
+        test.moveWasteToTableau(7);
+        System.out.println(test);
+        test.draw();
+        System.out.println(test);
+        test.moveWasteToTableau(5);
+        System.out.println(test);
+        test.move(6, 5, 1);
+        System.out.println(test);
+        test.moveTableauToFoundation(1, 9, Card.Suit.SPADES);
+        test.moveTableauToFoundation(1, 8, Card.Suit.SPADES);
+        System.out.println(test);
+        test.moveTableauToFoundation(1, 8, Card.Suit.DIAMONDS);
+        System.out.println(test);
+        test.move(4, 2, 1);
+    
+        System.out.println(test);
+        test.moveFoundationToTableau(Card.Suit.SPADES, 1);
+        System.out.println(test);
+
+        test.moveTableauToFoundation(1, 9, Card.Suit.SPADES);
+        System.out.println(test);
+        test.move(4, 1, 6);
+        System.out.println(test);
+
+        test.recycle();
+        System.out.println(test);
+        test.draw();
+        System.out.println(test);
+        test.move(3, 5, 6);
+        System.out.println(test);
+        test.moveTableauToFoundation(3, 4, Card.Suit.DIAMONDS);
+        System.out.println(test);
 
 
     }
