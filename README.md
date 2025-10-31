@@ -18,6 +18,10 @@ to follow similar structure. This helps with testing out functions
 - Added `remove` function `Foundation.java` and `Waste.java`
 - Added `sublist` function to `Tableau.java` for moving sublist around within tabs.
 
+### Moving Functions:
+- WasteToFoundation [good]
+- WasteToTableau [good]
+- TabToTab - just remember that rows are 0-based and columns are 1-based
 
 
 ### Last weeks: (Oct 20-26, 2025)
@@ -30,6 +34,8 @@ function to return the first card in a tab.
 - Added `remove(card)` function to Tableau class to be able to remove card from column without
 returning a value, like the `draw()` function
 - Finished `move()` function 
+- Added static helper function in board class to format the display better
+- Added a players `draw()` function, Stock -> Waste from waste, play the card
 
 ## Needs Testing
 - `canMove()` GameEngine
@@ -40,13 +46,13 @@ returning a value, like the `draw()` function
 - Terminal logic and testing
 - Card/Deck creation, basic pile functionalities and acceptance
 - Deal a new board with initial card layout of all tableaus and stock pile
-- **Left off at:** Working on pushing and removing @param List<Card> in `Tableau` class for 
-moving tabs around using sublist. Also editing `move()` function in `GameEngine.java`
+- **Left off at:** Testing out the game in the gameengine. currently testing out all functions
+so far so good. Also working on formatting the board. 
 
 ## Project Management
 You can view my Agile board and current development progress here:
 
-[Klondike Agile Board](https://github.com/LincolnKoskela/Klondike/projects/1)
+[Klondike Agile Board](https://github.com/users/LincolnKoskela/projects/1)
 
 ## Features
 - Object Oriented Design
