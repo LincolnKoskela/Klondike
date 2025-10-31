@@ -17,11 +17,13 @@ to follow similar structure. This helps with testing out functions
 - Added move functions for each pile ex) `moveFoundationToTableau(Card.Suit suit, int dest)`
 - Added `remove` function `Foundation.java` and `Waste.java`
 - Added `sublist` function to `Tableau.java` for moving sublist around within tabs.
+- Added static helper function in board class to format the display better
+- Added a players `draw()` function, Stock -> Waste from waste, play the card
 
 ### Moving Functions:
 - WasteToFoundation [good]
 - WasteToTableau [good]
-- TabToTab - just remember that rows are 0-based and columns are 1-based
+- TabToTab - just remember that rows are 0-based and columns are 1-based [good] so far
 
 
 ### Last weeks: (Oct 20-26, 2025)
@@ -33,9 +35,6 @@ function to return the first card in a tab.
 - Finished `canMove()` function which validates moving cards from one tableau to another
 - Added `remove(card)` function to Tableau class to be able to remove card from column without
 returning a value, like the `draw()` function
-- Finished `move()` function 
-- Added static helper function in board class to format the display better
-- Added a players `draw()` function, Stock -> Waste from waste, play the card
 
 ## Needs Testing
 - `canMove()` GameEngine
