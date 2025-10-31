@@ -145,7 +145,7 @@ public class Foundation implements Pile {
         return null;
     }
 
-    
+
     public void remove(Card card) {
         foundation.remove(card);
     }
@@ -163,8 +163,8 @@ public class Foundation implements Pile {
     }
 
     public String toDisplay() {
-        if (topCard() != null) return "[" + topCard().toDisplay() + "]";
-        else return "[ ]";
+        if (topCard() != null) return topCard().toDisplay();
+        else return "";
     }
 
     public static void main(String[] args) {
@@ -308,6 +308,21 @@ public class Foundation implements Pile {
         System.out.println(fxy.toDisplay());
         fxy.push(c1);
         fxy.push(c2);
+        System.out.println(fxy.toDisplay());
+
+
+        /////////////// remove ////////////////
+        System.out.println();
+        System.out.println("Remove() test: ");
+        System.out.println(fxy.toDisplay());
+        System.out.println(fxy.size());
+        fxy.remove(c2);
+        System.out.println(fxy.toDisplay());
+        System.out.println(fxy.size());
+        fxy.remove(c1);
+        System.out.println(fxy.toDisplay());
+        System.out.println(fxy.size());
+        fxy.remove(fxy.topCard());
         System.out.println(fxy.toDisplay());
         
     }

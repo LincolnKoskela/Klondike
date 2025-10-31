@@ -127,8 +127,8 @@ public class Stock implements Pile {
      */
     public String toDisplay() {
         if (topCard() != null) {
-            return "[XX]";
-        } else return "[ ]";
+            return "XX";
+        } else return "";
     }
 
     public static void main(String[] args) {
