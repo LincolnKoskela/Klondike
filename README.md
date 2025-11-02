@@ -19,6 +19,7 @@ to follow similar structure. This helps with testing out functions
 - Added `sublist` function to `Tableau.java` for moving sublist around within tabs.
 - Added static helper function in board class to format the display better
 - Added a players `draw()` function, Stock -> Waste from waste, play the card
+- Fixed alignment on `Board.java`
 
 ### Moving Functions:
 - WasteToFoundation [good]
@@ -35,18 +36,15 @@ function to return the first card in a tab.
 - Finished `canMove()` function which validates moving cards from one tableau to another
 - Added `remove(card)` function to Tableau class to be able to remove card from column without
 returning a value, like the `draw()` function
-
-## Needs Testing
-- `canMove()` GameEngine
-- `move()` GameEngine (all move functions)
+- Fully functional GameEngine complete.
 
 ## Current State of Game
 - Pile interface lays out basic pile functions for `Stock` `Waste` `Foundation` `Tableau`
 - Terminal logic and testing
 - Card/Deck creation, basic pile functionalities and acceptance
 - Deal a new board with initial card layout of all tableaus and stock pile
-- **Left off at:** Testing out the game in the gameengine. currently testing out all functions
-so far so good. Also working on formatting the board. 
+- **Left off at:** Finished and tested a fully functional game engine. Game is working
+properly. Now need to construct `Play.java` 
 
 ## Project Management
 You can view my Agile board and current development progress here:
