@@ -135,20 +135,17 @@ public class GameEngine {
     public void move(int source, int sourceRow, int dest) {
         int bottom = board.getTableau(source).size();
 
-        // sublist that's being moved (inclusv -> inclusv)
         List<Card> list = board.getTableau(source).sublist(sourceRow, bottom);
         
         if (canMove(source, sourceRow, dest)) {
             board.getTableau(dest).push(list);
             board.getTableau(source).remove(list);
 
-            /*
-            * the card before the initial card (sourceRow - 1), does it need to be fliped?
-            * if its not face up, after the move, flip the card
-            */ 
-            Card flipCard = board.getTableau(source).getCard(sourceRow - 1);
-            if (!flipCard.isFaceUp()) {
-                flipCard.flip();
+            if (sourceRow > 0) { // avoids out of bounds exception
+                Card flipCard = board.getTableau(source).getCard(sourceRow - 1);
+                if (!flipCard.isFaceUp()) {
+                    flipCard.flip();
+                }   
             }
         } else {
             throw new IllegalArgumentException("Move invalid.");
@@ -185,6 +182,15 @@ public class GameEngine {
             board.getFoundation(suit).push(card);
             board.getTableau(source).remove(card);
         }
+
+        if (sourceRow > 0) {
+            Card flipMe = board.getTableau(source).getCard(sourceRow - 1);
+            if (!flipMe.isFaceUp()) {
+                flipMe.flip();
+            }
+        }
+        
+        
     }
 
     /**
@@ -196,11 +202,15 @@ public class GameEngine {
     }
  
     /**
-     * @return 
+     * @return true if foundations are full
      */
-    // public boolean isGameOver() {
-        
-    // }
+    public boolean isGameOver() {
+        if (board.isGameWon() == true) {
+            gameOver = true;
+        } else gameOver = false;
+
+        return gameOver;
+    }
 
     /**
      * Board
@@ -256,158 +266,125 @@ public class GameEngine {
         System.out.println("Stock size: " + test.board.getStock().size()); // 24
         System.out.println("Waste size: " + test.board.getWaste().size()); // 0
         
-        //////////// test out some functionalities before canMove() ///////////////////////
-        test.draw(); // 1S
-        test.moveWastetoFoundation(Card.Suit.SPADES);
-        System.out.println(test);
-        test.draw(); // 2S
-        System.out.println(test);
-        test.draw(); // 3S
-        System.out.println(test);
-
-        test.moveWasteToTableau(4);
-        System.out.println(test); // lets go!~ it works 3S moved under 4H
-
-        // try a failed one // nothing should happen becuase it can't accept
-        test.moveWasteToTableau(4);
-        System.out.println(test);
-        test.draw();
-        System.out.println(test);
-        test.draw();
-        test.draw();
-        test.draw();
-        System.out.println(test);
-        test.moveWasteToTableau(3);
-        System.out.println(test); // good
-        test.draw();
-        test.draw();
-        test.draw();
-        System.out.println(test);
-        test.moveWasteToTableau(2);
-        System.out.println(test);
-        test.draw();
-        test.draw();
-        System.out.println(test);
-        test.moveWasteToTableau(1);
-        System.out.println(test);
-        test.draw();
-        test.draw();
-        System.out.println(test);
-        test.moveWastetoFoundation(Card.Suit.DIAMONDS);
-        System.out.println(test);
-        test.draw();
-        System.out.println(test);
-        test.moveWasteToTableau(4);
-        System.out.println(test);
-        test.move(2, 1, 1);
-        System.out.println(test);
-        test.draw();
-        System.out.println(test);
-        test.moveWastetoFoundation(Card.Suit.DIAMONDS); // didnt work need to move from tab to foundation first
-        System.out.println(test);
-
-        test.moveTableauToFoundation(4, 5, Card.Suit.DIAMONDS);
-        System.out.println(test);
-        test.moveWastetoFoundation(Card.Suit.DIAMONDS);
-        System.out.println(test);
-        test.draw();
-        System.out.println(test);
-        test.draw();
-        test.moveWasteToTableau(6);
-        System.out.println(test);
-        test.draw();
-        System.out.println(test);
-        test.moveWasteToTableau(3);
-        System.out.println(test);
-        test.draw();
-        test.draw();
-        System.out.println(test);
-        test.draw();
-        System.out.println(test);
-        test.moveWasteToTableau(1);
-        System.out.println(test);
-        test.draw();
-        test.draw();
-        System.out.println(test);
-        test.draw();
-        System.out.println(test);
-        test.recycle();
-        System.out.println(test);
+        // fill up the SPADES
         test.draw();
         System.out.println(test);
         test.moveWastetoFoundation(Card.Suit.SPADES);
-        test.moveTableauToFoundation(4, 4, Card.Suit.SPADES);
-        System.out.println(test);
+        test.draw();
+        test.moveWastetoFoundation(Card.Suit.SPADES);
+        test.draw();
+        test.moveWastetoFoundation(Card.Suit.SPADES);
+        test.draw();
+        test.moveWastetoFoundation(Card.Suit.SPADES);
+        test.draw();
+        test.moveWastetoFoundation(Card.Suit.SPADES);
+        test.draw();
+        test.moveWastetoFoundation(Card.Suit.SPADES);
+        test.draw();
+        test.moveWastetoFoundation(Card.Suit.SPADES);
+        test.draw();
+        test.moveWastetoFoundation(Card.Suit.SPADES);
+        test.draw();
+        test.moveWastetoFoundation(Card.Suit.SPADES);
+        test.draw();
+        test.moveWastetoFoundation(Card.Suit.SPADES);
+        test.draw();
+        test.moveWastetoFoundation(Card.Suit.SPADES);
+        test.draw();
+        test.moveWastetoFoundation(Card.Suit.SPADES);
+        test.draw();
+        test.moveWastetoFoundation(Card.Suit.SPADES);
         test.draw();
         System.out.println(test);
-        test.moveWasteToTableau(6);
-        System.out.println(test);
+
+        // FILL UP THE DIAMONDS
+        test.moveWastetoFoundation(Card.Suit.DIAMONDS);
+        test.draw();
+        test.moveWastetoFoundation(Card.Suit.DIAMONDS);
+        test.draw();
+        test.moveWastetoFoundation(Card.Suit.DIAMONDS);
+        test.draw();
+        test.moveWastetoFoundation(Card.Suit.DIAMONDS);
+        test.draw();
+        test.moveWastetoFoundation(Card.Suit.DIAMONDS);
+        test.draw();
+        test.moveWastetoFoundation(Card.Suit.DIAMONDS);
+        test.draw();
+        test.moveWastetoFoundation(Card.Suit.DIAMONDS);
+        test.draw();
+        test.moveWastetoFoundation(Card.Suit.DIAMONDS);
+        test.draw();
+        test.moveWastetoFoundation(Card.Suit.DIAMONDS);
+        test.draw();
+        test.moveWastetoFoundation(Card.Suit.DIAMONDS);
         test.draw();
         System.out.println(test);
-        test.moveWasteToTableau(3);
-        test.move(4, 3, 3);
-        System.out.println(test);
+        test.moveWastetoFoundation(Card.Suit.DIAMONDS);
         test.draw();
         System.out.println(test);
-        test.draw();
+        test.moveTableauToFoundation(7, 6, Card.Suit.DIAMONDS);
         System.out.println(test);
-        test.moveWasteToTableau(1);
+        test.move(5, 4, 7);
         System.out.println(test);
-        test.draw();
-        test.draw();
-        System.out.println(test);
-        test.moveWasteToTableau(2);
-        System.out.println(test);
-        test.draw();
+        
+        // now its just pure klondike sorting
+        test.moveFoundationToTableau(Card.Suit.DIAMONDS, 5);
         System.out.println(test);
         test.move(2, 1, 7);
         System.out.println(test);
-        test.draw();
-        System.out.println(test);
-        test.moveWastetoFoundation(Card.Suit.DIAMONDS);
-        System.out.println(test);
-        test.draw();
+        test.moveTableauToFoundation(5, 4, Card.Suit.DIAMONDS);
+        test.move(2, 0, 5);
+        System.out.println(test); // got an out of bounds error [fixed] -- was trying to flip card at index -1
 
+        test.move(5, 3, 2);
         System.out.println(test);
-        test.moveWasteToTableau(1);
+        test.moveTableauToFoundation(5, 2, Card.Suit.HEARTS);
         System.out.println(test);
-        test.draw();
-        System.out.println(test);
-        test.draw();
-        System.out.println(test);
-        test.moveWasteToTableau(7);
-        System.out.println(test);
-        test.draw();
-        System.out.println(test);
-        test.moveWasteToTableau(5);
-        System.out.println(test);
-        test.move(6, 5, 1);
-        System.out.println(test);
-        test.moveTableauToFoundation(1, 9, Card.Suit.SPADES);
-        test.moveTableauToFoundation(1, 8, Card.Suit.SPADES);
-        System.out.println(test);
-        test.moveTableauToFoundation(1, 8, Card.Suit.DIAMONDS);
-        System.out.println(test);
-        test.move(4, 2, 1);
-    
-        System.out.println(test);
-        test.moveFoundationToTableau(Card.Suit.SPADES, 1);
+        System.out.println(test.isGameOver()); // false
+
+        test.moveTableauToFoundation(5, 1, Card.Suit.HEARTS);
+        test.moveTableauToFoundation(5, 0, Card.Suit.HEARTS);
         System.out.println(test);
 
-        test.moveTableauToFoundation(1, 9, Card.Suit.SPADES);
+        test.move(7, 5, 5);
         System.out.println(test);
-        test.move(4, 1, 6);
+        test.moveTableauToFoundation(7, 4, Card.Suit.CLUBS);
         System.out.println(test);
+        test.moveTableauToFoundation(7, 3, Card.Suit.CLUBS);
+        test.moveTableauToFoundation(7, 2, Card.Suit.CLUBS);
+        test.moveTableauToFoundation(7, 1, Card.Suit.CLUBS);
+        test.moveTableauToFoundation(7, 0, Card.Suit.CLUBS);
+        System.out.println(test);
+        test.moveTableauToFoundation(6, 5, Card.Suit.CLUBS);
+        test.moveTableauToFoundation(6, 4, Card.Suit.CLUBS);
+        test.moveTableauToFoundation(6, 3, Card.Suit.CLUBS);
+        test.moveTableauToFoundation(6, 2, Card.Suit.CLUBS);
+        test.moveTableauToFoundation(6, 1, Card.Suit.CLUBS);
+        test.moveTableauToFoundation(6, 0, Card.Suit.CLUBS);
+        System.out.println(test);
+        System.out.println(test.isGameOver()); // false
+        test.moveTableauToFoundation(4, 3, Card.Suit.HEARTS);
+        test.moveTableauToFoundation(4, 2, Card.Suit.HEARTS);
+        test.moveTableauToFoundation(4, 1, Card.Suit.HEARTS);
+        test.moveTableauToFoundation(4, 0, Card.Suit.HEARTS);
+        System.out.println(test);
+        test.moveTableauToFoundation(3, 2, Card.Suit.HEARTS);
+        test.moveTableauToFoundation(3, 1, Card.Suit.HEARTS);
+        test.moveTableauToFoundation(3, 0, Card.Suit.HEARTS);
+        System.out.println(test);
+        test.moveTableauToFoundation(5, 2, Card.Suit.HEARTS);
+        System.out.println(test);
+        test.moveTableauToFoundation(5, 1, Card.Suit.CLUBS);
+        System.out.println(test);
+        test.moveTableauToFoundation(2, 1, Card.Suit.HEARTS);
+        test.moveTableauToFoundation(1, 0, Card.Suit.HEARTS);
+        System.out.println(test);
+        test.moveTableauToFoundation(2, 0, Card.Suit.CLUBS);
+        System.out.println(test.isGameOver()); // false
+        System.out.println();
 
-        test.recycle();
+        test.moveTableauToFoundation(5, 0, Card.Suit.DIAMONDS);
         System.out.println(test);
-        test.draw();
-        System.out.println(test);
-        test.move(3, 5, 6);
-        System.out.println(test);
-        test.moveTableauToFoundation(3, 4, Card.Suit.DIAMONDS);
-        System.out.println(test);
-
-
+        System.out.println(test.isGameOver()); // true
     }
 }

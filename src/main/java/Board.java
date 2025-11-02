@@ -144,7 +144,7 @@ public class Board {
         StringBuilder swPile = new StringBuilder(); 
         StringBuilder fPile = new StringBuilder(); 
         StringBuilder tPiles = new StringBuilder(); 
-        StringBuilder colCounter = new StringBuilder();
+        StringBuilder sb = new StringBuilder(); // column counter
         
         // stock waste piles
         swPile.append(cell(stock.toDisplay())); 
@@ -163,27 +163,29 @@ public class Board {
             }
         }
 
-        // for (int col = 0; col < getColumns(); col++) {
-        //     colCounter.append(col);
-        // }
+        // 1 -> 7 
+        for (int i = 1; i <= getColumns(); i++) {
+            sb.append(i + "     ");
+        }
 
         for (int row = 0; row < max; row++) {
             tPiles.append(row + " "); // print row num indexed 0-based
             for (int col = 0; col < getColumns(); col++) {
+
                 Tableau t = tableaus.get(col);
                 if (row < t.size()) {
                     tPiles.append(cell(t.getCard(row).toDisplay()));
                 } else {
-                    tPiles.append(cell(""));
+                    tPiles.append(cell("")); 
                 }
             }
             tPiles.append("\n"); // next row
         }
 
         // board layout
-        return "-----------------------------------------\n" + 
-        swPile.toString() + "\t" + fPile.toString() + "\n"
-        + "\n"
+        return "-----------------------------------------\n"
+        + "  " + swPile.toString() + "      " + fPile.toString() + "\n"
+        + "   " + sb.toString() + "\n"
         + tPiles.toString();
     }
 
