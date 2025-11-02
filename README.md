@@ -20,6 +20,7 @@ to follow similar structure. This helps with testing out functions
 - Added static helper function in board class to format the display better
 - Added a players `draw()` function, Stock -> Waste from waste, play the card
 - Fixed alignment on `Board.java`
+- Fully functional GameEngine complete.
 
 ### Last weeks: (Oct 20-26, 2025)
 
@@ -30,7 +31,6 @@ function to return the first card in a tab.
 - Finished `canMove()` function which validates moving cards from one tableau to another
 - Added `remove(card)` function to Tableau class to be able to remove card from column without
 returning a value, like the `draw()` function
-- Fully functional GameEngine complete.
 
 ## Current State of Game
 - Pile interface lays out basic pile functions for `Stock` `Waste` `Foundation` `Tableau`
