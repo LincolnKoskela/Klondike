@@ -21,12 +21,6 @@ to follow similar structure. This helps with testing out functions
 - Added a players `draw()` function, Stock -> Waste from waste, play the card
 - Fixed alignment on `Board.java`
 
-### Moving Functions:
-- WasteToFoundation [good]
-- WasteToTableau [good]
-- TabToTab - just remember that rows are 0-based and columns are 1-based [good] so far
-
-
 ### Last weeks: (Oct 20-26, 2025)
 
 - Finished `recycle()` function added a while loop to push cards onto stock until waste is empty 
