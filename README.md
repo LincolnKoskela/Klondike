@@ -5,11 +5,14 @@ pile behaviors, move validation, and board setup. The goal of this project is to
 knowledge and skillset in object oriented principles and designs in Java. I enjoy building card games, 
 and plan to build several more in the future.
 
-This project is currently in active development with daily commits as part of my learning journey in Java and object-oriented design.
+This project is currently in active development with daily commits as part of my learning in Java and object-oriented design.
 
 ## Weekly Progress Log
 
-### This weeks: (Oct 26-Nov 02, 2025)
+### This weeks: (Nov 03 - 09, 2025)
+- Constructing user inputs
+
+### Last weeks: (Oct 26-Nov 02, 2025)
 - Added unshuffled deck overload along with gameengine overload to use unshuffled 
 decks for more efficient testing. 
 - Edited Deck constructor to give the option to shuffle or not, and edited `GameEngine` constructor 
@@ -22,23 +25,12 @@ to follow similar structure. This helps with testing out functions
 - Fixed alignment on `Board.java`
 - Fully functional GameEngine complete.
 
-### Last weeks: (Oct 20-26, 2025)
-
-- Finished `recycle()` function added a while loop to push cards onto stock until waste is empty 
-- Created `Play.java` to start thinking about how Play will interact with `GameEngine`
-- Edited what was `topCard()` in tableau class to be called `head()` and added `topCard()` 
-function to return the first card in a tab. 
-- Finished `canMove()` function which validates moving cards from one tableau to another
-- Added `remove(card)` function to Tableau class to be able to remove card from column without
-returning a value, like the `draw()` function
-
 ## Current State of Game
 - Pile interface lays out basic pile functions for `Stock` `Waste` `Foundation` `Tableau`
 - Terminal logic and testing
 - Card/Deck creation, basic pile functionalities and acceptance
 - Deal a new board with initial card layout of all tableaus and stock pile
-- **Left off at:** Finished and tested a fully functional game engine. Game is working
-properly. Now need to construct `Play.java` 
+- **Left off at:** Constructing userInput keys, how to play, and making the loop to play the game.
 
 ## Project Management
 You can view my Agile board and current development progress here:
@@ -90,3 +82,15 @@ Each object has a `toString()` output for testing and debugging the internal sta
 - Langauge: Java
 - IDE: VS CODE
 - Version Control: Git & Github
+
+## History Progress Log
+
+### (Oct 20-26, 2025)
+
+- Finished `recycle()` function added a while loop to push cards onto stock until waste is empty 
+- Created `Play.java` to start thinking about how Play will interact with `GameEngine`
+- Edited what was `topCard()` in tableau class to be called `head()` and added `topCard()` 
+function to return the first card in a tab. 
+- Finished `canMove()` function which validates moving cards from one tableau to another
+- Added `remove(card)` function to Tableau class to be able to remove card from column without
+returning a value, like the `draw()` function
