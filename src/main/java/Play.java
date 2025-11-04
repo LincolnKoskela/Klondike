@@ -44,12 +44,16 @@ public class Play {
         return "Select Destination Column: \n";
     }
 
+    public static String selectFoundation() {
+        return "Select Foundation: ";
+    }
+
     public static String howToPlay() {
         StringBuilder sb = new StringBuilder();
 
         sb.append("How To Play on Console: \n");
         sb.append("-----------------------------------\n");
-        sb.append("d - draw card.\n");
+        sb.append("x - draw card.\n");
         sb.append("t - play card waste to tableau.\n");
         sb.append("f - play card waste to foundation.\n");
         sb.append("a - play card from tableau to tableau\n");
@@ -61,6 +65,14 @@ public class Play {
         sb.append("Select the number column. \n");
         sb.append("Select the row. \n");
         sb.append("Select destination.\n");
+        sb.append("-----------------------------------\n");
+
+        sb.append("Select a Foundation: \n");
+        sb.append("d  - DIAMOND\n");
+        sb.append("h - HEARTS\n");
+        sb.append("c - CLUBS\n");
+        sb.append("s - SPADES\n");
+
 
         return sb.toString();
 
@@ -87,6 +99,8 @@ public class Play {
         int row;
         int dest;
 
+        char foundation;
+
         userInput = s.nextInt();
         switch (userInput) {
             case 1:
@@ -111,19 +125,56 @@ public class Play {
             move = s.nextLine().charAt(0);
             move = Character.toLowerCase(move);
 
-            if (move == 'd') { // draw
+            if (move == 'x') { // draw
                 game.draw();
             } else if (move == 't') { // waste to tableau
                 Play.selectDestination();
                 dest = s.nextInt();
                 game.moveWasteToTableau(dest);
             } else if (move == 'f') { // waste to foundation
-                game.moveWastetoFoundation();
-            }
+                Play.selectFoundation();
+                foundation = s.nextLine().charAt(0);
+                foundation = Character.toLowerCase(foundation);
+                if (foundation == 'd') {
+                    game.moveWastetoFoundation(Card.Suit.DIAMONDS);
+                } else if (foundation == 'h') {
+                    game.moveWastetoFoundation(Card.Suit.HEARTS);
+                } else if (foundation == 'c') {
+                    game.moveWastetoFoundation(Card.Suit.CLUBS);
+                } else if (foundation == 's') {
+                    game.moveWastetoFoundation(Card.Suit.SPADES);
+                } else {
+                    continue;
+                }
+            } else if (move == 'a') { // tableau to tableau
+                Play.selectCol();
+                source = s.nextInt();
+                Play.selectRow();
+                row = s.nextInt();
+                Play.selectDestination();
+                dest = s.nextInt();
+                game.move(source, row, dest);
+            } else if (move == 'w') { // foundation to tableau
+                Play.selectFoundation();
+                foundation = s.nextLine().charAt(0);
+                foundation = Character.toLowerCase(foundation);
+                Play.selectDestination();
+                dest = s.nextInt();
 
+                if (foundation == 'd') {
+                    game.moveFoundationToTableau(Card.Suit.DIAMONDS, dest);
+                } else if (foundation == 'h') {
+                    game.moveFoundationToTableau(Card.Suit.HEARTS, dest);
+                } else if (foundation == 'c') {
+                    game.moveFoundationToTableau(Card.Suit.CLUBS, dest);
+                } else if (foundation == 's') {
+                    game.moveFoundationToTableau(Card.Suit.SPADES, dest);
+                } else {
+                    continue;
+                }
+            }
         }
 
         s.close();
     }
-
 }

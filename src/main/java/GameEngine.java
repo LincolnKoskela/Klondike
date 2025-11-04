@@ -34,6 +34,11 @@ public class GameEngine {
         this.count = 0;
     }
 
+    // get board
+    public Board getBoard () {
+        return board;
+    }
+
     /**
      * This function deals the deck of cards into the 7 tableau columns.
      * The rest of the cards go into the stock. Handle the face of the cards.
