@@ -3,11 +3,12 @@ import java.util.ArrayList;
 import java.util.EnumMap;
 
 /**
- * The Board class creates 7 tableau piles, 4 foundation piles, 1 stock and 1 waste. 
+ * The Board class creates 7 tableau piles, 4 foundation piles, 1 stock and 1
+ * waste.
  */
 
 public class Board {
-    
+
     // boards private fields
     private Stock stock;
     private Waste waste;
@@ -22,7 +23,7 @@ public class Board {
         this.waste = new Waste();
 
         /*
-         * key is Card.suit 
+         * key is Card.suit
          * value is corresponding foundation pile object
          * now there's 4 foundations, 1 for each suit
          */
@@ -36,7 +37,7 @@ public class Board {
         for (int i = 0; i < getColumns(); i++) {
             this.tableaus.add(new Tableau());
         }
-        
+
     }
 
     // get me
@@ -64,9 +65,10 @@ public class Board {
     }
 
     /**
-     * Theres 7 tableau columns in Klondikes Tableau section 
+     * Theres 7 tableau columns in Klondikes Tableau section
      * of the board. This function is used for looping through
-     * the columns instead of hardcoding to make more understandable. 
+     * the columns instead of hardcoding to make more understandable.
+     * 
      * @return 7
      */
     public int getColumns() {
@@ -78,8 +80,8 @@ public class Board {
      * a redeal. Clean slate. This function can be called
      * instead of making a new board object each time.
      * 
-     * Looping through the enum, the values() function gives you 
-     * all the foundation objects in the enummap. 
+     * Looping through the enum, the values() function gives you
+     * all the foundation objects in the enummap.
      */
     public void clear() {
         stock.clear();
@@ -95,8 +97,9 @@ public class Board {
     }
 
     /**
-     * Check if one of the piles is not full. Full means to have 
+     * Check if one of the piles is not full. Full means to have
      * size of 13 cards and king on top, ranked from Ace up to King
+     * 
      * @return false if one pile is not full
      */
     public boolean isGameWon() {
@@ -110,6 +113,7 @@ public class Board {
 
     /**
      * Count the number of foundations complete
+     * 
      * @return int value of foundations complete
      */
     public int foundationsComplete() {
@@ -124,38 +128,38 @@ public class Board {
     }
 
     /*
-     * Width 3 characters wide left aligned 
+     * Width 3 characters wide left aligned
      */
     private static final String CELL_FORMAT = "[%-3s] ";
 
     /**
-     * Helper function for board display. Takes the CELL_FORMAT variable and handles 
-     * nulls using tenary operator. 
+     * Helper function for board display. Takes the CELL_FORMAT variable and handles
+     * nulls using tenary operator.
      */
     private static String cell(String str) {
         return String.format(CELL_FORMAT, (str == null || str.isEmpty()) ? "" : str);
     }
-    
+
     /**
      * Board layout
      */
     @Override
     public String toString() {
-        StringBuilder swPile = new StringBuilder(); 
-        StringBuilder fPile = new StringBuilder(); 
-        StringBuilder tPiles = new StringBuilder(); 
+        StringBuilder swPile = new StringBuilder();
+        StringBuilder fPile = new StringBuilder();
+        StringBuilder tPiles = new StringBuilder();
         StringBuilder sb = new StringBuilder(); // column counter
-        
+
         // stock waste piles
-        swPile.append(cell(stock.toDisplay())); 
-        swPile.append(cell(waste.toDisplay())); 
+        swPile.append(cell(stock.toDisplay()));
+        swPile.append(cell(waste.toDisplay()));
 
         // foundation piles
         for (Foundation f : foundations.values()) {
             fPile.append(cell(f.toDisplay()));
         }
 
-        // tableau columns 
+        // tableau columns
         int max = 0;
         for (Tableau t : tableaus) {
             if (t.size() > max) {
@@ -163,7 +167,7 @@ public class Board {
             }
         }
 
-        // 1 -> 7 
+        // 1 -> 7
         for (int i = 1; i <= getColumns(); i++) {
             sb.append(i + "     ");
         }
@@ -176,7 +180,7 @@ public class Board {
                 if (row < t.size()) {
                     tPiles.append(cell(t.getCard(row).toDisplay()));
                 } else {
-                    tPiles.append(cell("")); 
+                    tPiles.append(cell(""));
                 }
             }
             tPiles.append("\n"); // next row
@@ -184,9 +188,9 @@ public class Board {
 
         // board layout
         return "-----------------------------------------\n"
-        + "  " + swPile.toString() + "      " + fPile.toString() + "\n"
-        + "   " + sb.toString() + "\n"
-        + tPiles.toString();
+                + "  " + swPile.toString() + "      " + fPile.toString() + "\n"
+                + "   " + sb.toString() + "\n"
+                + tPiles.toString();
     }
 
     public static void main(String[] args) {
@@ -366,7 +370,6 @@ public class Board {
 
         System.out.println(b.foundationsComplete()); // 4
         System.out.println(b.isGameWon()); // true
-        
 
     }
 
