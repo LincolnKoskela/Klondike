@@ -5,12 +5,13 @@ pile behaviors, move validation, and board setup. The goal of this project is to
 knowledge and skillset in object oriented principles and designs in Java. I enjoy building card games, 
 and plan to build several more in the future.
 
-This project is currently in active development with daily commits as part of my learning in Java and object-oriented design.
+This project is playable from console. 
 
 ## Weekly Progress Log
 
 ### This weeks: (Nov 03 - 09, 2025)
 - Constructing user inputs
+- Game is playable. Still finding little bugs while testing game out. 
 
 ### Last weeks: (Oct 26-Nov 02, 2025)
 - Added unshuffled deck overload along with gameengine overload to use unshuffled 
@@ -30,7 +31,7 @@ to follow similar structure. This helps with testing out functions
 - Terminal logic and testing
 - Card/Deck creation, basic pile functionalities and acceptance
 - Deal a new board with initial card layout of all tableaus and stock pile
-- **Left off at:** Constructing userInput keys, how to play, and making the loop to play the game.
+- **Left off at:** Clean up the main method and have cleaner approach. 
 
 ## Project Management
 You can view my Agile board and current development progress here:
