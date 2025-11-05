@@ -58,6 +58,8 @@ public class Play {
         sb.append("f - play card waste to foundation.\n");
         sb.append("a - play card from tableau to tableau\n");
         sb.append("w - play card foundation to tableau\n");
+        sb.append("e - tableau to foundation\n");
+        sb.append("r - recycle -> push cards from waste back into stock\n");
         sb.append("------------------------------------\n");
         sb.append("\n");
 
@@ -92,13 +94,11 @@ public class Play {
         Scanner s = new Scanner(System.in);
         GameEngine game = new GameEngine(true);
         int userInput;
-        char move;
         boolean play = false;
 
         int source;
         int row;
         int dest;
-
         char foundation;
 
         userInput = s.nextInt();
@@ -119,21 +119,21 @@ public class Play {
         }
 
         while (!game.isGameOver() && play == true) {
-            Play.display(game);
+            System.out.println(Play.display(game)); 
 
-            System.out.println("Select a move: ");
-            move = s.nextLine().charAt(0);
+            System.out.print("Select a move: ");
+            char move = s.next().charAt(0);
             move = Character.toLowerCase(move);
 
             if (move == 'x') { // draw
                 game.draw();
             } else if (move == 't') { // waste to tableau
-                Play.selectDestination();
+                System.out.print(Play.selectDestination());  
                 dest = s.nextInt();
                 game.moveWasteToTableau(dest);
             } else if (move == 'f') { // waste to foundation
-                Play.selectFoundation();
-                foundation = s.nextLine().charAt(0);
+                System.out.print(Play.selectFoundation()); 
+                foundation = s.next().charAt(0);
                 foundation = Character.toLowerCase(foundation);
                 if (foundation == 'd') {
                     game.moveWastetoFoundation(Card.Suit.DIAMONDS);
@@ -147,18 +147,18 @@ public class Play {
                     continue;
                 }
             } else if (move == 'a') { // tableau to tableau
-                Play.selectCol();
+                System.out.print(Play.selectCol()); 
                 source = s.nextInt();
-                Play.selectRow();
+                System.out.print(Play.selectRow()); 
                 row = s.nextInt();
-                Play.selectDestination();
+                System.out.print(Play.selectDestination()); 
                 dest = s.nextInt();
                 game.move(source, row, dest);
             } else if (move == 'w') { // foundation to tableau
-                Play.selectFoundation();
-                foundation = s.nextLine().charAt(0);
+                System.out.print(Play.selectFoundation());
+                foundation = s.next().charAt(0);
                 foundation = Character.toLowerCase(foundation);
-                Play.selectDestination();
+                System.out.print(Play.selectDestination());
                 dest = s.nextInt();
 
                 if (foundation == 'd') {
@@ -172,9 +172,41 @@ public class Play {
                 } else {
                     continue;
                 }
+            } else if (move == 'e') { // tab to foundation
+                System.out.print(selectCol());
+                source = s.nextInt();
+                System.out.print(selectRow());
+                row = s.nextInt();
+                System.out.print(selectFoundation());
+                foundation = s.next().charAt(0);
+                foundation = Character.toLowerCase(foundation);
+
+                if (foundation == 'd') {
+                    game.moveTableauToFoundation(source, row, Card.Suit.DIAMONDS);
+                } else if (foundation == 'h') {
+                    game.moveTableauToFoundation(source, row, Card.Suit.HEARTS);
+                } else if (foundation == 'c') {
+                    game.moveTableauToFoundation(source, row, Card.Suit.CLUBS);
+                } else if (foundation == 's') {
+                    game.moveTableauToFoundation(source, row, Card.Suit.SPADES);
+                } else {
+                    continue;
+                }
+            } else if (move == 'r') {
+                game.recycle();
+            } else if (move == 'q') { // quit
+                System.out.println("You've quit the game, bye now!");
+                play = false;
+            } else {
+                System.out.println("Invalid input.");
+            }
+
+            // if you beat the game
+            if (game.isGameOver()) {
+                System.out.println("Congrats! You've successfully beat the game!");
+                play = false;
             }
         }
-
         s.close();
     }
 }

@@ -88,7 +88,7 @@ public class GameEngine {
      */
     public void recycle() {
         if (!board.getStock().isEmpty()) {
-            throw new IllegalArgumentException("Cannot recycle: the stock is not empty.");
+            System.out.print("Stock is not empty. Cannot recycle.");
         } else {
             // while waste is not empty, draw card from waste push stock
             while (!board.getWaste().isEmpty())
@@ -157,7 +157,7 @@ public class GameEngine {
                 }
             }
         } else {
-            throw new IllegalArgumentException("Move invalid.");
+            System.out.println("Invalid move. ");
         }
     }
 
@@ -187,17 +187,19 @@ public class GameEngine {
 
     public void moveTableauToFoundation(int source, int sourceRow, Card.Suit suit) {
         Card card = board.getTableau(source).getCard(sourceRow);
+
         if (board.getFoundation(suit).canAccept(card)) {
             board.getFoundation(suit).push(card);
             board.getTableau(source).remove(card);
+            if (sourceRow > 0) {
+                Card flipMe = board.getTableau(source).getCard(sourceRow - 1);
+                if (!flipMe.isFaceUp()) {
+                    flipMe.flip();
+                }
+        }
         }
 
-        if (sourceRow > 0) {
-            Card flipMe = board.getTableau(source).getCard(sourceRow - 1);
-            if (!flipMe.isFaceUp()) {
-                flipMe.flip();
-            }
-        }
+        
 
     }
 
