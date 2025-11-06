@@ -12,6 +12,8 @@ This project is playable from console.
 ### This weeks: (Nov 03 - 09, 2025)
 - Constructing user inputs
 - Game is playable. Still finding little bugs while testing game out. 
+- Added Command Interface to use maps instead of if's. This allows associating
+keys with actions. Such as 'x' -> game.draw() inside a map.
 
 ### Last weeks: (Oct 26-Nov 02, 2025)
 - Added unshuffled deck overload along with gameengine overload to use unshuffled 
