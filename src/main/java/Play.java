@@ -15,6 +15,8 @@
  * 
  */
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Play {
@@ -78,6 +80,42 @@ public class Play {
 
         return sb.toString();
 
+    }
+
+    /**
+     * My control system for userInput and controls to move cards around
+     * @return HashMap<Character, Command> (interface)
+     */
+    public static HashMap<Character, Command> createMap() {
+        HashMap<Character, Command> map = new HashMap<>();
+        map.put('x', (game, s) -> game.draw()); // draw card
+        map.put('t', (game, s) -> { // to tableau
+            System.out.println(selectDestination());
+            int dest = s.nextInt();
+            game.moveWasteToTableau(dest);
+        });
+        map.put('f', (game, s) -> { // to foundation, using foundationKey() function
+            System.out.println(selectFoundation());
+            char move = s.next().charAt(0);
+            move = Character.toLowerCase(move);
+            if (foundationKey().get(move) != null) {
+                game.moveWastetoFoundation(foundationKey().get(move));
+            } else {
+                System.out.println("Invalid key.");
+            }
+        });
+    }
+
+
+    // controls for selecting foundation, returns map
+    public static HashMap<Character, Card.Suit> foundationKey() {
+        HashMap<Character, Card.Suit> map = new HashMap<>();
+        map.put('d', Card.Suit.DIAMONDS);
+        map.put('h', Card.Suit.HEARTS);
+        map.put('c', Card.Suit.CLUBS);
+        map.put('s', Card.Suit.SPADES);
+
+        return map;
     }
 
     /**

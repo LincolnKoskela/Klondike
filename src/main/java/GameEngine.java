@@ -111,6 +111,11 @@ public class GameEngine {
     public boolean canMove(int source, int sourceRow, int dest) {
         Tableau s = board.getTableau(source); // source tab
         Tableau d = board.getTableau(dest);
+        
+
+        if (sourceRow < 0) {
+            sourceRow = 0;
+        }
 
         Card card = s.getCard(sourceRow);
         if (!card.isFaceUp()) {
