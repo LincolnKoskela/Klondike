@@ -69,10 +69,10 @@ Each object has a `toString()` output for testing and debugging the internal sta
 | **Milestone** | **Description** |
 |----------------|--------------------|
 | **GameEngine completion** | Full movement management, stock/waste, foudations, and tableau's in fluidity. |
-| **Interactive terminal UI** | Add input commands for moves (ex. `move t1 fSpades`) |
-| **Graphic interface** | Implement a GUI version. Swing/JavaFX or JS/web | 
+| **Interactive terminal UI** | Add input commands for moves |
+| **Graphic interface** | Implement a GUI version. JavaFX, then JS/web | 
 | **Save/load system** | Save game state and resume for later |
-| **Make CPU strategies** | Make AI's to revert to specific strategies (ex. always select from tab before stock) |hjhj
+| **Make CPU strategies** | Make AI's to revert to specific strategies (ex. always select from tab before stock) |
 | **Statistical Analysis** | (ex. when x card is played, outcomes of winning changes) |
 
 ## How to Run
