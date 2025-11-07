@@ -2,17 +2,6 @@
 /**
  * This class interacts takes input from the user and 
  * uses the GameEngine to play Klondike Solitaire.
- * 
- * How to play: 
- * BUTTONS USED: d/t/f/a/s/q/w
- * char d -> draw() stock -> waste
- * char t -> waste to tableau: which tableau? take number input
- * char f -> waste to foundation: 
- * char a -> tab to tab: which tabs? take number input
- * char w -> foundation -> tab: which tab? take number input
- * 
- * char q -> quit.
- * 
  */
 
 import java.util.HashMap;
@@ -20,6 +9,99 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class Play {
+    private static final Map<Character, Command> COMMAND_MAP = createMap();
+    private static final Map<Character, Card.Suit> FOUNDATION_MAP = foundationKey();
+
+    // controls for selecting foundation, returns map
+    public static Map<Character, Card.Suit> foundationKey() {
+        HashMap<Character, Card.Suit> map = new HashMap<>();
+        map.put('d', Card.Suit.DIAMONDS);
+        map.put('h', Card.Suit.HEARTS);
+        map.put('c', Card.Suit.CLUBS);
+        map.put('s', Card.Suit.SPADES);
+
+        return map;
+    }
+
+    /**
+     * My control system for userInput and controls to move cards around
+     * @return Map and stored in static final field COMMAND_MAP
+     */
+    public static Map<Character, Command> createMap() {
+        Map<Character, Command> map = new HashMap<>();
+        map.put('x', (game, s) -> game.draw()); // draw card
+        map.put('t', (game, s) -> { // to tableau
+            int dest = askForTableauDestination(s);
+            game.moveWasteToTableau(dest);
+        });
+        map.put('f', (game, s) -> { // to foundation
+            char move = askForFoundationDestination(s);
+            if (FOUNDATION_MAP.get(move) != null) {
+                game.moveWastetoFoundation(FOUNDATION_MAP.get(move));
+            } else {
+                printInvalid();
+            }
+        });
+        map.put('a', (game, s) -> { // tab to tab
+            int source = askForTableauSource(s);
+            int row = askForTableauRow(s);
+            int dest = askForTableauDestination(s);
+
+            game. move(source, row, dest);
+        });
+        map.put('w', (game, s) -> { // foundation to tableau
+            char move = askForFoundationDestination(s);
+            int dest = askForTableauDestination(s);
+
+            if (FOUNDATION_MAP.get(move) != null) {
+                game.moveFoundationToTableau(FOUNDATION_MAP.get(move), dest);
+            } else {
+                printInvalid();
+            }
+        });
+        map.put('e', (game, s) -> { // tableau to foundation
+            int source = askForTableauSource(s);
+            char move = askForFoundationDestination(s);
+
+            if (FOUNDATION_MAP.get(move) != null) {
+                game.moveTableauToFoundation(source, FOUNDATION_MAP.get(move));
+            } else {
+                printInvalid();
+            }
+        });
+        map.put('r', (game, s) -> game.recycle()); // recycle
+
+        return map;
+    }
+
+    public static int askForTableauDestination(Scanner s) {
+        System.out.println(selectDestination());
+        return s.nextInt();
+    }
+
+    public static char askForFoundationDestination(Scanner s) {
+        System.out.println(selectFoundation());
+        return Character.toLowerCase(s.next().charAt(0));
+    }
+
+    public static int askForTableauRow(Scanner s) {
+        System.out.println(selectRow());
+        return s.nextInt();
+    }
+
+    public static int askForTableauSource(Scanner s) {
+        System.out.println(selectCol());
+        return s.nextInt();
+    }
+
+    // public access to commands
+    public static Map<Character, Command> getCommands() {
+        return COMMAND_MAP;
+    }
+
+    public static String printInvalid() {
+        return "Invalid input.";
+    }
 
     public static String welcome() {
         return "Welcome to Klondike Solitaire!\n"
@@ -35,19 +117,23 @@ public class Play {
      * @return a string display, when player selects t, a, or w
      */
     public static String selectCol() {
-        return "Select Source Column: \n";
+        return "Select Source Column: ";
     }
 
     public static String selectRow() {
-        return "Select Source Row: \n";
+        return "Select Source Row: ";
     }
 
     public static String selectDestination() {
-        return "Select Destination Column: \n";
+        return "Select Destination Column: ";
     }
 
     public static String selectFoundation() {
         return "Select Foundation: ";
+    }
+
+    public static String controls() {
+        return "x - draw | t - tab | f - found | a - tab to tab | w - found to tab | e - tab to f | r - recycle\n";
     }
 
     public static String howToPlay() {
@@ -80,43 +166,7 @@ public class Play {
 
         return sb.toString();
 
-    }
-
-    /**
-     * My control system for userInput and controls to move cards around
-     * @return HashMap<Character, Command> (interface)
-     */
-    public static HashMap<Character, Command> createMap() {
-        HashMap<Character, Command> map = new HashMap<>();
-        map.put('x', (game, s) -> game.draw()); // draw card
-        map.put('t', (game, s) -> { // to tableau
-            System.out.println(selectDestination());
-            int dest = s.nextInt();
-            game.moveWasteToTableau(dest);
-        });
-        map.put('f', (game, s) -> { // to foundation, using foundationKey() function
-            System.out.println(selectFoundation());
-            char move = s.next().charAt(0);
-            move = Character.toLowerCase(move);
-            if (foundationKey().get(move) != null) {
-                game.moveWastetoFoundation(foundationKey().get(move));
-            } else {
-                System.out.println("Invalid key.");
-            }
-        });
-    }
-
-
-    // controls for selecting foundation, returns map
-    public static HashMap<Character, Card.Suit> foundationKey() {
-        HashMap<Character, Card.Suit> map = new HashMap<>();
-        map.put('d', Card.Suit.DIAMONDS);
-        map.put('h', Card.Suit.HEARTS);
-        map.put('c', Card.Suit.CLUBS);
-        map.put('s', Card.Suit.SPADES);
-
-        return map;
-    }
+    }    
 
     /**
      * Use to continously update board after each move
@@ -133,11 +183,6 @@ public class Play {
         GameEngine game = new GameEngine(true);
         int userInput;
         boolean play = false;
-
-        int source;
-        int row;
-        int dest;
-        char foundation;
 
         userInput = s.nextInt();
         switch (userInput) {
@@ -157,88 +202,7 @@ public class Play {
         }
 
         while (!game.isGameOver() && play == true) {
-            System.out.println(Play.display(game)); 
-
-            System.out.print("Select a move: ");
-            char move = s.next().charAt(0);
-            move = Character.toLowerCase(move);
-
-            if (move == 'x') { // draw
-                game.draw();
-            } else if (move == 't') { // waste to tableau
-                System.out.print(Play.selectDestination());  
-                dest = s.nextInt();
-                game.moveWasteToTableau(dest);
-            } else if (move == 'f') { // waste to foundation
-                System.out.print(Play.selectFoundation()); 
-                foundation = s.next().charAt(0);
-                foundation = Character.toLowerCase(foundation);
-                if (foundation == 'd') {
-                    game.moveWastetoFoundation(Card.Suit.DIAMONDS);
-                } else if (foundation == 'h') {
-                    game.moveWastetoFoundation(Card.Suit.HEARTS);
-                } else if (foundation == 'c') {
-                    game.moveWastetoFoundation(Card.Suit.CLUBS);
-                } else if (foundation == 's') {
-                    game.moveWastetoFoundation(Card.Suit.SPADES);
-                } else {
-                    continue;
-                }
-            } else if (move == 'a') { // tableau to tableau
-                System.out.print(Play.selectCol()); 
-                source = s.nextInt();
-                System.out.print(Play.selectRow()); 
-                row = s.nextInt();
-                System.out.print(Play.selectDestination()); 
-                dest = s.nextInt();
-                game.move(source, row, dest);
-            } else if (move == 'w') { // foundation to tableau
-                System.out.print(Play.selectFoundation());
-                foundation = s.next().charAt(0);
-                foundation = Character.toLowerCase(foundation);
-                System.out.print(Play.selectDestination());
-                dest = s.nextInt();
-
-                if (foundation == 'd') {
-                    game.moveFoundationToTableau(Card.Suit.DIAMONDS, dest);
-                } else if (foundation == 'h') {
-                    game.moveFoundationToTableau(Card.Suit.HEARTS, dest);
-                } else if (foundation == 'c') {
-                    game.moveFoundationToTableau(Card.Suit.CLUBS, dest);
-                } else if (foundation == 's') {
-                    game.moveFoundationToTableau(Card.Suit.SPADES, dest);
-                } else {
-                    continue;
-                }
-            } else if (move == 'e') { // tab to foundation
-                System.out.print(selectCol());
-                source = s.nextInt();
-                System.out.print(selectRow());
-                row = s.nextInt();
-                System.out.print(selectFoundation());
-                foundation = s.next().charAt(0);
-                foundation = Character.toLowerCase(foundation);
-
-                if (foundation == 'd') {
-                    game.moveTableauToFoundation(source, row, Card.Suit.DIAMONDS);
-                } else if (foundation == 'h') {
-                    game.moveTableauToFoundation(source, row, Card.Suit.HEARTS);
-                } else if (foundation == 'c') {
-                    game.moveTableauToFoundation(source, row, Card.Suit.CLUBS);
-                } else if (foundation == 's') {
-                    game.moveTableauToFoundation(source, row, Card.Suit.SPADES);
-                } else {
-                    continue;
-                }
-            } else if (move == 'r') {
-                game.recycle();
-            } else if (move == 'q') { // quit
-                System.out.println("You've quit the game, bye now!");
-                play = false;
-            } else {
-                System.out.println("Invalid input.");
-            }
-
+            
             // if you beat the game
             if (game.isGameOver()) {
                 System.out.println("Congrats! You've successfully beat the game!");
