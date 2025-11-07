@@ -24,13 +24,7 @@ public class Deck {
         if (shuffled == true) shuffle();
     }
 
-    /**
-     * shuffle the deck of cards
-     * use a temp card variable to swap cards
-     * loop 'backwards' through the deck 
-     * swap with int j and i while j takes random 
-     * card position within deck
-     */
+
     public void shuffle() {
         Random r = new Random();
         Card temp;
@@ -55,16 +49,12 @@ public class Deck {
      */
     public void riffle() {
 
-        // each iteration set 2 cards into deck from each sublist
         for (int i = 0; i < deck.size()-1; i+=2) {
             deck.set(i, deck.get(i/2));
             deck.set(i + 1, deck.get(i/2));
         }
     }
 
-    /**
-     * @return false if there is no duplicates
-     */
     public boolean hasDuplicates() {
         Set<Card> set = new HashSet<>();
         for (int i = 0; i < deck.size(); i++) {
@@ -73,10 +63,7 @@ public class Deck {
         return set.size() < deck.size();
     }
 
-    /**
-     * size of deck
-     * @return -- 52
-     */
+
     public int getSize() {
         return deck.size();
     }

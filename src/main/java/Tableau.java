@@ -1,10 +1,11 @@
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * This class represents a single tableau pile current state, and defines 
  * its rules on how it acts, and what it can accept in Klondike.
  */
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class Tableau implements Pile {
     
@@ -118,6 +119,9 @@ public class Tableau implements Pile {
         }
     }
 
+    /**
+     * @param list pushed sublist used in GameEngine move function
+     */
     public void push(List<Card> list) {
         if (list != null) {
             for (Card card : list) {
@@ -126,11 +130,6 @@ public class Tableau implements Pile {
         }
     }
 
-    /**
-     * Think of this as removing the card from tableau
-     * like a pop() function
-     * In the tableau
-     */
     @Override 
     public Card draw() {
         Card nextCard = null;
@@ -153,12 +152,6 @@ public class Tableau implements Pile {
         tableau.remove(card);
     }
 
-    /**
-     * This function is used to remove a list of cards from tab columns
-     * when pushing onto another column
-     * @param list is used to foreach loop to remove each card in list
-     * No value returned
-     */
     public void remove(List<Card> list) {
         if (list != null) {
             for (Card card : list) {
@@ -181,9 +174,6 @@ public class Tableau implements Pile {
         return list;
     }
 
-    /**
-     * String representation of a tableau pile
-     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -193,10 +183,6 @@ public class Tableau implements Pile {
         return sb.toString();
     }
 
-    /**
-     * Represents displaying one tableau
-     * @return -- players perspective view
-     */
     public String toDisplay() {
         StringBuilder sb = new StringBuilder();
         if (size() == 0) return "[ ]";

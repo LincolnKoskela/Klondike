@@ -74,14 +74,6 @@ public class Board {
         return 7;
     }
 
-    /**
-     * This function empties all the piles and sets up
-     * a redeal. Clean slate. This function can be called
-     * instead of making a new board object each time.
-     * 
-     * Looping through the enum, the values() function gives you
-     * all the foundation objects in the enummap.
-     */
     public void clear() {
         stock.clear();
         waste.clear();
@@ -112,7 +104,6 @@ public class Board {
 
     /**
      * Count the number of foundations complete
-     * 
      * @return int value of foundations complete
      */
     public int foundationsComplete() {

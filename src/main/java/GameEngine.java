@@ -202,11 +202,8 @@ public class GameEngine {
                 if (!flipMe.isFaceUp()) {
                     flipMe.flip();
                 }
+            }
         }
-        }
-
-        
-
     }
 
     /**

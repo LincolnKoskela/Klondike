@@ -63,7 +63,7 @@ public class Stock implements Pile {
     }
 
     /**
-     * @param -- List of cards being recycled (added to stock pile)
+     * @param List of cards being recycled (added to stock pile)
      * This function adds cards back into stock pile in preserve order (non-reverse)
      * and ensures the cards are faced down
      */
@@ -79,9 +79,7 @@ public class Stock implements Pile {
     }
 
     /**
-     * Rarely will you add a single card to the stock
-     * but there are instances when you'll need to do so
-     * such as theres only one card from waste being recycled
+     * Add to stock pile (push)
      */
     @Override
     public void push(Card card) {
@@ -90,13 +88,8 @@ public class Stock implements Pile {
         }
     }
 
-    /**
-     * This function is a series of instructions 
-     * to draw card from the top of the deck from
-     * the last element in the index
-     * then remove that card from this pile
-     * return nextCard obj
-     */
+ 
+    // draw from stock
     @Override
     public Card draw() {
         Card nextCard = null;
@@ -123,7 +116,7 @@ public class Stock implements Pile {
     }
 
     /**
-     * @return -- Players view of the Stock pile
+     * @return Players view of the Stock pile
      */
     public String toDisplay() {
         if (topCard() != null) {
