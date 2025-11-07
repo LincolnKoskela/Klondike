@@ -3,7 +3,7 @@
  * This class represents the structures of the foundation piles. Divided into 
  * 4 piles one for each suit sorted by rank from Ace(1) to King(13)!
  * 
- * Once these cards are sorted, you win the game
+ * Once these cards are sorted, you win the game.
  * 
  * This class represents a basic foundation list and how it would act
  * The board will construct the 4 foundation piles 
@@ -43,14 +43,6 @@ public class Foundation implements Pile {
         return false;
     }
 
-    /**
-     * This function looks for if the top card is a king, 
-     * and has a size of 13 from Ace to King
-     * which would mean the foundation is full. This function can be used
-     * to help determine whether a game has been won by checking if 
-     * all the foundations are full.
-     * @return -- true if value is equal to king value
-     */
     public boolean isFull() {
         if (topCard() != null 
         && topCard().getRank().getValue() == 13 
@@ -61,10 +53,6 @@ public class Foundation implements Pile {
         return false;
     }
 
-    /**
-     * Clean helper method to get topCard
-     * @return -- Card obj 
-     */
     @Override
     public Card topCard() {
         if (size() > 0) {
@@ -114,11 +102,6 @@ public class Foundation implements Pile {
         return true;
     }
 
-    /**
-     * Assumed move is legal and performs the action
-     * Adds playing card to a foundation pile
-     * flips card 
-     */
     @Override
     public void push(Card card) {
         if (card != null) {
@@ -129,11 +112,6 @@ public class Foundation implements Pile {
         }
     }
 
-    /**
-     * Draw a card from foundation
-     * This function performs the action
-     * @return Card drawn from the foundation
-     */
     @Override
     public Card draw() {
         Card nextCard = null;
@@ -145,14 +123,10 @@ public class Foundation implements Pile {
         return null;
     }
 
-
     public void remove(Card card) {
         foundation.remove(card);
     }
 
-    /**
-     * String representation of a Foundation pile
-     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

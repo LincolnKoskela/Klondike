@@ -9,7 +9,6 @@ import java.util.EnumMap;
 
 public class Board {
 
-    // boards private fields
     private Stock stock;
     private Waste waste;
     private EnumMap<Card.Suit, Foundation> foundations; // for each suit, associate 1 foundation

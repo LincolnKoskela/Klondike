@@ -190,7 +190,8 @@ public class GameEngine {
         }
     }
 
-    public void moveTableauToFoundation(int source, int sourceRow, Card.Suit suit) {
+    public void moveTableauToFoundation(int source, Card.Suit suit) {
+        int sourceRow = board.getTableau(source).size() - 1; // last card in a tableau 
         Card card = board.getTableau(source).getCard(sourceRow);
 
         if (board.getFoundation(suit).canAccept(card)) {
@@ -338,7 +339,7 @@ public class GameEngine {
         test.moveWastetoFoundation(Card.Suit.DIAMONDS);
         test.draw();
         System.out.println(test);
-        test.moveTableauToFoundation(7, 6, Card.Suit.DIAMONDS);
+        test.moveTableauToFoundation(7, Card.Suit.DIAMONDS);
         System.out.println(test);
         test.move(5, 4, 7);
         System.out.println(test);
@@ -348,58 +349,58 @@ public class GameEngine {
         System.out.println(test);
         test.move(2, 1, 7);
         System.out.println(test);
-        test.moveTableauToFoundation(5, 4, Card.Suit.DIAMONDS);
+        test.moveTableauToFoundation(5, Card.Suit.DIAMONDS);
         test.move(2, 0, 5);
         System.out.println(test); // got an out of bounds error [fixed] -- was trying to flip card at index -1
 
         test.move(5, 3, 2);
         System.out.println(test);
-        test.moveTableauToFoundation(5, 2, Card.Suit.HEARTS);
+        test.moveTableauToFoundation(5, Card.Suit.HEARTS);
         System.out.println(test);
         System.out.println(test.isGameOver()); // false
 
-        test.moveTableauToFoundation(5, 1, Card.Suit.HEARTS);
-        test.moveTableauToFoundation(5, 0, Card.Suit.HEARTS);
+        test.moveTableauToFoundation(5, Card.Suit.HEARTS);
+        test.moveTableauToFoundation(5, Card.Suit.HEARTS);
         System.out.println(test);
 
         test.move(7, 5, 5);
         System.out.println(test);
-        test.moveTableauToFoundation(7, 4, Card.Suit.CLUBS);
+        test.moveTableauToFoundation(7, Card.Suit.CLUBS);
         System.out.println(test);
-        test.moveTableauToFoundation(7, 3, Card.Suit.CLUBS);
-        test.moveTableauToFoundation(7, 2, Card.Suit.CLUBS);
-        test.moveTableauToFoundation(7, 1, Card.Suit.CLUBS);
-        test.moveTableauToFoundation(7, 0, Card.Suit.CLUBS);
+        test.moveTableauToFoundation(7, Card.Suit.CLUBS);
+        test.moveTableauToFoundation(7, Card.Suit.CLUBS);
+        test.moveTableauToFoundation(7, Card.Suit.CLUBS);
+        test.moveTableauToFoundation(7, Card.Suit.CLUBS);
         System.out.println(test);
-        test.moveTableauToFoundation(6, 5, Card.Suit.CLUBS);
-        test.moveTableauToFoundation(6, 4, Card.Suit.CLUBS);
-        test.moveTableauToFoundation(6, 3, Card.Suit.CLUBS);
-        test.moveTableauToFoundation(6, 2, Card.Suit.CLUBS);
-        test.moveTableauToFoundation(6, 1, Card.Suit.CLUBS);
-        test.moveTableauToFoundation(6, 0, Card.Suit.CLUBS);
+        test.moveTableauToFoundation(6, Card.Suit.CLUBS);
+        test.moveTableauToFoundation(6, Card.Suit.CLUBS);
+        test.moveTableauToFoundation(6, Card.Suit.CLUBS);
+        test.moveTableauToFoundation(6, Card.Suit.CLUBS);
+        test.moveTableauToFoundation(6, Card.Suit.CLUBS);
+        test.moveTableauToFoundation(6, Card.Suit.CLUBS);
         System.out.println(test);
         System.out.println(test.isGameOver()); // false
-        test.moveTableauToFoundation(4, 3, Card.Suit.HEARTS);
-        test.moveTableauToFoundation(4, 2, Card.Suit.HEARTS);
-        test.moveTableauToFoundation(4, 1, Card.Suit.HEARTS);
-        test.moveTableauToFoundation(4, 0, Card.Suit.HEARTS);
+        test.moveTableauToFoundation(4, Card.Suit.HEARTS);
+        test.moveTableauToFoundation(4, Card.Suit.HEARTS);
+        test.moveTableauToFoundation(4, Card.Suit.HEARTS);
+        test.moveTableauToFoundation(4, Card.Suit.HEARTS);
         System.out.println(test);
-        test.moveTableauToFoundation(3, 2, Card.Suit.HEARTS);
-        test.moveTableauToFoundation(3, 1, Card.Suit.HEARTS);
-        test.moveTableauToFoundation(3, 0, Card.Suit.HEARTS);
+        test.moveTableauToFoundation(3, Card.Suit.HEARTS);
+        test.moveTableauToFoundation(3, Card.Suit.HEARTS);
+        test.moveTableauToFoundation(3, Card.Suit.HEARTS);
         System.out.println(test);
-        test.moveTableauToFoundation(5, 2, Card.Suit.HEARTS);
+        test.moveTableauToFoundation(5, Card.Suit.HEARTS);
         System.out.println(test);
-        test.moveTableauToFoundation(5, 1, Card.Suit.CLUBS);
+        test.moveTableauToFoundation(5, Card.Suit.CLUBS);
         System.out.println(test);
-        test.moveTableauToFoundation(2, 1, Card.Suit.HEARTS);
-        test.moveTableauToFoundation(1, 0, Card.Suit.HEARTS);
+        test.moveTableauToFoundation(2, Card.Suit.HEARTS);
+        test.moveTableauToFoundation(1, Card.Suit.HEARTS);
         System.out.println(test);
-        test.moveTableauToFoundation(2, 0, Card.Suit.CLUBS);
+        test.moveTableauToFoundation(2, Card.Suit.CLUBS);
         System.out.println(test.isGameOver()); // false
         System.out.println();
 
-        test.moveTableauToFoundation(5, 0, Card.Suit.DIAMONDS);
+        test.moveTableauToFoundation(5, Card.Suit.DIAMONDS);
         System.out.println(test);
         System.out.println(test.isGameOver()); // true
     }
