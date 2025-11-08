@@ -103,11 +103,11 @@ public class Play {
         return "Invalid input.";
     }
 
-    public static String welcome() {
+    public static String welcomeMenu() {
         return "Welcome to Klondike Solitaire!\n"
                 + "1. Play Game\n"
                 + "2. Controls\n"
-                + "3. Quit\n";
+                + "3. Quit";
     }
 
     /**
@@ -132,8 +132,18 @@ public class Play {
         return "Select Foundation: ";
     }
 
-    public static String controls() {
-        return "x - draw | t - tab | f - found | a - tab to tab | w - found to tab | e - tab to f | r - recycle\n";
+    public static void selectMove() {
+       System.out.println("Select a move: ");
+    }
+
+    public static void bye() {
+        System.out.println("Bye for now!");
+    }
+
+    public static void controls() {
+        System.out.println("x - draw | t - tab | f - found | a - tab to tab |" + 
+        "w - found to tab | e - tab to f | r - recycle\n" + 
+        "q - quit");
     }
 
     public static String howToPlay() {
@@ -151,12 +161,6 @@ public class Play {
         sb.append("------------------------------------\n");
         sb.append("\n");
 
-        sb.append("Tabelau selection, after selecting a tab move: \n");
-        sb.append("Select the number column. \n");
-        sb.append("Select the row. \n");
-        sb.append("Select destination.\n");
-        sb.append("-----------------------------------\n");
-
         sb.append("Select a Foundation: \n");
         sb.append("d  - DIAMOND\n");
         sb.append("h - HEARTS\n");
@@ -172,28 +176,31 @@ public class Play {
      * Use to continously update board after each move
      * while in the loop (while game is NOT over)
      */
-    public static String display(GameEngine game) {
-        return game.toString();
+    public static void display(GameEngine game) {
+        System.out.print(game.toString()); 
     }
 
     public static void main(String[] args) {
-        System.out.println(Play.welcome());
+        System.out.println(Play.welcomeMenu());
 
         Scanner s = new Scanner(System.in);
         GameEngine game = new GameEngine(true);
-        int userInput;
-        boolean play = false;
+        final Map<Character, Command> commandMap = COMMAND_MAP;
 
+        boolean play = false;
+        char move;
+        int userInput;
         userInput = s.nextInt();
+
         switch (userInput) {
-            case 1:
+            case 1: // play
                 play = true;
                 break;
             case 2:
                 System.out.println(Play.howToPlay());
                 break;
             case 3:
-                System.out.println("Bye for now!");
+                bye();
                 break;
         }
 
@@ -202,11 +209,22 @@ public class Play {
         }
 
         while (!game.isGameOver() && play == true) {
-            
-            // if you beat the game
-            if (game.isGameOver()) {
-                System.out.println("Congrats! You've successfully beat the game!");
+            controls();
+            display(game);
+            selectMove();
+
+            move = s.next().charAt(0);     
+            move = Character.toLowerCase(move);       
+            Command cmd = commandMap.get(move);
+            if (cmd != null) {
+                cmd.execute(game, s);
+            } else {
+                System.out.println(printInvalid());
+            }
+
+            if (move == 'q') {
                 play = false;
+                bye();
             }
         }
         s.close();
