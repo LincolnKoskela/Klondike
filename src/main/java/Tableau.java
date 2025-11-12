@@ -3,8 +3,7 @@
  * its rules on how it acts, and what it can accept in Klondike.
  */
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 
 public class Tableau implements Pile {
@@ -63,10 +62,15 @@ public class Tableau implements Pile {
 
     /**
      * This function can be used to get a specific card at a given index. 
+     * If index is null set index to last card in column. This sets bounds on 
+     * userInput. Prevents out of bounds and selecting empty tableau column.
      * @param index of the card in a given row or column on the tableau. 
      * @return card type
      */
     public Card getCard(int index) {
+        if (index > tableau.size()-1 || tableau.get(index) == null) {
+            index = tableau.size()-1;
+        }
         return tableau.get(index);
     }
 
@@ -170,8 +174,16 @@ public class Tableau implements Pile {
      * List can be modified throughout the GameEngine
      */
     public List<Card> sublist(int fromIndex, int toIndex) {
-        List <Card> list = new ArrayList<>(tableau.subList(fromIndex, toIndex)); // test the range
-        return list;
+        if (isEmpty()) {
+            return Collections.emptyList();
+        }
+        if (fromIndex >= 0  && fromIndex < toIndex && toIndex <= size()) {
+            List<Card> list = new ArrayList<>(tableau.subList(fromIndex, toIndex)); 
+            return list;
+        } else {
+            return Collections.emptyList();
+        }
+        
     }
 
     @Override

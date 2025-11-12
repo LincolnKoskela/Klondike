@@ -5,6 +5,7 @@
  */
 
 import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -74,25 +75,70 @@ public class Play {
         return map;
     }
 
+    public static int askForTableauSource(Scanner s) {
+        int n;
+        while (true) { // forever loopy
+            try {
+                System.out.println(selectCol());
+                n = s.nextInt();
+                if (n <= 7 && n >= 1) break;
+                
+            } catch (InputMismatchException e) {
+                System.out.println("Please enter an integer. " + e);
+                s.nextLine(); // clear scanner
+            }            
+        }
+        return n;
+    }
+
     public static int askForTableauDestination(Scanner s) {
-        System.out.println(selectDestination());
-        return s.nextInt();
+        int n;
+
+        while (true) {
+            try {
+                System.out.println(selectDestination());
+                n = s.nextInt(); // may encounter input mismatch
+                if (n <= 7 && n >= 1) break;
+                
+            } catch (InputMismatchException e) {
+                System.out.println("Please enter an integer. " + e);
+                s.nextLine(); // clear scanner
+            } 
+        }
+        return n;
     }
 
     public static char askForFoundationDestination(Scanner s) {
-        System.out.println(selectFoundation());
-        return Character.toLowerCase(s.next().charAt(0));
+        char c;
+        while (true) {
+            try {
+                System.out.println(selectFoundation());
+                c = Character.toLowerCase(s.next().charAt(0));
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println("Please enter a char. " + e);
+                s.nextLine(); // clear scanner
+            }
+        }
+        return c;
     }
 
     public static int askForTableauRow(Scanner s) {
-        System.out.println(selectRow());
-        return s.nextInt();
+        int n;
+        while (true) {
+            try {
+                System.out.println(selectRow());
+                n = s.nextInt();
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println("Please enter an integer. " + e);
+                s.nextLine(); // clear scanner
+            }
+        }
+        return n;
     }
 
-    public static int askForTableauSource(Scanner s) {
-        System.out.println(selectCol());
-        return s.nextInt();
-    }
+    
 
     // public access to commands
     public static Map<Character, Command> getCommands() {

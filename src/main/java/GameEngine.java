@@ -5,16 +5,6 @@
  * info from the Play.java class, and Play.java will talk 
  * to the user/player.
  * 
- * 
- * extra notes : 
- * 
- * COLUMNS ARE 1 BASED ROWS ARE 0 BASED WILL GET THEM ON SAME PAGE IN PLAY.JAVA
- * 
- * -- tableau pile moves, pushing a list vs a single card, tab class only handles single pushes
- * -- validate foundation piles stacked correctly by suit and rank when added canAccept then add
- * -- tableau needs to address flips in specific movements
- * -- waste and stock draw/recycle function
- * -- post move flips in the tableaus (if source is new, to flip)
  */
 
 import java.util.*;
@@ -25,6 +15,11 @@ public class GameEngine {
     private Deck deck;
     private boolean gameOver;
     private int count; // count the cards
+
+    private boolean success; // if the move was successful
+    private String lastMoveDescription; 
+
+
 
     // constructor
     public GameEngine(boolean shuffled) {
@@ -38,6 +33,18 @@ public class GameEngine {
     public Board getBoard () {
         return board;
     }
+
+    public boolean getSuccess() {
+        return success;
+    }
+
+    // public String lastMoveDescription() {
+    //     if (getSuccess() == true) {
+    //         // record last move
+    //     } else {
+            
+    //     }
+    // }
 
     /**
      * This function deals the deck of cards into the 7 tableau columns.
@@ -88,11 +95,14 @@ public class GameEngine {
      */
     public void recycle() {
         if (!board.getStock().isEmpty()) {
-            System.out.print("Stock is not empty. Cannot recycle.");
+            success = false;
+            lastMoveDescription = "Stock is not empty. Cannot recycle.";
         } else {
             // while waste is not empty, draw card from waste push stock
             while (!board.getWaste().isEmpty())
                 board.getStock().push(board.getWaste().draw());
+                success = true;
+                lastMoveDescription = "Recycled.";
         }
     }
 
@@ -119,14 +129,17 @@ public class GameEngine {
 
         Card card = s.getCard(sourceRow);
         if (!card.isFaceUp()) {
-            System.out.println("Invalid selection.");
+            lastMoveDescription = "Invalid selection. Can't move face down card.";
+            success = false;
             return false;
         }
 
         if (!d.canAccept(card)) {
-            System.out.println("Destination can't accept.");
+            lastMoveDescription = "Destination can't accept.";
+            success = false;
             return false;
         }
+        success = true;
         return true;
     }
 

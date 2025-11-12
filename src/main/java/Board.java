@@ -61,6 +61,7 @@ public class Board {
         }
         int index = column - 1;
         return tableaus.get(index);
+        
     }
 
     /**
