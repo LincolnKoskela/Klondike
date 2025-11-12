@@ -19,6 +19,8 @@ This project is playable from console.
 - Card/Deck creation, basic pile functionalities and acceptance
 - Deal a new board with initial card layout of all tableaus and stock pile
 - **Left off at:** Playing and testing for bugs. Looking for minor improvements.
+Also adding last move description, in gameengine.
+Deep into testing phase.
 
 ## Project Management
 You can view my Agile board and current development progress here:
@@ -73,6 +75,9 @@ Each object has a `toString()` output for testing and debugging the internal sta
 - Added Command Interface to use maps instead of if's. This allows associating
 keys with actions. Such as 'x' -> game.draw() inside a map.
 - testing and more testing
+- Added try catch blocks in the asking functions in `Play.java` to validate 
+users enter columns within range and don't enter input mismatches 
+ex) entering number when asking for foundation. 
 
 ### (Oct 26-Nov 02, 2025)
 - Added unshuffled deck overload along with gameengine overload to use unshuffled 
