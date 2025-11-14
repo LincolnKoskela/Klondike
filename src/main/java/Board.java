@@ -89,16 +89,16 @@ public class Board {
     }
 
     /**
-     * Check if one of the piles is not full. Full means to have
-     * size of 13 cards and king on top, ranked from Ace up to King
-     * 
-     * @return false if one pile is not full
+     * Game is won if all cards on the tableaus are flipped
      */
     public boolean isGameWon() {
-        for (Foundation f : foundations.values()) {
-            if (!f.isFull()) {
-                return false;
-            }
+        return areAllCardsFlipped();
+    }
+
+    // all tabs are flipped, use in isGameWon 
+    public boolean areAllCardsFlipped() {
+        for (Tableau t : tableaus) {
+            if (!t.isTableauFlipped()) return false;
         }
         return true;
     }
