@@ -183,7 +183,19 @@ public class Tableau implements Pile {
         } else {
             return Collections.emptyList();
         }
-        
+    }
+
+    /**
+     * Function used to help determine if game is won.
+     * Game is technically won when all foundations are filled, 
+     * but to speed process, once all cards are flipped, game
+     * is essentially won.
+     */
+    public boolean isTableauFlipped() {
+        for (Card card : tableau) {
+            if (!card.isFaceUp()) return false;
+        }
+        return true;
     }
 
     @Override
