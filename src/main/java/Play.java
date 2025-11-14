@@ -1,4 +1,3 @@
-
 /**
  * This class interacts takes input from the user and 
  * uses the GameEngine to play Klondike Solitaire.
@@ -99,7 +98,7 @@ public class Play {
                 System.out.println(selectDestination());
                 n = s.nextInt(); // may encounter input mismatch
                 if (n <= 7 && n >= 1) break;
-                
+
             } catch (InputMismatchException e) {
                 System.out.println("Please enter an integer. " + e);
                 s.nextLine(); // clear scanner
@@ -197,13 +196,14 @@ public class Play {
 
         sb.append("How To Play on Console: \n");
         sb.append("-----------------------------------\n");
-        sb.append("x - draw card.\n");
-        sb.append("t - play card waste to tableau.\n");
-        sb.append("f - play card waste to foundation.\n");
+        sb.append("x - draw card\n");
+        sb.append("t - play card waste to tableau\n");
+        sb.append("f - play card waste to foundation\n");
         sb.append("a - play card from tableau to tableau\n");
         sb.append("w - play card foundation to tableau\n");
         sb.append("e - tableau to foundation\n");
         sb.append("r - recycle -> push cards from waste back into stock\n");
+        sb.append("q - quit\n");
         sb.append("------------------------------------\n");
         sb.append("\n");
 
@@ -215,8 +215,23 @@ public class Play {
 
 
         return sb.toString();
+    }   
+    
+    public static String rules() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Rules to the game: \n");
+        sb.append("Draw a card from stock to the waste pile.");
+        sb.append("The card in the waste can be played into either the foundations, \n");
+        sb.append("or the Tableau columns.\n");
 
-    }    
+        sb.append("Initially, cards on the tableau are randomly dealt, and your goal is to sort the tableau.");
+        sb.append("Cards on the tableau are sorted from 1 lower rank, and alternating color. \n");
+        sb.append("Between black (CLUBS AND SPADES) and red (HEARTS AND DIAMONDS)\n");
+        sb.append("Cards on the foundation is where you sort cards in ascending order from ACE (1) -> KING (13)\n");
+        sb.append("Foundations are sorted by SUITS. There is 4 foundations, one for each SUIT.\n");
+
+        return sb.toString();
+    }
 
     /**
      * Use to continously update board after each move
@@ -232,6 +247,9 @@ public class Play {
         Scanner s = new Scanner(System.in);
         GameEngine game = new GameEngine(true);
         final Map<Character, Command> commandMap = COMMAND_MAP;
+        Time timer = new Time(); // our stopwatch 
+        double minutes = 0.0;
+        int countMoves = 0;
 
         boolean play = false;
         char move;
@@ -252,6 +270,7 @@ public class Play {
 
         if (play == true) {
             game.dealNewGame();
+            timer.start();
         }
 
         while (!game.isGameOver() && play == true) {
@@ -264,14 +283,27 @@ public class Play {
             Command cmd = commandMap.get(move);
             if (cmd != null) {
                 cmd.execute(game, s);
+                countMoves++;
             } else {
-                System.out.println(printInvalid());
+                if (move == 'q') {
+                    play = false;
+                    bye();
+                    timer.stop();
+                    minutes = timer.getMinutes();
+                    System.out.println("Time Elapsed: " + minutes + " minutes.");
+                    System.out.println("Move count: " + countMoves);
+                } else {
+                    System.out.println(printInvalid());
+                }
             }
+        }
 
-            if (move == 'q') {
-                play = false;
-                bye();
-            }
+        if (game.isGameOver()) {
+            timer.stop();
+            System.out.println("Congrats! You've beat the game!");
+            System.out.println("Move count: " + countMoves);
+            minutes = timer.getMinutes();
+            System.out.printf("Time Elapsed: " + minutes + " minutes.");
         }
         s.close();
     }

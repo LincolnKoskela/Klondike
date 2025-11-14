@@ -16,11 +16,6 @@ public class GameEngine {
     private boolean gameOver;
     private int count; // count the cards
 
-    private boolean success; // if the move was successful
-    private String lastMoveDescription; 
-
-
-
     // constructor
     public GameEngine(boolean shuffled) {
         this.board = new Board();
@@ -33,18 +28,6 @@ public class GameEngine {
     public Board getBoard () {
         return board;
     }
-
-    public boolean getSuccess() {
-        return success;
-    }
-
-    // public String lastMoveDescription() {
-    //     if (getSuccess() == true) {
-    //         // record last move
-    //     } else {
-            
-    //     }
-    // }
 
     /**
      * This function deals the deck of cards into the 7 tableau columns.
@@ -95,14 +78,12 @@ public class GameEngine {
      */
     public void recycle() {
         if (!board.getStock().isEmpty()) {
-            success = false;
-            lastMoveDescription = "Stock is not empty. Cannot recycle.";
+            System.out.println("Stock is not empty. CANNOT recycle.");
         } else {
             // while waste is not empty, draw card from waste push stock
             while (!board.getWaste().isEmpty())
                 board.getStock().push(board.getWaste().draw());
-                success = true;
-                lastMoveDescription = "Recycled.";
+                System.out.println("Recycled.");
         }
     }
 
@@ -129,17 +110,14 @@ public class GameEngine {
 
         Card card = s.getCard(sourceRow);
         if (!card.isFaceUp()) {
-            lastMoveDescription = "Invalid selection. Can't move face down card.";
-            success = false;
+            System.out.println("Cannot move card that is faced down.");
             return false;
         }
 
         if (!d.canAccept(card)) {
-            lastMoveDescription = "Destination can't accept.";
-            success = false;
+            System.out.println("Destination cannot accept.");
             return false;
         }
-        success = true;
         return true;
     }
 
