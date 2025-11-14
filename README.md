@@ -5,7 +5,9 @@ pile behaviors, move validation, and board setup. The goal of this project is to
 knowledge and skillset in object oriented principles and designs in Java. I enjoy building card games, 
 and plan to build several more in the future.
 
-This project is playable from console.
+This project is playable from **console**. 
+
+Test your strategy and attention to detail playing the most raw, logic driven Klondike experience. 
 
 ## How to Run
 1. Clone the repository  
@@ -18,8 +20,10 @@ This project is playable from console.
 - Terminal logic and testing
 - Card/Deck creation, basic pile functionalities and acceptance
 - Deal a new board with initial card layout of all tableaus and stock pile
+- Play the game from the console. May encounter minor bugs. 
+- Compile and run to play game. Select options: 1) play game. | 2) view controls from keyboard.
 - **Left off at:** Playing and testing for bugs. Looking for minor improvements.
-Also adding last move description, in gameengine.
+Adding timer functionality to count time elapsed.
 Deep into testing phase.
 
 ## Project Management
@@ -37,6 +41,8 @@ and stock/waste recycling
 Each pile supports `toDisplay()` method for player facing views (showing only visible cards)
 - Debug friendly
 Each object has a `toString()` output for testing and debugging the internal state
+- `Timer` 
+To count the time it took to beat the game.
 
 ## Class Architecture
 | **Component** | **Responsibility** |
@@ -50,7 +56,9 @@ Each object has a `toString()` output for testing and debugging the internal sta
 | **Board** | Holds all piles, manages layout, and provides getters and clear/reset functions. |
 | **GameEngine** | Controls rules, moves, validations, and overall game progression (`initial deal`, `move`, `checkWin`). |
 | **Deck** | Creates and shuffles a standard 52-card deck. |
-| **Play** | User plays the game, it's the intermediary between gameengine and player
+| **Play** | User plays the game, it's the intermediary between gameengine and player.
+| **Command (Interface)** | Allows maps to associate keyboard input with `GameEngine` action. | 
+| **Time** | Counts the start and end time in seconds or minutes. |
 
 ## Future Roadmap
 | **Milestone** | **Description** |
@@ -58,7 +66,7 @@ Each object has a `toString()` output for testing and debugging the internal sta
 | **GameEngine completion** | Full movement management, stock/waste, foudations, and tableau's in fluidity. |
 | **Interactive terminal UI** | Add input commands for moves |
 | **Graphic interface** | Implement a GUI version. JavaFX, then JS/web | 
-| **Save/load system** | Save game state and resume for later |
+| **Save/load system** | Save game state and resume for later. |
 | **Make CPU strategies** | Make AI's to revert to specific strategies (ex. always select from tab before stock) |
 | **Statistical Analysis** | (ex. when x card is played, outcomes of winning changes) |
 
