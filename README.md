@@ -77,15 +77,19 @@ To count the time it took to beat the game.
 
 ## History Progress Log
 
-### This weeks: (Nov 03 - 09, 2025)
+### This week: (Nov 10 - 16, 2025)
+- Added try catch blocks in the asking functions in `Play.java` to validate 
+users enter columns within range and don't enter input mismatches 
+ex) entering number when asking for foundation. 
+- Added Timer functionality with `Time.java`.
+- `isGameWon()` tracks tableau's instead of foundations.
+
+### (Nov 03 - 09, 2025)
 - Constructing user inputs
 - Game is playable. Still finding little bugs while testing game out. 
 - Added Command Interface to use maps instead of if's. This allows associating
 keys with actions. Such as 'x' -> game.draw() inside a map.
 - testing and more testing
-- Added try catch blocks in the asking functions in `Play.java` to validate 
-users enter columns within range and don't enter input mismatches 
-ex) entering number when asking for foundation. 
 
 ### (Oct 26-Nov 02, 2025)
 - Added unshuffled deck overload along with gameengine overload to use unshuffled 
