@@ -22,9 +22,8 @@ Test your strategy and attention to detail playing the most raw, logic driven Kl
 - Deal a new board with initial card layout of all tableaus and stock pile
 - Play the game from the console. May encounter minor bugs. 
 - Compile and run to play game. Select options: 1) play game. | 2) view controls from keyboard.
-- **Left off at:** Playing and testing for bugs. Looking for minor improvements.
-Adding timer functionality to count time elapsed.
-Deep into testing phase.
+- **Left off at:** Working on undo functionality. Created `GameState.java`, and a snapshot function. 
+But it's a little off.
 
 ## Project Management
 You can view my Agile board and current development progress here:
@@ -59,6 +58,7 @@ To count the time it took to beat the game.
 | **Play** | User plays the game, it's the intermediary between gameengine and player.
 | **Command (Interface)** | Allows maps to associate keyboard input with `GameEngine` action. | 
 | **Time** | Counts the start and end time in seconds or minutes. |
+| **GameState** | Represents a frozen snapshot of the current game in action. | 
 
 ## Future Roadmap
 | **Milestone** | **Description** |
@@ -77,12 +77,18 @@ To count the time it took to beat the game.
 
 ## History Progress Log
 
-### This week: (Nov 10 - 16, 2025)
+### This week: (Nov 17 - 23, 2025)
+- Created `GameState.java` to represent a frozen snapshot of the current state 
+of the game. 
+
+### (Nov 10 - 16, 2025)
 - Added try catch blocks in the asking functions in `Play.java` to validate 
 users enter columns within range and don't enter input mismatches 
 ex) entering number when asking for foundation. 
 - Added Timer functionality with `Time.java`.
 - `isGameWon()` tracks tableau's instead of foundations.
+- Added `getCards()` functions to each pile class. Returns type list. 
+Will be used for creating snapshots for undo function.
 
 ### (Nov 03 - 09, 2025)
 - Constructing user inputs
