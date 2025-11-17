@@ -4,7 +4,6 @@
  * and enforces the game rules. This class will be passed 
  * info from the Play.java class, and Play.java will talk 
  * to the user/player.
- * 
  */
 
 import java.util.*;
@@ -14,7 +13,8 @@ public class GameEngine {
     private Board board;
     private Deck deck;
     private boolean gameOver;
-    private int count; // count the cards
+    private int count;
+    private Stack<GameState> history;
 
     // constructor
     public GameEngine(boolean shuffled) {
@@ -27,6 +27,31 @@ public class GameEngine {
     // get board
     public Board getBoard () {
         return board;
+    }
+
+    public GameState createSnapshot() {
+        int tabcolumns = board.getColumns(); // 7
+        List<Card> stockCopy = new ArrayList<>(board.getStock().getCards());
+        List<Card> wasteCopy = new ArrayList<>(board.getWaste().getCards());
+        EnumMap<Card.Suit, List<Card>> foundationCopy = new EnumMap<>(Card.Suit.class);
+        List<List<Card>> tableauCopy = new ArrayList<>();
+
+        for (Card.Suit suit : Card.Suit.values()) {
+            List<Card> getFoundation = getBoard().getFoundation(suit).getCards();
+            List<Card> copy = new ArrayList<>(getFoundation);
+            foundationCopy.put(suit, copy);
+        }
+
+        for (int i = 1; i <= tabcolumns; i++) {
+            List<Card> getTableau = getBoard().getTableau(i).getCards();
+            List<Card> copy = new ArrayList<>(getTableau);
+            tableauCopy.add(copy);
+        }
+
+        GameState currentState = new GameState
+        (tableauCopy, stockCopy, wasteCopy, foundationCopy);
+
+        return currentState;
     }
 
     /**
@@ -80,8 +105,10 @@ public class GameEngine {
         if (!board.getStock().isEmpty()) {
             System.out.println("Stock is not empty. CANNOT recycle.");
         } else {
-            // while waste is not empty, draw card from waste push stock
-            while (!board.getWaste().isEmpty())
+            
+            createSnapshot();
+            history.push(createSnapshot());
+            while (!board.getWaste().isEmpty()) 
                 board.getStock().push(board.getWaste().draw());
                 System.out.println("Recycled.");
         }
