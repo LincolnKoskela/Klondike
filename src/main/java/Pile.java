@@ -9,6 +9,8 @@
  * you may need to Overload these functions as well
  */
 
+import java.util.*;
+
 public interface Pile {
     
     public int size(); // return size of pile
@@ -24,5 +26,7 @@ public interface Pile {
     public void clear(); // empties piles
 
     public Card topCard(); // get top card
+
+    public List<Card> getCards(); // get each card in the pile
 
 }

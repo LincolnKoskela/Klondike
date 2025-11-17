@@ -49,6 +49,15 @@ public class Stock implements Pile {
     }
 
     /**
+     * Get all the cards in the stock pile. Provides easy access to all cards
+     * in the stock.
+     * @return list type card. 
+     */
+    public List<Card> getCards() {
+        return stock;
+    }
+
+    /**
      * Stock card can't accept cards from: foundation, tableau
      * Stock cards can only accept cards from the waste once the 
      * size of the stock cards hits 0, the pile will 'recycle' cards

@@ -42,7 +42,10 @@ public class Waste implements Pile {
         if (size() > 0) {
             return waste.get(size()-1);
         } else return null;
-        
+    }
+
+    public List<Card> getCards() {
+        return waste;
     }
 
     // only cards from stock are accepted

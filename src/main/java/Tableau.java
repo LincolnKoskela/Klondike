@@ -74,6 +74,10 @@ public class Tableau implements Pile {
         return tableau.get(index);
     }
 
+    public List<Card> getCards() {
+        return tableau;
+    }
+
     /**
      * What can a tableau pile accept? 
      * Alternating color

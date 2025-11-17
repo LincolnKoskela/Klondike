@@ -61,6 +61,10 @@ public class Foundation implements Pile {
         else return null;
     }
 
+    public List<Card> getCards() {
+        return foundation;
+    }
+
     /**
      * This function is true when the card is 
      * same suit and 1 rank greater than the previous rank
