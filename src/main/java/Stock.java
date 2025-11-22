@@ -32,6 +32,17 @@ public class Stock implements Pile {
         stock.clear();
     }
 
+    /**
+     * @return a deep copy of the stock
+     */
+    public Stock copy() {
+        Stock newStock = new Stock();
+        for (Card c : this.stock) {
+            newStock.push(new Card(c));
+        }
+        return newStock;
+    }
+
     @Override
     public boolean isEmpty() {
         if (size() == 0) return true;

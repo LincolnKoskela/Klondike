@@ -31,6 +31,17 @@ public class Waste implements Pile {
         waste.clear();
     }
 
+    /**
+     * @return a deep copy of the waste
+     */
+    public Waste copy() {
+        Waste newWaste = new Waste();
+        for (Card c : this.waste) {
+            newWaste.push(new Card(c));
+        }
+        return newWaste;
+    }
+
     @Override
     public boolean isEmpty() {
         if (size() == 0) return true;

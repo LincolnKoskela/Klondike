@@ -35,6 +35,14 @@ public class Foundation implements Pile {
         foundation.clear();
     }
 
+    public Foundation copy() {
+        Foundation newFoundation = new Foundation();
+        for (Card c : this.foundation) {
+            newFoundation.push(new Card(c));
+        }
+        return newFoundation;
+    }
+
     /**
      * @return true if list is empty
      */

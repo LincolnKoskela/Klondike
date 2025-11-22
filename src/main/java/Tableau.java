@@ -30,6 +30,15 @@ public class Tableau implements Pile {
         tableau.clear();
     }
 
+    
+    public Tableau copy() {
+        Tableau newTableau = new Tableau();
+        for (Card c : this.tableau) {
+            newTableau.push(new Card(c));
+        }
+        return newTableau;
+    }
+
     public boolean isEmpty() {
         if (size() == 0) return true;
         else return false;
