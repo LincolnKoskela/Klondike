@@ -89,6 +89,18 @@ public class Board {
     }
 
     /**
+     * This function is used in undo function in the gameengine
+     * @param state gives us accept to restore the last gamestate
+     */
+    public void restore(GameState state) {
+        clear();
+        this.stock = state.getStock();
+        this.waste = state.getWaste();
+        this.foundations = state.getFoundation();
+        this.tableaus = state.getTableaus();
+    }
+
+    /**
      * Game is won if all cards on the tableaus are flipped
      */
     public boolean isGameWon() {
