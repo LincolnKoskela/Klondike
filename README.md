@@ -22,8 +22,7 @@ Test your strategy and attention to detail playing the most raw, logic driven Kl
 - Deal a new board with initial card layout of all tableaus and stock pile
 - Play the game from the console. May encounter minor bugs. 
 - Compile and run to play game. Select options: 1) play game. | 2) view controls from keyboard.
-- **Left off at:** Working on undo functionality. Created `GameState.java`, and a snapshot function. 
-But it's a little off.
+- **Left off at:** Undo functionality is very bugged. Work in progress. 
 
 ## Project Management
 You can view my Agile board and current development progress here:
@@ -42,6 +41,7 @@ Each pile supports `toDisplay()` method for player facing views (showing only vi
 Each object has a `toString()` output for testing and debugging the internal state
 - `Timer` 
 To count the time it took to beat the game.
+- Undo functionality 
 
 ## Class Architecture
 | **Component** | **Responsibility** |
@@ -59,6 +59,9 @@ To count the time it took to beat the game.
 | **Command (Interface)** | Allows maps to associate keyboard input with `GameEngine` action. | 
 | **Time** | Counts the start and end time in seconds or minutes. |
 | **GameState** | Represents a frozen snapshot of the current game in action. | 
+| **Snapshot** | Creates a `GameState` of deep copies each piles `copy()` function. |
+| **InputController** | Input command mapping: Maps keys to command actions. |
+| **TextViews** | Displays text throughout the game and menus. |
 
 ## Future Roadmap
 | **Milestone** | **Description** |
@@ -80,6 +83,14 @@ To count the time it took to beat the game.
 ### This week: (Nov 17 - 23, 2025)
 - Created `GameState.java` to represent a frozen snapshot of the current state 
 of the game. 
+- Added Copy Constructor in `Card` class.
+- Added `copy()` functions to each pile class do perform a deep copy of the list, using 
+`Card` copy construtor
+- Created `Snapshot.java` to create a `snapshot` of the GameState.
+- Created `undo()` functionality in the `GameEngine`. (Debugging)
+- Added `InputController.java` to command controller inputs using map and `execute` function.
+- Added `TextViews.java` class break up menus and displays throughout the game.
+- Breaking up `Play.java` class so its not so cluttered. 
 
 ### (Nov 10 - 16, 2025)
 - Added try catch blocks in the asking functions in `Play.java` to validate 
