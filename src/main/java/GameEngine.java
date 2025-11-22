@@ -14,7 +14,9 @@ public class GameEngine {
     private Deck deck;
     private boolean gameOver;
     private int count;
+    private int moveCount;
     private Stack<GameState> history;
+    private Snapshot snapshot; // tool for creating snapshots of the current state
 
     // constructor
     public GameEngine(boolean shuffled) {
@@ -22,36 +24,8 @@ public class GameEngine {
         this.deck = new Deck(shuffled);
         this.gameOver = false;
         this.count = 0;
-    }
-
-    // get board
-    public Board getBoard () {
-        return board;
-    }
-
-    public GameState createSnapshot() {
-        int tabcolumns = board.getColumns(); // 7
-        List<Card> stockCopy = new ArrayList<>(board.getStock().getCards());
-        List<Card> wasteCopy = new ArrayList<>(board.getWaste().getCards());
-        EnumMap<Card.Suit, List<Card>> foundationCopy = new EnumMap<>(Card.Suit.class);
-        List<List<Card>> tableauCopy = new ArrayList<>();
-
-        for (Card.Suit suit : Card.Suit.values()) {
-            List<Card> getFoundation = getBoard().getFoundation(suit).getCards();
-            List<Card> copy = new ArrayList<>(getFoundation);
-            foundationCopy.put(suit, copy);
-        }
-
-        for (int i = 1; i <= tabcolumns; i++) {
-            List<Card> getTableau = getBoard().getTableau(i).getCards();
-            List<Card> copy = new ArrayList<>(getTableau);
-            tableauCopy.add(copy);
-        }
-
-        GameState currentState = new GameState
-        (tableauCopy, stockCopy, wasteCopy, foundationCopy);
-
-        return currentState;
+        this.moveCount = 0;
+        this.history = new Stack<>();
     }
 
     /**
@@ -105,12 +79,18 @@ public class GameEngine {
         if (!board.getStock().isEmpty()) {
             System.out.println("Stock is not empty. CANNOT recycle.");
         } else {
-            
-            createSnapshot();
-            history.push(createSnapshot());
-            while (!board.getWaste().isEmpty()) 
+            history.push(snapshot.createSnapshot(board)); // record move
+            while (!board.getWaste().isEmpty()) {
                 board.getStock().push(board.getWaste().draw());
-                System.out.println("Recycled.");
+            }
+            moveCount++;
+        }
+    }
+
+    public void undo() {
+        if (!history.isEmpty()) {
+            board.restore(history.pop());
+            moveCount++;
         }
     }
 
@@ -170,6 +150,7 @@ public class GameEngine {
         List<Card> list = board.getTableau(source).sublist(sourceRow, bottom);
 
         if (canMove(source, sourceRow, dest)) {
+            history.push(snapshot.createSnapshot(board)); // record move
             board.getTableau(dest).push(list);
             board.getTableau(source).remove(list);
 
@@ -179,6 +160,7 @@ public class GameEngine {
                     flipCard.flip();
                 }
             }
+            moveCount++;
         } else {
             System.out.println("Invalid move. ");
         }
@@ -187,24 +169,30 @@ public class GameEngine {
     public void moveWastetoFoundation(Card.Suit suit) {
         Card card = board.getWaste().topCard();
         if (board.getFoundation(suit).canAccept(card)) {
+            history.push(snapshot.createSnapshot(board)); // record move
             board.getFoundation(suit).push(card);
             board.getWaste().remove(card);
+            moveCount++;
         }
     }
 
     public void moveWasteToTableau(int dest) {
         Card card = board.getWaste().topCard();
         if (board.getTableau(dest).canAccept(card)) {
+            history.push(snapshot.createSnapshot(board)); // record move
             board.getTableau(dest).push(card);
             board.getWaste().remove(card);
+            moveCount++;
         }
     }
 
     public void moveFoundationToTableau(Card.Suit suit, int dest) {
         Card card = board.getFoundation(suit).topCard();
         if (board.getTableau(dest).canAccept(card)) {
+            history.push(snapshot.createSnapshot(board)); // record move
             board.getTableau(dest).push(card);
             board.getFoundation(suit).remove(card);
+            moveCount++;
         }
     }
 
@@ -213,6 +201,7 @@ public class GameEngine {
         Card card = board.getTableau(source).getCard(sourceRow);
 
         if (board.getFoundation(suit).canAccept(card)) {
+            history.push(snapshot.createSnapshot(board)); // record move
             board.getFoundation(suit).push(card);
             board.getTableau(source).remove(card);
             if (sourceRow > 0) {
@@ -221,6 +210,7 @@ public class GameEngine {
                     flipMe.flip();
                 }
             }
+            moveCount++;
         }
     }
 
@@ -228,8 +218,10 @@ public class GameEngine {
      * A players draw from stock to waste
      */
     public void draw() {
+        history.push(snapshot.createSnapshot(board));
         Card card = board.getStock().draw();
         board.getWaste().push(card);
+        moveCount++;
     }
 
     /**
