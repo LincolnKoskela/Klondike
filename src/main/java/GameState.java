@@ -6,25 +6,23 @@
 import java.util.*;
 
 public class GameState {
-    
-    private List<List<Card>> tableauPiles;
-    private List<Card> stock;
-    private List<Card> waste;
-    private EnumMap<Card.Suit, List<Card>> foundations;
 
-    // construct a current gameState
-    public GameState(List<List<Card>> tableauPiles, List<Card> stock, 
-    List<Card> waste, EnumMap<Card.Suit, List<Card>> foundations) {
+    private Stock stock;
+    private Waste waste;
+    private EnumMap<Card.Suit, Foundation> foundations;
+    private List<Tableau> tableaus;
 
-        this.tableauPiles = tableauPiles;
+    public GameState(Stock stock, Waste waste, 
+    EnumMap<Card.Suit, Foundation> foundations, List<Tableau> tableaus) {
         this.stock = stock;
         this.waste = waste;
         this.foundations = foundations;
+        this.tableaus = tableaus;
     }
 
-    // getters //
-    public List<List<Card>> getTabs() {return tableauPiles;}
-    public List<Card> getStock() {return stock;}
-    public List<Card> getWaste() {return waste;}
-    public EnumMap<Card.Suit, List<Card>> getFoundations() {return foundations;}
+    // getters
+    public Stock getStock() {return stock;}
+    public Waste getWaste() {return waste;}
+    public EnumMap<Card.Suit, Foundation> getFoundation() {return foundations;}
+    public List<Tableau> getTableaus() {return tableaus;}
 }
