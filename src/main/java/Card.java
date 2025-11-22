@@ -61,6 +61,12 @@ public class Card implements Comparable <Card> {
         faceUp = false;
     }
 
+    // copy constructor
+    public Card(Card card) {
+        this(card.rank, card.suit);
+        faceUp = card.faceUp;
+    }
+
     // getters
     public Rank getRank() {
         return rank;
