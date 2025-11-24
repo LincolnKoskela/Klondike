@@ -22,7 +22,7 @@ Test your strategy and attention to detail playing the most raw, logic driven Kl
 - Deal a new board with initial card layout of all tableaus and stock pile
 - Play the game from the console. May encounter minor bugs. 
 - Compile and run to play game. Select options: 1) play game. | 2) view controls from keyboard.
-- **Left off at:** Undo functionality is very bugged. Work in progress. 
+- Implemented `undo` functionalilty.
 
 ## Project Management
 You can view my Agile board and current development progress here:
@@ -80,7 +80,10 @@ To count the time it took to beat the game.
 
 ## History Progress Log
 
-### This week: (Nov 17 - 23, 2025)
+### This Week: (Nov 24 - 30, 2025)
+- Completed console version with updated undo function.
+
+### (Nov 17 - 23, 2025)
 - Created `GameState.java` to represent a frozen snapshot of the current state 
 of the game. 
 - Added Copy Constructor in `Card` class.
