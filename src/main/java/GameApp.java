@@ -4,6 +4,6 @@ import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.scene.control.Label;
 
-public class GameApp {
+public class GameApp{
     
 }

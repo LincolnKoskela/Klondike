@@ -20,7 +20,6 @@ public class Play {
             game.dealNewGame();
             timer.start();
         }
-        
     }
 
     /**
@@ -37,7 +36,7 @@ public class Play {
     }
 
     public static void printTime(double minutes) {
-        System.out.printf("Time Elapsed: %0.2f minutes.", minutes);
+        System.out.printf("Time Elapsed: %.2f minutes.\n", minutes);
     }
 
     public static void wonGame(GameEngine game, Time timer, double minutes) {
@@ -45,6 +44,11 @@ public class Play {
         System.out.println("Congrats! You've beat Klondike Solitaire!");
         minutes = minutes(timer);
         printTime(minutes);
+        printMoveCount(game);
+    }
+
+    public static void printMoveCount(GameEngine game) {
+        System.out.println("Move Count: " + game.getMoveCount());
     }
 
 
@@ -72,6 +76,7 @@ public class Play {
                     endGame(play, timer);
                     minutes = minutes(timer);
                     printTime(minutes);
+                    printMoveCount(game);
                 } else {
                     TextViews.printInvalid();
                 }
@@ -80,7 +85,6 @@ public class Play {
     }
 
     public static void play() {
-        
         System.out.println(TextViews.welcomeMenu());
         Scanner s = new Scanner(System.in);
         GameEngine game = new GameEngine(true);
