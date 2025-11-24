@@ -26,7 +26,10 @@ public class GameEngine {
         this.count = 0;
         this.moveCount = 0;
         this.history = new Stack<>();
+        this.snapshot = new Snapshot();
     }
+
+    public int getMoveCount() {return moveCount;}
 
     /**
      * This function deals the deck of cards into the 7 tableau columns.
@@ -92,6 +95,14 @@ public class GameEngine {
             board.restore(history.pop());
             moveCount++;
         }
+    }
+
+    public void saveState() {
+        final int MAX_HISTORY = 10;
+        if (history.size() >= MAX_HISTORY) {
+            history.remove(0);
+        }
+        history.push(snapshot.createSnapshot(board));
     }
 
     /**
