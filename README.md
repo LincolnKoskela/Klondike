@@ -16,13 +16,8 @@ Test your strategy and attention to detail playing the most raw, logic driven Kl
 4. Run `Play.java` from the terminal  
 
 ## Current State of Game
-- Pile interface lays out basic pile functions for `Stock` `Waste` `Foundation` `Tableau`
-- Terminal logic and testing
-- Card/Deck creation, basic pile functionalities and acceptance
-- Deal a new board with initial card layout of all tableaus and stock pile
-- Play the game from the console. May encounter minor bugs. 
-- Compile and run to play game. Select options: 1) play game. | 2) view controls from keyboard.
-- Implemented `undo` functionalilty.
+- Playable from **console**
+- Learning JavaFX to implement a GUI
 
 ## Project Management
 You can view my Agile board and current development progress here:
@@ -81,7 +76,7 @@ To count the time it took to beat the game.
 ## History Progress Log
 
 ### This Week: (Nov 24 - 30, 2025)
-- Completed console version with updated undo function.
+- Completed console version with updated undo, timer, and move count functions.
 
 ### (Nov 17 - 23, 2025)
 - Created `GameState.java` to represent a frozen snapshot of the current state 
@@ -124,7 +119,7 @@ to follow similar structure. This helps with testing out functions
 - Fixed alignment on `Board.java`
 - Fully functional GameEngine complete.
 
-### (Oct 20-26, 2025)
+### (Oct 20-26, 2025) **started tracking**
 
 - Finished `recycle()` function added a while loop to push cards onto stock until waste is empty 
 - Created `Play.java` to start thinking about how Play will interact with `GameEngine`
