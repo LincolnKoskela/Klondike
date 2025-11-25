@@ -57,6 +57,7 @@ To count the time it took to beat the game.
 | **Snapshot** | Creates a `GameState` of deep copies each piles `copy()` function. |
 | **InputController** | Input command mapping: Maps keys to command actions. |
 | **TextViews** | Displays text throughout the game and menus. |
+| **GameApp** | JavaFx GUI. |
 
 ## Future Roadmap
 | **Milestone** | **Description** |
