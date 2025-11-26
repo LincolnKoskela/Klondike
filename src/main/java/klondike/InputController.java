@@ -1,3 +1,4 @@
+package klondike;
 import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Map;

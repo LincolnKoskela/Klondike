@@ -1,3 +1,4 @@
+package klondike;
 
 /**
  * Ask piles whether moves are legal, applies moves, 

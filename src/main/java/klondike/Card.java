@@ -1,3 +1,4 @@
+package klondike;
 /**
  * This class constructs a playing card 
  * using enumeration values. Card implements

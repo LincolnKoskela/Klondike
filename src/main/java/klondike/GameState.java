@@ -1,3 +1,4 @@
+package klondike;
 /**
  * This class represents a frozen picture of the board at a given moment.
  * All data / no logic.

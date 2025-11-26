@@ -1,3 +1,4 @@
+package klondike;
 /**
  * Cards will be drawn from the Stock -> Waste pile. 
  * From there the card will be faced up and Player can choose

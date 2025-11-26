@@ -1,3 +1,4 @@
+package klondike;
 /**
  * Lays out the neccesary functions our pile classes will 
  * need to perform. The pile classes will implement me.

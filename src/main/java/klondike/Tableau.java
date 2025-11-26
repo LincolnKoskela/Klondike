@@ -1,3 +1,4 @@
+package klondike;
 /**
  * This class represents a single tableau pile current state, and defines 
  * its rules on how it acts, and what it can accept in Klondike.

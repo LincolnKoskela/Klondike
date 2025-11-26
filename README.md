@@ -1,13 +1,6 @@
 # Klondike Solitaire (Java)
-A fully playable Java implementation of Klondike Solitaire, built from scratch using OOP principles. 
-The project is designed to model the full logic of the game, including deck handling, 
-pile behaviors, move validation, and board setup. The goal of this project is to expand my 
-knowledge and skillset in object oriented principles and designs in Java. I enjoy building card games, 
-and plan to build several more in the future.
-
-This project is playable from **console**. 
-
 Test your strategy and attention to detail playing the most raw, logic driven Klondike experience. 
+This project is playable from **console**. 
 
 ## How to Run
 1. Clone the repository  
@@ -38,8 +31,8 @@ Each object has a `toString()` output for testing and debugging the internal sta
 To count the time it took to beat the game.
 - Undo functionality 
 
-## Class Architecture
-| **Component** | **Responsibility** |
+## klondike Architecture
+| **Components** | **Responsibility** |
 |----------------|--------------------|
 | **Card** | Represents a single playing card (Rank, Suit, and face-up/face-down state). |
 | **Pile (Interface)** | Defines common pile operations (`push`, `draw/pop`, `canAccept`, `size`, `clear`). |
@@ -57,7 +50,13 @@ To count the time it took to beat the game.
 | **Snapshot** | Creates a `GameState` of deep copies each piles `copy()` function. |
 | **InputController** | Input command mapping: Maps keys to command actions. |
 | **TextViews** | Displays text throughout the game and menus. |
+
+## klondike GUI Architecture (JavaFX)
+| **Components** | **Responsibility** |
+|----------------|--------------------|
 | **GameApp** | JavaFx GUI. |
+| **CardSlot** | Represents a slot where playing cards will go. |
+| **CardView** | Visual representation of a playing card. |
 
 ## Future Roadmap
 | **Milestone** | **Description** |

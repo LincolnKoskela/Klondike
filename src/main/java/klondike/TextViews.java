@@ -1,3 +1,4 @@
+package klondike;
 public class TextViews {
     public static String welcomeMenu() {
         return "Welcome to Klondike Solitaire!\n"

@@ -1,3 +1,4 @@
+package klondike;
 /**
  * This class interacts takes input from the user and 
  * uses the GameEngine and InputController to play Klondike Solitaire.

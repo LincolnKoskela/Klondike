@@ -1,3 +1,4 @@
+package klondike;
 /**
  * As stated in the README file, this is where the Klondike magic happens
  * This class represents the structures of the foundation piles. Divided into 

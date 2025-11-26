@@ -1,3 +1,7 @@
+package klondike.ui;
+import klondike.*;
+import klondike.Card.Rank;
+import klondike.Card.Suit;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -5,7 +9,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.control.Label;
 
-
+/**
+ * JavaFX Launcher
+ */
 public class GameApp extends Application {
 
     @Override
@@ -16,22 +22,22 @@ public class GameApp extends Application {
         // Foundations row (top)
         HBox foundations = new HBox(50); // @param - spacing between children
         foundations.getChildren().addAll(
-            new Label("F1"),
-            new Label("F2"),
-            new Label("F3"),
-            new Label("F4")
+            new CardSlot("F1"),
+            new CardSlot("F2"),
+            new CardSlot("F3"),
+            new CardSlot("F4")
         );
 
         // Tableau row (center)
         HBox tableau = new HBox(80); // add more spacing for columns
         tableau.getChildren().addAll(
-            new Label("T1"),
-            new Label("T2"),
-            new Label("T3"),
-            new Label("T4"),
-            new Label("T5"),
-            new Label("T6"),
-            new Label("T7")
+            new CardSlot("T1"),
+            new CardSlot("T2"),
+            new CardSlot("T3"),
+            new CardSlot("T4"),
+            new CardSlot("T5"),
+            new CardSlot("T6"),
+            new CardSlot("T7")
         );
 
         HBox stockWaste = new HBox(50);
@@ -43,6 +49,12 @@ public class GameApp extends Application {
         root.setTop(foundations);
         root.setCenter(tableau);
         root.setBottom(stockWaste);
+
+
+        /// Test Card View ///
+        Card test = new Card(Rank.ACE, Suit.HEARTS);
+        test.flip();
+        root.setCenter(new CardView(test));
 
         // Scene + Stage
         Scene scene = new Scene(root, 1200, 800);

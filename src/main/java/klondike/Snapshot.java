@@ -1,3 +1,4 @@
+package klondike;
 /**
  * Utility class that uses deep copies in each indivdual piles class
  * to make a snapshot of the current game state. 

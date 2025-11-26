@@ -1,3 +1,4 @@
+package klondike;
 /**
  * What is the stock pile? 
  * The stock pile starts with cards face down. 
