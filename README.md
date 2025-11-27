@@ -2,15 +2,16 @@
 Test your strategy and attention to detail playing the most raw, logic driven Klondike experience. 
 This project is playable from **console**. 
 
-## How to Run
+## How to Run from **Console**
 1. Clone the repository  
 2. Open in VS Code  
-3. Compile all `.java` files  
-4. Run `Play.java` from the terminal  
+3. Compile all `.java` files
+4. Run `Play.java` from the terminal
 
 ## Current State of Game
 - Playable from **console**
-- 
+- Making GUI using JavaFX
+![stateOfGame](images/27nov25.png)
 
 ## Project Management
 You can view my Agile board and current development progress here:
