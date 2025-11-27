@@ -19,7 +19,6 @@ public class GameEngine {
     private Stack<GameState> history;
     private Snapshot snapshot; // tool for creating snapshots of the current state
 
-    // constructor
     public GameEngine(boolean shuffled) {
         this.board = new Board();
         this.deck = new Deck(shuffled);
@@ -30,17 +29,15 @@ public class GameEngine {
         this.snapshot = new Snapshot();
     }
 
+    // get mees 
     public int getMoveCount() {return moveCount;}
+    public Board getBoard() {return board;}
 
     /**
      * This function deals the deck of cards into the 7 tableau columns.
      * The rest of the cards go into the stock. Handle the face of the cards.
      * Only the top card in the tabs should be faced up, the rest face down.
      * The stock cards are all face down.
-     * 
-     * Loop through the deck. Fill each tableau column until the column equals size.
-     * Flip that last card and move to the next column. Once all tabs are filled,
-     * move the rest of the deck to the stock pile.
      */
     public void dealNewGame() {
         int column = 1;
