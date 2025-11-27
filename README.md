@@ -11,6 +11,8 @@ This project is playable from **console**.
 ## Current State of Game
 - Playable from **console**
 - Making GUI using JavaFX
+
+
 ![stateOfGame](images/27nov25.png)
 
 ## Project Management
