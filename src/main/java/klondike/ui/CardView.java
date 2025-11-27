@@ -12,6 +12,7 @@ public class CardView extends StackPane {
     private Card card;
     private Rectangle rect;
     private Label label;
+    private Runnable onSelect;
 
     public CardView(Card card) {
         this.card = card;
@@ -28,6 +29,20 @@ public class CardView extends StackPane {
         getChildren().addAll(rect, label);
 
         setStyle("-fx-padding: 5;");
+
+        // add clicking ability
+        setOnMouseClicked(e -> {
+            if (onSelect != null) onSelect.run();
+        });
+
+        // add glow around the clicked card
+        setOnMouseClicked(e -> {
+            setStyle("-fx-border-color: gold; -fx-border-width: 3");
+        }) ;
+    }
+
+    public void setOnSelect(Runnable r) {
+        this.onSelect = r;
     }
 
     private String getRankSymbol(Card.Rank rank) {
@@ -65,8 +80,8 @@ public class CardView extends StackPane {
             rect.setStroke(Color.BLACK);
         } else {
             label.setText("");
-            rect.setFill(Color.DARKBLUE);
-            rect.setStroke(Color.BLUE);
+            rect.setFill(Color.RED);
+            rect.setStroke(Color.WHITE);
         }
     }
 }

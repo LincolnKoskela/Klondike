@@ -3,7 +3,6 @@ package klondike.ui;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.control.Label;
-import javafx.scene.paint.Color;
 
 public class CardSlot extends StackPane {
 
