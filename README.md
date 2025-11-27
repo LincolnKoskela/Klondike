@@ -10,7 +10,7 @@ This project is playable from **console**.
 
 ## Current State of Game
 - Playable from **console**
-- Learning JavaFX to implement a GUI
+- 
 
 ## Project Management
 You can view my Agile board and current development progress here:
@@ -54,9 +54,10 @@ To count the time it took to beat the game.
 ## klondike GUI Architecture (JavaFX)
 | **Components** | **Responsibility** |
 |----------------|--------------------|
-| **GameApp** | JavaFx GUI. |
+| **GameApp** | JavaFX GUI. |
 | **CardSlot** | Represents a slot where playing cards will go. |
 | **CardView** | Visual representation of a playing card. |
+| **PileView** | Represents a pile of card objects. |
 
 ## Future Roadmap
 | **Milestone** | **Description** |
@@ -77,6 +78,14 @@ To count the time it took to beat the game.
 
 ### This Week: (Nov 24 - 30, 2025)
 - Completed console version with updated undo, timer, and move count functions.
+- Created `GameApp.java` as main GUI
+- Created `CardSlot.java` which is a StackPane representing open card slot and where
+cards will go. 
+- `CardView.java` is the image visual of my cards with `updateAppearance()` function, 
+passing a card object in the constructor, giving it size as well.
+- Added a gameengine to the `GameApp` to interact with the board constructing the 
+stock, waste, foundations, and tableau rows and dealing a new game, `dealNewGame()`
+- Added Clicking ability in `CardView` and `GameApp`.
 
 ### (Nov 17 - 23, 2025)
 - Created `GameState.java` to represent a frozen snapshot of the current state 
