@@ -12,7 +12,7 @@ public class CardView extends StackPane {
     private Card card;
     private Rectangle rect;
     private Label label;
-    private Runnable onSelect;
+    private Runnable onSelect; // object holds code to run later
 
     public CardView(Card card) {
         this.card = card;

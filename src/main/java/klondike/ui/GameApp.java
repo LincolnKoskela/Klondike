@@ -1,6 +1,8 @@
 package klondike.ui;
 import klondike.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -15,8 +17,11 @@ import javafx.scene.layout.StackPane;
  */
 public class GameApp extends Application {
 
-    private static CardView selectedCard = null;
+    // ---------- fields -----------------
+    private static List<CardView> selectedStack = new ArrayList<>();
 
+
+    // ---------- Start ---------------
     @Override
     public void start(Stage primaryStage) {
         // Root layout
@@ -30,6 +35,22 @@ public class GameApp extends Application {
         HBox stockWaste = new HBox(50);
         PileView stockView = new PileView(board.getStock(), 0);
         PileView wasteView = new PileView(board.getWaste(), 0);
+
+        // click: move one card from stock -> waste
+        stockView.setOnMouseClicked(e -> {
+            Card drawn = board.getStock().draw();
+            if (drawn != null) {
+                board.getWaste().push(drawn); 
+                stockView.redraw(); // refresh stock view
+                wasteView.redraw(); // refresh waste view
+
+            }
+        });
+
+
+        wasteView.setOnMouseClicked(e -> {
+            
+        });
 
         StackPane stockCell = new StackPane(new CardSlot("STOCK"), stockView);
         StackPane wasteCell = new StackPane(new CardSlot("WASTE"), wasteView);
@@ -76,24 +97,30 @@ public class GameApp extends Application {
         primaryStage.show();
     }
 
-    public static void handleCardSelection(CardView clicked) {
-        // if clicking same card twice -> deselect
-        if (selectedCard == clicked) {
-            clicked.setStyle("");
-            selectedCard = null;
-            return;
+    /**
+     * This function handles clicking a card in a pile, preping it for a possible move.
+     * When card is clicked, any previous selections are cleared. If the click is a tableau pile, 
+     * get all the cards from that card downwards.
+     * 
+     * @param clicked is the CardView node the user clicked
+     * @param pile represents which pile the card belongs to
+     * @param index represents position in a tableau pile. 
+     */
+    public static void handleCardSelection(CardView clicked, Pile pile, int index) {
+        for (CardView cv : selectedStack) {
+            cv.setStyle(""); // remove styling, clear list
         }
+        selectedStack.clear();
 
-        // if another card was selected -> clear old
-        if (selectedCard != null) {
-            selectedCard.setStyle("");
+        if (pile instanceof Tableau) { // is the pile a tableau
+            Tableau tab = (Tableau) pile;
+
+            List<Card> stack = tab.sublist(index, tab.size());
+
+            System.out.println("Selected Stack: " + stack);
         }
-
-        // select new card
-        clicked.setStyle("-fx-border-color: gold; -fx-border-width: 3;");
-        selectedCard = clicked;
     }
     public static void main(String[] args) {
-        launch(args); // inside application class tht sets up program as javafx application
+        launch(args); 
     }
 }

@@ -89,6 +89,7 @@ passing a card object in the constructor, giving it size as well.
 - Added a gameengine to the `GameApp` to interact with the board constructing the 
 stock, waste, foundations, and tableau rows and dealing a new game, `dealNewGame()`
 - Added Clicking ability in `CardView` and `GameApp`.
+- Can now click `Stock` to `Waste`. 
 
 ### (Nov 17 - 23, 2025)
 - Created `GameState.java` to represent a frozen snapshot of the current state 

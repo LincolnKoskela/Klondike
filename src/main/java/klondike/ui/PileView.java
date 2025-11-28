@@ -19,19 +19,28 @@ public class PileView extends Pane {
         redraw();
     }
 
+    /**
+     * This function rebuilds the entire visual pile of cards 
+     * turning pile data into actual javaFX card nodes on screen.
+     * Everytime the pile changes (new card, card flipped, cards removed), 
+     * this function is called and displays the update
+     */
     public void redraw() {
         getChildren().clear(); // remove all previously drawn cards
 
         List<Card> cards = pile.getCards();
         double currentY = 0.0; // track verticle placement
 
-        for (Card card : cards) {
+        for (int i = 0; i < cards.size(); i++) {
+            Card card = cards.get(i);
+            int cardindex = i;
             CardView view = new CardView(card); // convert card object into UI node
+            view.setLayoutY(currentY);
 
-            view.setOnSelect(() -> {
-                GameApp.handleCardSelection(view);
+            view.setOnMouseClicked(e -> {
+                GameApp.handleCardSelection(view, pile, cardindex);
             });
-            view.setLayoutY(currentY); // place children manually
+
             getChildren().add(view); // becomes visible on screen
             currentY += yOffset; // offset for the next card
         }
