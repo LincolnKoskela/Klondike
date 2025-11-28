@@ -2,11 +2,25 @@
 Test your strategy and attention to detail playing the most raw, logic driven Klondike experience. 
 This project is playable from **console**. 
 
-## How to Run from **Console**
-1. Clone the repository  
-2. Open in VS Code  
-3. Compile all `.java` files
-4. Run `Play.java` from the terminal
+## How to Run from the **Console**
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/LincolnKoskela/Klondike.git
+   ```
+
+2. **Open the project in VS Code or any IDE**
+
+3. **Compile all `.java` files**
+   ```bash
+   javac src/main/java/klondike/*.java
+   ```
+
+4. **Run the game**
+   ```bash
+   java -cp src/main/java klondike.Play
+   ```
+
 
 ## Current State of Game
 - Playable from **console**
