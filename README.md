@@ -25,6 +25,7 @@ This project is playable from **console**.
 ## Current State of Game
 - Playable from **console**
 - Making GUI using JavaFX
+- Working through bugs moving cards around in the tableau piles
 
 
 ![stateOfGame](images/27nov25.png)
@@ -93,7 +94,11 @@ To count the time it took to beat the game.
 
 ## History Progress Log
 
-### This Week: (Nov 24 - 30, 2025)
+### This Week: (Dec 1 - 7, 2025)
+- Click Waste to select waste, click on destination tableau to add selected card to destination tab.
+- Added `GameEngine` field to use engines move functions.
+
+### (Nov 24 - 30, 2025)
 - Completed console version with updated undo, timer, and move count functions.
 - Created `GameApp.java` as main GUI
 - Created `CardSlot.java` which is a StackPane representing open card slot and where
