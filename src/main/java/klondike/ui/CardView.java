@@ -2,6 +2,8 @@ package klondike.ui;
 
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 
@@ -12,7 +14,6 @@ public class CardView extends StackPane {
     private Card card;
     private Rectangle rect;
     private Label label;
-    private Runnable onSelect; // object holds code to run later
 
     public CardView(Card card) {
         this.card = card;
@@ -28,21 +29,10 @@ public class CardView extends StackPane {
 
         getChildren().addAll(rect, label);
 
-        setStyle("-fx-padding: 5;");
+        StackPane.setAlignment(label, Pos.TOP_LEFT);
+        StackPane.setMargin(label, new Insets(5, 0, 0, 5));
 
-        // add clicking ability
-        setOnMouseClicked(e -> {
-            if (onSelect != null) onSelect.run();
-        });
-
-        // add glow around the clicked card
-        setOnMouseClicked(e -> {
-            setStyle("-fx-border-color: gold; -fx-border-width: 3");
-        }) ;
-    }
-
-    public void setOnSelect(Runnable r) {
-        this.onSelect = r;
+        setPadding(new Insets(5));
     }
 
     private String getRankSymbol(Card.Rank rank) {

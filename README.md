@@ -25,10 +25,9 @@ This project is playable from **console**.
 ## Current State of Game
 - Playable from **console**
 - Making GUI using JavaFX
-- Working through bugs moving cards around in the tableau piles
 
 
-![stateOfGame](images/27nov25.png)
+![stateOfGame](images/5dec25.png)
 
 ## Project Management
 You can view my Agile board and current development progress here:
@@ -82,7 +81,7 @@ To count the time it took to beat the game.
 |----------------|--------------------|
 | **GameEngine completion** | Full movement management, stock/waste, foudations, and tableau's in fluidity. |
 | **Interactive terminal UI** | Add input commands for moves |
-| **Graphic interface** | Implement a GUI version. JavaFX, then JS/web | 
+| **Graphic interface** | Implement a GUI version. JavaFX, then JS/web, or Figma | 
 | **Save/load system** | Save game state and resume for later. |
 | **Make CPU strategies** | Make AI's to revert to specific strategies (ex. always select from tab before stock) |
 | **Statistical Analysis** | (ex. when x card is played, outcomes of winning changes) |
@@ -96,7 +95,8 @@ To count the time it took to beat the game.
 
 ### This Week: (Dec 1 - 7, 2025)
 - Click Waste to select waste, click on destination tableau to add selected card to destination tab.
-- Added `GameEngine` field to use engines move functions.
+- Added `GameEngine` field to `GameApp` to use engines moves instead of hardcode.
+- Built Tableau -> Tableau move functionality, next is Foundations
 
 ### (Nov 24 - 30, 2025)
 - Completed console version with updated undo, timer, and move count functions.

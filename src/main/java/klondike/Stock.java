@@ -84,6 +84,17 @@ public class Stock implements Pile {
     }
 
     /**
+     * Get the card but don't remove it. Used to set card variables
+     * @return Card
+     */
+    public Card peek() {
+        if (size() == 0) {
+            return null;
+        }
+        return stock.get(size()-1);
+    }
+
+    /**
      * @param List of cards being recycled (added to stock pile)
      * This function adds cards back into stock pile in preserve order (non-reverse)
      * and ensures the cards are faced down

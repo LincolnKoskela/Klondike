@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.Node;
 
 /**
  * JavaFX Launcher
@@ -18,7 +19,43 @@ import javafx.scene.layout.StackPane;
 public class GameApp extends Application {
 
     // ---------- fields -----------------
-    private static List<CardView> selectedStack = new ArrayList<>();
+    private static GameEngine engine;
+    private static List<CardView> selectedStack = new ArrayList<>(); 
+    private static PileView selectedWasteView = null; // selecting TOPCARD of waste pile
+
+    private static int selectedSourceCol = -1; // 1 - 7
+    private static int selectedSourceRow = -1; // rows down in col
+    private static HBox tableauRowRef; 
+
+
+    // ---------- helpers -----------------
+    public static int getSelectedSourceCol() {
+        return selectedSourceCol;
+    }
+    public static int getSelectedSourceRow() {
+        return selectedSourceRow;
+    }
+    public static void setTableauRow(HBox row) {
+        tableauRowRef = row;
+    }
+    public static boolean isWasteSelected() {
+        return selectedWasteView != null;
+    }
+    public static void clearSelection() {
+        selectedSourceCol = -1;
+        selectedSourceRow = -1;
+    }
+
+    private static void redrawAllTableaus() {
+        if (tableauRowRef == null) return;
+        for (Node node : tableauRowRef.getChildren()) {
+            if (node instanceof PileView pv) {
+                pv.redraw();
+            }
+        }
+    }
+    // --------------------------------------
+
 
 
     // ---------- Start ---------------
@@ -27,7 +64,7 @@ public class GameApp extends Application {
         // Root layout
         BorderPane root = new BorderPane();
 
-        GameEngine engine = new GameEngine(true);
+        engine = new GameEngine(true);
         engine.dealNewGame();
         Board board = engine.getBoard();
 
@@ -38,18 +75,41 @@ public class GameApp extends Application {
 
         // click: move one card from stock -> waste
         stockView.setOnMouseClicked(e -> {
-            Card drawn = board.getStock().draw();
+            Card drawn = board.getStock().peek();
             if (drawn != null) {
-                board.getWaste().push(drawn); 
-                stockView.redraw(); // refresh stock view
-                wasteView.redraw(); // refresh waste view
-
+                engine.draw();
+                stockView.redraw();
+                wasteView.redraw();
             }
         });
 
 
         wasteView.setOnMouseClicked(e -> {
-            
+            // if the waste is empty
+            if (board.getWaste().isEmpty()) {
+                if (selectedWasteView != null) {
+                    selectedWasteView.setStyle(""); // removes highlight
+                }
+                selectedWasteView = null;
+                return;
+            }
+
+            // if clicked waste again -> deselect
+            if (selectedWasteView == wasteView) { // pointing to same object references in mem
+                wasteView.setStyle(""); 
+                selectedWasteView = null;
+                return;
+            }
+
+            // select waste
+            if (selectedWasteView != null) {
+                selectedWasteView.setStyle(""); // clears previous waste selection
+            }
+
+            wasteView.setStyle("-fx-border-color: gold; -fx-border-width: 3;");
+            selectedWasteView = wasteView;
+
+            System.out.println("Selected waste card: " + board.getWaste().topCard());
         });
 
         StackPane stockCell = new StackPane(new CardSlot("STOCK"), stockView);
@@ -77,12 +137,80 @@ public class GameApp extends Application {
 
         // ----- Tableaus -------
         HBox tableauRow = new HBox(40);
+        GameApp.setTableauRow(tableauRow);
         tableauRow.setAlignment(Pos.TOP_CENTER);
         tableauRow.setPadding(new Insets(120, 0, 0, 0));
 
+
         for (int col = 1; col <= 7; col++) {
             Tableau tab = board.getTableau(col);
-            PileView view = new PileView(tab, 20);
+            PileView view = new PileView(tab, 30, col);
+            
+            int destCol = col; 
+
+            view.setOnMouseClicked(e -> {
+
+                // 1) Waste -> Tableau
+                if (selectedWasteView != null) {
+                    Card before = board.getWaste().topCard();
+
+                    engine.moveWasteToTableau(destCol);
+
+                    Card after = board.getWaste().topCard();
+
+                    if (before != after) { // move succeeded
+                        selectedWasteView.redraw();
+                        view.redraw();
+
+                        System.out.println("Moved from waste to tableau " + destCol);
+                    } else {
+                        System.out.println("Invalid move from waste to tableau " + destCol);
+                    }
+
+                    // CLEAR!
+                    selectedWasteView.setStyle("");
+                    selectedWasteView = null;
+                    e.consume();
+                    return;
+                } 
+
+                // 2) Tableau -> Tableau
+                if (selectedSourceCol != -1) {
+
+                    // ignore same column clicks 
+                    if (selectedSourceCol == destCol) {
+                        GameApp.clearSelection();
+                        e.consume();
+                        return;
+                    }
+
+                    int beforeMoves = engine.getMoveCount();
+                    engine.move(selectedSourceCol, selectedSourceRow, destCol);
+
+                    if (engine.getMoveCount() > beforeMoves) {
+                        // move succeeded -> redraw all tableau views
+                        for (Node node : tableauRow.getChildren()) {
+                            if (node instanceof PileView pv) {
+                                pv.redraw();
+                            }
+                        }
+
+                        System.out.println("Moved tableau " + selectedSourceCol 
+                        + " row " + selectedSourceRow + " to tableau "
+                        + destCol);
+                    } else {
+                        System.out.println("Invalid tableau move from "
+                        + selectedSourceCol + " row " + selectedSourceRow
+                        + " to " + destCol);
+                    }
+
+                    // CLEAR!
+                    GameApp.clearSelection();
+                    e.consume();
+                    return;
+                }
+            });
+
             tableauRow.getChildren().add(view);
         }
 
@@ -106,19 +234,22 @@ public class GameApp extends Application {
      * @param pile represents which pile the card belongs to
      * @param index represents position in a tableau pile. 
      */
-    public static void handleCardSelection(CardView clicked, Pile pile, int index) {
-        for (CardView cv : selectedStack) {
-            cv.setStyle(""); // remove styling, clear list
+    public static void handleCardSelection(CardView clicked, Pile pile, int index, int col) {
+
+        if (selectedSourceCol == col && selectedSourceRow == index) {
+            clearSelection();
+            redrawAllTableaus();
+            System.out.println("Deselected col" + col + " row " + index);
+            return;
         }
-        selectedStack.clear();
 
-        if (pile instanceof Tableau) { // is the pile a tableau
-            Tableau tab = (Tableau) pile;
-
-            List<Card> stack = tab.sublist(index, tab.size());
-
-            System.out.println("Selected Stack: " + stack);
+        if (pile instanceof Tableau) { 
+            selectedSourceCol = col;
+            selectedSourceRow = index;
+            System.out.println("Selected from col " + col + " row " + index);
         }
+
+        redrawAllTableaus();
     }
     public static void main(String[] args) {
         launch(args); 
