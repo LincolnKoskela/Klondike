@@ -97,6 +97,8 @@ To count the time it took to beat the game.
 - Click Waste to select waste, click on destination tableau to add selected card to destination tab.
 - Added `GameEngine` field to `GameApp` to use engines moves instead of hardcode.
 - Built Tableau -> Tableau move functionality, next is Foundations
+- Moved Card labels to topLeft for better visability in tableau stacks.
+- Added highlight functionality to selecting and deselecting a tableau card.
 
 ### (Nov 24 - 30, 2025)
 - Completed console version with updated undo, timer, and move count functions.
