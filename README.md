@@ -93,12 +93,20 @@ To count the time it took to beat the game.
 
 ## History Progress Log
 
-### This Week: (Dec 1 - 7, 2025)
+### This Week: (Dec 8 - 14, 2025)
+- Added background slots to the foundations using `CardSlot` with a Stackpane(slot, `PileView`),
+then used the StackPane as the clicker (named `foundationContainer`)
+- Implemented `recycle()` to the game on the stockView clicker by checking if stock is not empty, 
+clicking will draw card, else recycle, then `redraw()` the pileView
+
+
+### (Dec 1 - 7, 2025)
 - Click Waste to select waste, click on destination tableau to add selected card to destination tab.
 - Added `GameEngine` field to `GameApp` to use engines moves instead of hardcode.
 - Built Tableau -> Tableau move functionality, next is Foundations
 - Moved Card labels to topLeft for better visability in tableau stacks.
 - Added highlight functionality to selecting and deselecting a tableau card.
+- Cards can now move to Foundation piles.
 
 ### (Nov 24 - 30, 2025)
 - Completed console version with updated undo, timer, and move count functions.
