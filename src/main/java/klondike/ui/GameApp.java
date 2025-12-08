@@ -8,9 +8,11 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.Node;
 
 /**
@@ -26,14 +28,25 @@ public class GameApp extends Application {
     private static int selectedSourceCol = -1; // 1 - 7
     private static int selectedSourceRow = -1; // rows down in col
     private static HBox tableauRowRef; 
+    private static PileView stockViewRef;
+    private static PileView wasteViewRef;
 
 
     // ---------- helpers -----------------
     public static int getSelectedSourceCol() {
         return selectedSourceCol;
     }
+    public static GameEngine getEngine() {
+        return engine;
+    }
     public static int getSelectedSourceRow() {
         return selectedSourceRow;
+    }
+    public static PileView getStockView() {
+        return stockViewRef;
+    }
+    public static PileView getWasteView() {
+        return wasteViewRef;
     }
     public static void setTableauRow(HBox row) {
         tableauRowRef = row;
@@ -48,6 +61,7 @@ public class GameApp extends Application {
 
     private static void redrawAllTableaus() {
         if (tableauRowRef == null) return;
+
         for (Node node : tableauRowRef.getChildren()) {
             if (node instanceof PileView pv) {
                 pv.redraw();
@@ -68,19 +82,28 @@ public class GameApp extends Application {
         engine.dealNewGame();
         Board board = engine.getBoard();
 
+        // undo button
+        Button undo = new Button("Undo");
+
         // ----- StockWaste Pile *****
         HBox stockWaste = new HBox(50);
         PileView stockView = new PileView(board.getStock(), 0);
         PileView wasteView = new PileView(board.getWaste(), 0);
 
+        stockViewRef = stockView;
+        wasteViewRef = wasteView;
+
         // click: move one card from stock -> waste
         stockView.setOnMouseClicked(e -> {
             Card drawn = board.getStock().peek();
-            if (drawn != null) {
-                engine.draw();
-                stockView.redraw();
-                wasteView.redraw();
+            if (!board.getStock().isEmpty()) {
+                if (drawn != null) engine.draw();
+            } else {
+                engine.recycle();
             }
+
+            stockView.redraw();
+            wasteView.redraw();
         });
 
 
@@ -123,16 +146,70 @@ public class GameApp extends Application {
         // ----- Foundations -----
         HBox foundationRow = new HBox(50); 
         foundationRow.setAlignment(Pos.TOP_LEFT);
+
         
         for (Card.Suit suit : Card.Suit.values()) {
             Foundation f = board.getFoundation(suit);
             PileView view = new PileView(f, 0); 
-            
-            CardSlot slot = new CardSlot(suit.name());
 
-            StackPane cell = new StackPane(slot, view);
-            cell.setAlignment(Pos.TOP_CENTER);
-            foundationRow.getChildren().add(cell);
+            CardSlot slot = new CardSlot();
+
+            StackPane foundationContainer = new StackPane(slot, view);
+            
+
+            Card.Suit suitCopy = suit;
+
+            foundationContainer.setOnMouseClicked(e -> {
+
+
+                // Waste -> Foundation
+                if (selectedWasteView != null) {
+                    int beforeMoves = engine.getMoveCount();
+                    engine.moveWastetoFoundation(suitCopy);
+
+                    if (engine.getMoveCount() > beforeMoves) { // move succeeded
+                        
+                        if(wasteViewRef != null) {
+                            wasteViewRef.redraw();
+                        }
+
+                        view.redraw();
+                        System.out.println("Moved from Waste to Foundation " + suitCopy);
+                    } else {
+                        System.out.println("Invalid move from Waste to Foundation " + suitCopy);
+                    }
+
+
+                    // clear waste selections & highlights
+                    selectedWasteView.setStyle("");
+                    selectedWasteView = null;
+
+                    e.consume();
+                    return;
+                }
+
+                // Tableau -> Foundation
+                if (selectedSourceCol != -1) {
+                    int beforeMoves = engine.getMoveCount();
+                    engine.moveTableauToFoundation(selectedSourceCol, suitCopy);
+
+                    if (engine.getMoveCount() > beforeMoves) { // move succeeded
+                        redrawAllTableaus();
+                        view.redraw();
+                        System.out.println("Moved from Tableau " + selectedSourceCol
+                            + " to Foundation " + suitCopy
+                        );
+                    } else {
+                        System.out.println("Invalid move from Tableau -> Foundation");
+                    }
+
+                    clearSelection();
+                    e.consume();
+                    return;
+                }
+            });
+
+            foundationRow.getChildren().addAll(foundationContainer);
         }
 
         // ----- Tableaus -------
@@ -144,6 +221,7 @@ public class GameApp extends Application {
 
         for (int col = 1; col <= 7; col++) {
             Tableau tab = board.getTableau(col);
+
             PileView view = new PileView(tab, 30, col);
             
             int destCol = col; 
@@ -239,7 +317,7 @@ public class GameApp extends Application {
         if (selectedSourceCol == col && selectedSourceRow == index) {
             clearSelection();
             redrawAllTableaus();
-            System.out.println("Deselected col" + col + " row " + index);
+            System.out.println("Deselected col " + col + " row " + index);
             return;
         }
 

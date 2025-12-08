@@ -6,6 +6,21 @@ import javafx.scene.control.Label;
 
 public class CardSlot extends StackPane {
 
+
+    public CardSlot() {
+        Rectangle rect = new Rectangle(70, 100); // width, height
+        rect.setArcWidth(12); // round the corners
+        rect.setArcHeight(12);
+        rect.getStyleClass().add("card-slot-rect");
+
+
+        // center the label on the top of the rect
+        getChildren().addAll(rect);
+
+        // spacing from other nodes
+        setStyle("-fx-padding: 5;");
+    }
+    
     /**
      * Constructor that defines how card slot looks
      * @param text -> label the card slot
@@ -26,4 +41,6 @@ public class CardSlot extends StackPane {
         // spacing from other nodes
         setStyle("-fx-padding: 5;");
     }
+
+    
 }

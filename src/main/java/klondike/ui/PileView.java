@@ -50,13 +50,28 @@ public class PileView extends Pane {
 
             view.setOnMouseClicked(e -> {
 
-                if (pile instanceof Tableau && 
-                    column > 0 &&
-                    !GameApp.isWasteSelected()) {
+                if (!(pile instanceof Tableau) || column <= 0 || GameApp.isWasteSelected()) {
+                    return;
+                }
 
+                int selectedCol = GameApp.getSelectedSourceCol();
+                int selectedRow = GameApp.getSelectedSourceRow();
+
+                // CASE 1: nothing selected yet -> select this card
+                if (selectedCol == -1) { 
                     GameApp.handleCardSelection(view, pile, cardindex, column);
                     e.consume();
+                    return;
                 }
+
+                // CASE 2: clicking the same card -> toggle/deselect
+                if (selectedCol == column && selectedRow == cardindex) {
+                    GameApp.handleCardSelection(view, pile, cardindex, column);
+                    e.consume();
+                    return;
+                }
+
+
             });
 
             if (pile instanceof Tableau &&

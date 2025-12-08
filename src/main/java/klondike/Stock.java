@@ -116,6 +116,9 @@ public class Stock implements Pile {
     @Override
     public void push(Card card) {
         if (card != null) {
+            if (card.isFaceUp()) {
+                card.flip();
+            }
             stock.add(card);
         }
     }
