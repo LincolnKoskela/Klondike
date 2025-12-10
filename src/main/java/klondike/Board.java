@@ -34,7 +34,7 @@ public class Board {
         foundations.put(Card.Suit.SPADES, new Foundation());
 
         this.tableaus = new ArrayList<>();
-        for (int i = 0; i < getColumns(); i++) {
+        for (int i = 1; i <= getColumns(); i++) {
             this.tableaus.add(new Tableau());
         }
 
@@ -84,21 +84,49 @@ public class Board {
             f.clear();
         }
 
-        for (int i = 0; i < getColumns(); i++) {
-            tableaus.get(i).clear();
+        for (Tableau t : tableaus) {
+            t.clear();
         }
     }
 
     /**
-     * This function is used in undo function in the gameengine
-     * @param state gives us accept to restore the last gamestate
+     * This function is used in undo function in the GameEngine
      */
     public void restore(GameState state) {
+        // clear all the piles
         clear();
-        this.stock = state.getStock();
-        this.waste = state.getWaste();
-        this.foundations = state.getFoundation();
-        this.tableaus = state.getTableaus();
+
+        // restore stock
+        for (Card c : state.getStock().getCards()) {
+            this.stock.push(new Card(c));
+        }
+
+        // restore waste
+        for (Card c : state.getWaste().getCards()) {
+            this.waste.push(new Card(c));
+        }
+
+        // restore each foundation
+        for (Card.Suit suit : Card.Suit.values()) {
+            Foundation target = this.foundations.get(suit);
+            Foundation src = state.getFoundation().get(suit);
+
+            for (Card c : src.getCards()) {
+                target.push(new Card(c));
+            }
+        }
+
+        // Restore tableaus 
+
+        List<Tableau> srcTab = state.getTableaus();
+        for (int i = 0; i < this.tableaus.size() && i < srcTab.size(); i++) {
+            Tableau target = tableaus.get(i);
+            Tableau src = srcTab.get(i);
+
+            for (Card c : src.getCards()) {
+                target.push(new Card(c));
+            }
+        }
     }
 
     /**
