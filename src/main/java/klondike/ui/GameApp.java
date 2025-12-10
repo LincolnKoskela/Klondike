@@ -30,6 +30,7 @@ public class GameApp extends Application {
     private static HBox tableauRowRef; 
     private static PileView stockViewRef;
     private static PileView wasteViewRef;
+    private static HBox foundationRowRef;
 
 
     // ---------- helpers -----------------
@@ -68,6 +69,16 @@ public class GameApp extends Application {
             }
         }
     }
+
+    private static void redrawAllFoundations() {
+        if (foundationRowRef == null) return;
+
+        for (Node node : foundationRowRef.getChildren()) {
+            if (node instanceof PileView pv) {
+                pv.redraw();
+            }
+        }
+    }
     // --------------------------------------
 
 
@@ -82,8 +93,7 @@ public class GameApp extends Application {
         engine.dealNewGame();
         Board board = engine.getBoard();
 
-        // undo button
-        Button undo = new Button("Undo");
+
 
         // ----- StockWaste Pile *****
         HBox stockWaste = new HBox(50);
@@ -92,6 +102,14 @@ public class GameApp extends Application {
 
         stockViewRef = stockView;
         wasteViewRef = wasteView;
+
+        // undo button
+        Button undo = new Button("Undo");
+        undo.setPrefWidth(80);
+        HBox bottomBar = new HBox(40);
+        bottomBar.setAlignment(Pos.BOTTOM_LEFT);
+        bottomBar.setPadding(new Insets(0, 0, 20, 20));
+        bottomBar.getChildren().addAll(stockWaste, undo);
 
         // click: move one card from stock -> waste
         stockView.setOnMouseClicked(e -> {
@@ -145,6 +163,7 @@ public class GameApp extends Application {
 
         // ----- Foundations -----
         HBox foundationRow = new HBox(50); 
+        foundationRowRef = foundationRow;
         foundationRow.setAlignment(Pos.TOP_LEFT);
 
         
@@ -292,8 +311,22 @@ public class GameApp extends Application {
             tableauRow.getChildren().add(view);
         }
 
+
+        // ------------ Undo ---------------
+        undo.setOnAction(e -> {
+            engine.undo();
+
+            redrawAllTableaus();
+            redrawAllFoundations();
+
+            if (stockViewRef != null) stockViewRef.redraw();
+            if (wasteViewRef != null) wasteViewRef.redraw();
+
+            clearSelection();
+        });
+
         root.setTop(foundationRow);
-        root.setBottom(stockWaste);
+        root.setBottom(bottomBar);
         root.setCenter(tableauRow);
 
         // Scene + Stage
