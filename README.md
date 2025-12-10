@@ -27,7 +27,7 @@ This project is playable from **console**.
 - Making GUI using JavaFX
 
 
-![stateOfGame](src/main/resources/images/5dec25.png)
+![stateOfGame](src/main/resources/images/9dec25.png)
 
 ## Project Management
 You can view my Agile board and current development progress here:
@@ -98,6 +98,8 @@ To count the time it took to beat the game.
 then used the StackPane as the clicker (named `foundationContainer`)
 - Implemented `recycle()` to the game on the stockView clicker by checking if stock is not empty, 
 clicking will draw card, else recycle, then `redraw()` the pileView
+- Made into Maven Project -> added `pom.xml`  
+- Implemented Undo button
 
 
 ### (Dec 1 - 7, 2025)
