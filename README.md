@@ -27,7 +27,7 @@ This project is playable from **console**.
 - Making GUI using JavaFX
 
 
-![stateOfGame](src/main/resources/images/GamingAppImages/9dec25.png)
+![stateOfGame](src/main/resources/images/GameAppImages/9dec25.png)
 
 ## Project Management
 You can view my Agile board and current development progress here:
