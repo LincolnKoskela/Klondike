@@ -22,7 +22,6 @@ public class GameApp extends Application {
 
     // ---------- fields -----------------
     private static GameEngine engine;
-    private static List<CardView> selectedStack = new ArrayList<>(); 
     private static PileView selectedWasteView = null; // selecting TOPCARD of waste pile
 
     private static int selectedSourceCol = -1; // 1 - 7
@@ -58,6 +57,9 @@ public class GameApp extends Application {
     public static void clearSelection() {
         selectedSourceCol = -1;
         selectedSourceRow = -1;
+    }
+    public static boolean gameWon() {
+        return engine.isGameOver();
     }
 
     private static void redrawAllTableaus() {
@@ -235,7 +237,7 @@ public class GameApp extends Application {
         HBox tableauRow = new HBox(40);
         GameApp.setTableauRow(tableauRow);
         tableauRow.setAlignment(Pos.TOP_CENTER);
-        tableauRow.setPadding(new Insets(120, 0, 0, 0));
+        tableauRow.setPadding(new Insets(110, 0, 0, 0));
 
 
         for (int col = 1; col <= 7; col++) {
@@ -295,6 +297,10 @@ public class GameApp extends Application {
                         System.out.println("Moved tableau " + selectedSourceCol 
                         + " row " + selectedSourceRow + " to tableau "
                         + destCol);
+
+                        if (gameWon()) {
+                            System.out.println("YOU WIN! (all tabs are flipped.");
+                        }
                     } else {
                         System.out.println("Invalid tableau move from "
                         + selectedSourceCol + " row " + selectedSourceRow
