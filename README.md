@@ -25,14 +25,13 @@ This project is playable from **console**.
 ## Current State of Game
 - Playable from **console**
 - Making GUI using JavaFX
+- Sandboxing JavaFX
 
 
 ![stateOfGame](src/main/resources/images/GameAppImages/9dec25.png)
 
 ## Project Management
-You can view my Agile board and current development progress here:
-
-[Klondike Agile Board](https://github.com/users/LincolnKoskela/projects/1)
+[Klondike Board](https://github.com/users/LincolnKoskela/projects/1)
 
 ## Features
 - Object Oriented Design
@@ -93,13 +92,17 @@ To count the time it took to beat the game.
 
 ## History Progress Log
 
-### This Week: (Dec 8 - 14, 2025)
+### (Dec 15 - 21, 2025)
+- Sandbox learning
+
+### (Dec 8 - 14, 2025)
 - Added background slots to the foundations using `CardSlot` with a Stackpane(slot, `PileView`),
 then used the StackPane as the clicker (named `foundationContainer`)
 - Implemented `recycle()` to the game on the stockView clicker by checking if stock is not empty, 
 clicking will draw card, else recycle, then `redraw()` the pileView
 - Made into Maven Project -> added `pom.xml`  
 - Implemented Undo button
+- Sandboxing the project to explore around in javaFx and learn more. Running into some walls with FX.
 
 
 ### (Dec 1 - 7, 2025)
