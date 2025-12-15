@@ -4,6 +4,7 @@ import klondike.*;
 import javafx.application.Application;
 import javafx.scene.*;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.*;
@@ -20,7 +21,7 @@ public class GamingApp extends Application {
         ListView<String> sideMenu = new ListView<>();
         sideMenu.getItems().addAll("Home", "Profile", "Settings", "Logout");
         sideMenu.setPrefSize(140, 120);
-        sideMenu.setFixedCellSize(24); // each row height
+        sideMenu.setFixedCellSize(40); // each row height
 
         sideMenu.setStyle(
             "-fx-background-color: #262626;" + 
@@ -29,6 +30,57 @@ public class GamingApp extends Application {
             "-fx-border-width: 1;" + 
             "-fx-padding: 0;"
         );
+
+        /*
+        * This callback function is called whenever ListCell is created.
+        * Whenever listview needs a row, create a ListCell like this...
+        * Whenever that row needs to show a new item, call updateItem()
+        * and I(function) update it
+        */
+        sideMenu.setCellFactory(lv -> {
+            ListCell<String> cell = new ListCell<>() {
+                @Override
+                protected void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+
+                    if (empty || item == null) {
+                        setText(null);
+                        setStyle("");
+                    } else {
+                        setText(item);
+                        setStyle(
+                            "-fx-text-fill: white;" +
+                            "-fx-font-size: 12px;" + 
+                            "-fx-padding: 4 10 4 10;" + 
+                            "-fx-background-color: transparent;"
+                        );
+                    }
+                }
+            };
+
+            cell.setOnMouseEntered(e -> {
+                if (!cell.isEmpty()) {
+                    cell.setStyle(
+                        "-fx-text-fill: white;" + 
+                        "-fx-font-size: 12px;" + 
+                        "-fx-padding: 4 10 4 10;" + 
+                        "-fx-background-color: #4f5255ff;"
+                    );
+                }
+            });
+
+            cell.setOnMouseExited(e -> {
+                if (!cell.isEmpty()) {
+                    cell.setStyle(
+                        "-fx-text-fill: white;" + 
+                        "-fx-font-size: 12px;" + 
+                        "-fx-padding: 4 10 4 10;" +
+                        "-fx-background-color: transparent;"
+                    );
+                }
+            });
+            return cell;
+        });
 
         // ---------------------------------------------------------
 

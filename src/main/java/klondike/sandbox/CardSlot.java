@@ -23,7 +23,7 @@ public class CardSlot extends StackPane {
         getChildren().addAll(rect, label);
 
         setStyle("-fx-padding: 5");
-        rect.setFill(Color.web("#e4ae1aff"));
+        rect.setFill(Color.web("#cc8b12ff"));
     }
     
 }
