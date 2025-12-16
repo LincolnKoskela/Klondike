@@ -1,5 +1,8 @@
 package klondike.sandbox;
 import klondike.*;
+import klondike.Card.Rank;
+import klondike.Card.Suit;
+import klondike.ui.CardView;
 
 import java.util.Stack;
 
@@ -57,7 +60,7 @@ public class GamingApp extends Application {
         }
 
         // menu 
-        VBox menu = new VBox(10, home, profile, settings, logout);
+        VBox menu = new VBox(6, home, profile, settings, logout);
         menu.setStyle(
             "-fx-background-color: #262626;" + 
             "-fx-border-color: #555;" + 
@@ -97,13 +100,18 @@ public class GamingApp extends Application {
         root.getChildren().add(tableauWrapper);
         StackPane.setAlignment(tableauWrapper, Pos.CENTER);
 
+        // wrap the stockWaste
         HBox stockWaste = new HBox(60);
         stockWaste.getChildren().addAll(
             new CardSlot("Stock"),
             new CardSlot("Waste")
         );
 
-        board.setBottom(stockWaste);
+        StackPane swWrapper = new StackPane(stockWaste);
+        swWrapper.setAlignment(Pos.BOTTOM_LEFT);
+        root.getChildren().add(swWrapper);
+
+        board.setBottom(swWrapper);
         board.setTop(foundationWrapper);
 
         Scene scene = new Scene(root, 1200, 800, Color.BISQUE);
