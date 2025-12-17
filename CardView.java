@@ -1,4 +1,7 @@
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import klondike.Card;
@@ -13,18 +16,13 @@ public class CardView extends StackPane {
         rect = new Rectangle(70, 100);
         rect.setArcHeight(10);
         rect.setArcWidth(10);
-
         label = new Label();
-        label.setStyle(
-            "-fx-font-size: 16px;" + 
-            "-fx-font-weight: bold;"
-        );
+        label.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
 
-        updateApperance();
+        updateAppearance();
+        getChildren().add(rect, label);
 
-        getChildren().addAll(rect, label);
-
-        setStyle("-fx-padding: 5;");
+        setStyle("-fx-padding: 2;");
     }
 
     private String getRankSymbol(Card.Rank rank) {
@@ -52,11 +50,11 @@ public class CardView extends StackPane {
      * "Given the current state of card, update the UI
      * to match that state."
      */
-    private void updateApperance() {
+    private void updateAppearance() {
         if (card.isFaceUp()) {
             String text = getRankSymbol(card.getRank()) + getSuitSymbol(card.getSuit());
             label.setText(text);
-            
+
             if (card.getSuit().getColor().equals("red")) {
                 label.setTextFill(Color.RED);
             } else {
@@ -66,10 +64,8 @@ public class CardView extends StackPane {
             rect.setFill(Color.WHITE);
             rect.setStroke(Color.BLACK);
         } else {
-            // face down - back of card
-            label.setText("");
             rect.setFill(Color.RED);
-            rect.setStroke(Color.BLACK);
+            rect.setStroke(Color.WHITE);
         }
     }
 

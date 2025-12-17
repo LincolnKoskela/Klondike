@@ -55,11 +55,10 @@ public class GamingApp extends Application {
                 "-fx-padding: 10 16;" +
                 "-fx-background-radius: 4;"
             ));
-                
-
         }
+        /*-------------------------------------------------------- */
 
-        // menu 
+        // ----------------------- menu --------------------------
         VBox menu = new VBox(6, home, profile, settings, logout);
         menu.setStyle(
             "-fx-background-color: #262626;" + 
@@ -70,49 +69,14 @@ public class GamingApp extends Application {
         menu.setPrefWidth(160);
         root.getChildren().add(menu);
         StackPane.setAlignment(menu, Pos.TOP_RIGHT);
+        // -----------------------------------------------------------
 
-        // foundation
-        HBox foundations = new HBox(40);
-        foundations.getChildren().addAll(
-            new CardSlot("F1"),
-            new CardSlot("F2"),
-            new CardSlot("F3"),
-            new CardSlot("F4")
-        );
+        Card test = new Card(Rank.ACE, Suit.SPADES);
+        test.flip();
+        StackPane card = new StackPane(new CardView(test));
+        root.getChildren().add(card);
+        card.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
 
-        StackPane foundationWrapper = new StackPane(foundations);
-        foundationWrapper.setAlignment(Pos.TOP_LEFT);
-        root.getChildren().addAll(foundationWrapper);
-
-        HBox tableaus = new HBox(40);
-        tableaus.getChildren().addAll(
-            new CardSlot("T1"),
-            new CardSlot("T2"),
-            new CardSlot("T3"),
-            new CardSlot("T4"),
-            new CardSlot("T5"),
-            new CardSlot("T6"),
-            new CardSlot("T7")
-        );
-        // Center the tabs by wrapping them
-        StackPane tableauWrapper = new StackPane(tableaus);
-        tableauWrapper.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
-        root.getChildren().add(tableauWrapper);
-        StackPane.setAlignment(tableauWrapper, Pos.CENTER);
-
-        // wrap the stockWaste
-        HBox stockWaste = new HBox(60);
-        stockWaste.getChildren().addAll(
-            new CardSlot("Stock"),
-            new CardSlot("Waste")
-        );
-
-        StackPane swWrapper = new StackPane(stockWaste);
-        swWrapper.setAlignment(Pos.BOTTOM_LEFT);
-        root.getChildren().add(swWrapper);
-
-        board.setBottom(swWrapper);
-        board.setTop(foundationWrapper);
 
         Scene scene = new Scene(root, 1200, 800, Color.BISQUE);
         root.setStyle("-fx-background-color: transparent;");
