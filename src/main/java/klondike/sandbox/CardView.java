@@ -1,3 +1,4 @@
+package klondike.sandbox;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -20,7 +21,7 @@ public class CardView extends StackPane {
         label.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
 
         updateAppearance();
-        getChildren().add(rect, label);
+        getChildren().addAll(rect, label);
 
         setStyle("-fx-padding: 2;");
     }
