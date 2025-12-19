@@ -16,20 +16,14 @@ public class GamingApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        BorderPane board = new BorderPane();
-        StackPane root = new StackPane(board); // top level root node 
+        GameEngine engine = new GameEngine(true);
+        engine.dealNewGame();
+
+        BoardView boardView = new BoardView(engine);
         SideMenu menu = new SideMenu(); // vbox
-        
-        root.getChildren().add(menu);
+
+        StackPane root = new StackPane(boardView, menu); // top level root node
         StackPane.setAlignment(menu, Pos.TOP_RIGHT);
-        // -----------------------------------------------------------
-
-        Card test = new Card(Rank.ACE, Suit.SPADES);
-        test.flip();
-        StackPane card = new StackPane(new CardView(test));
-        root.getChildren().add(card);
-        card.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
-
 
         Scene scene = new Scene(root, 1200, 800, Color.BISQUE);
         root.setStyle("-fx-background-color: transparent;");

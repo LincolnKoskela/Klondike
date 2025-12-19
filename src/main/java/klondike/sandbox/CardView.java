@@ -23,6 +23,9 @@ public class CardView extends StackPane {
         updateAppearance();
         getChildren().addAll(rect, label);
 
+        setAlignment(label, Pos.TOP_LEFT);
+        setMargin(label, new Insets(5, 0, 0, 5));
+
         setStyle("-fx-padding: 2;");
     }
 

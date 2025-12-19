@@ -3,7 +3,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Button;
 
-public class SideMenu extends VBox{
+public class SideMenu extends VBox {
     private Button home;
     private Button logout;
     private Button settings;
