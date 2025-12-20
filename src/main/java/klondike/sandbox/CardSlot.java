@@ -2,6 +2,7 @@ package klondike.sandbox;
 
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.StrokeType;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 
@@ -12,7 +13,7 @@ public class CardSlot extends StackPane {
      * @param text will be the label inside the card slot
      */
     public CardSlot(String text) {
-        Rectangle rect = new Rectangle(70, 100);
+        Rectangle rect = new Rectangle(UiMetrics.CARD_W, UiMetrics.CARD_H);
         rect.setArcWidth(10);
         rect.setArcHeight(10);
         rect.getStyleClass().add("card-slot-label");
@@ -23,7 +24,8 @@ public class CardSlot extends StackPane {
         getChildren().addAll(rect, label);
 
         setStyle("-fx-padding: 5");
-        rect.setFill(Color.web("#cc8b12ff"));
+        rect.setFill(Color.web("#262626"));
+        rect.setStrokeType(StrokeType.INSIDE);
     }
     
 }

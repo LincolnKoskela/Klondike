@@ -19,10 +19,10 @@ public class GamingApp extends Application {
         GameEngine engine = new GameEngine(true);
         engine.dealNewGame();
 
-        BoardView boardView = new BoardView(engine);
-        SideMenu menu = new SideMenu(); // vbox
+        BoardView boardView = new BoardView(engine); // pane
+        SideMenu menu = new SideMenu(); // vbox        
 
-        StackPane root = new StackPane(boardView, menu); // top level root node
+        StackPane root = new StackPane(boardView, menu); // top level root node, menu second child
         StackPane.setAlignment(menu, Pos.TOP_RIGHT);
 
         Scene scene = new Scene(root, 1200, 800, Color.BISQUE);
