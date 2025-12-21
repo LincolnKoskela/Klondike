@@ -14,10 +14,10 @@ public class PileView extends Pane {
     private final Pile pile;
     private final double yOffset; // spacing of the Panes
 
-    // the state that belongs to the pileView as a whole
-    private int selectedIndex = -1;
+    private final BoardView boardView;
 
-    public PileView(Pile pile, double yOffset) {
+    public PileView(BoardView boardView, Pile pile, double yOffset) {
+        this.boardView = boardView;
         this.pile = pile;
         this.yOffset = yOffset;
 
@@ -45,17 +45,15 @@ public class PileView extends Pane {
             CardView view = new CardView(card);
             view.setLayoutY(currentY);
 
-            // i'm selecting this cardView -> if X happens do Y -> if view clicked, do ...
             final int idx = i;
             view.setOnMouseClicked(e -> {
-                selectedIndex = idx;
-                redraw();
                 e.consume();
-                System.out.println("Selected Index: " + selectedIndex);
+                boardView.select(this, idx);
             });
 
-            if (i == selectedIndex) {
-                view.setStyle("-fx-border-color: gold;" + 
+            if (boardView.isSelected(this, i)) {
+                view.setStyle(
+                    "-fx-border-color: gold;" +
                     "-fx-border-width: 3;"
                 );
             }

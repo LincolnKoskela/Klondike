@@ -21,18 +21,22 @@ public class BoardView extends Pane {
     // indexed 1 based 1-7
     private final PileView[] tableauViews = new PileView[8];
 
+    // universe selection!
+    private PileView selectedPileView = null;
+    private int selectedIndex = -1;
+
     public BoardView(GameEngine engine) {
         this.board = engine.getBoard();
 
         // create the views once
-        this.stockView = new PileView(board.getStock(), 0);
+        this.stockView = new PileView(this, board.getStock(), 0);
         this.stockCell = new PileCell(new CardSlot("Stock"), stockView);
 
-        this.wasteView = new PileView(board.getWaste(), 0);
+        this.wasteView = new PileView(this, board.getWaste(), 0);
         this.wasteCell = new PileCell(new CardSlot("Waste"), wasteView);
 
         for (Card.Suit suit : Card.Suit.values()) {
-            PileView pv = new PileView(board.getFoundation(suit), 0);
+            PileView pv = new PileView(this, board.getFoundation(suit), 0);
             PileCell cell = new PileCell(new CardSlot(""), pv);
 
             foundationViews.put(suit, pv);
@@ -42,7 +46,7 @@ public class BoardView extends Pane {
         }
 
         for (int col = 1; col <= 7; col++) {
-            tableauViews[col] = new PileView(board.getTableau(col), UiMetrics.TABLEAU_Y_OFFSET);
+            tableauViews[col] = new PileView(this, board.getTableau(col), UiMetrics.TABLEAU_Y_OFFSET);
         }
 
         getChildren().add(stockCell);
@@ -79,6 +83,40 @@ public class BoardView extends Pane {
         for (int col = 1; col <= 7; col++) {
             tableauViews[col].relocate(x0 + (col - 1) * (UiMetrics.CARD_W + UiMetrics.PILE_GAP_X), ty);
         }
+    }
+
+    /**
+     * Across the entire board, which card is selected right now?
+     * Select PileView at Index. 
+     * It's inside the board view because the boardView can see 
+     * all the piles at once.
+     * Selection is global UI state, so it should live in the first class
+     * that can see the entire UI -> BoardView
+     * @param pv PileView being selected
+     * @param idx Index within a given PileView
+     */
+    public void select(PileView pv, int idx) {
+        if (selectedPileView == pv && selectedIndex == idx) {
+            selectedPileView = null;
+            selectedIndex = -1;
+            System.out.println("Deselected index: " + idx);
+        } else {
+            selectedPileView = pv;
+            selectedIndex = idx;
+            System.out.println("Selected index: " + idx);
+        }
+
+        redraw(); // refresh the visuals after selection changes
+    }
+
+    public boolean isSelected(PileView pv, int idx) {
+        return selectedPileView == pv && selectedIndex == idx;
+    }
+
+    public void clearSelection() {
+        selectedPileView = null;
+        selectedIndex = -1;
+        redraw();
     }
 
     public void redraw() {

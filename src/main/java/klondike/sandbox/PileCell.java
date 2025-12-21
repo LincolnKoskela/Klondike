@@ -9,6 +9,7 @@ import javafx.scene.layout.StackPane;
 public class PileCell extends StackPane {
 
     private final PileView pileView;
+    
     public PileCell(CardSlot slot, PileView pileView) {
         this.pileView = pileView;
 
