@@ -21,9 +21,8 @@ public class BoardView extends Pane {
     // indexed 1 based 1-7
     private final PileView[] tableauViews = new PileView[8];
 
-    // universe selection!
-    private PileView selectedPileView = null;
     private int selectedIndex = -1;
+    private Pile selectedPile = null;
 
     public BoardView(GameEngine engine) {
         this.board = engine.getBoard();
@@ -95,13 +94,13 @@ public class BoardView extends Pane {
      * @param pv PileView being selected
      * @param idx Index within a given PileView
      */
-    public void select(PileView pv, int idx) {
-        if (selectedPileView == pv && selectedIndex == idx) {
-            selectedPileView = null;
+    public void select(Pile pile, int idx) {
+        if (selectedPile == pile && selectedIndex == idx) {
+            selectedPile = null;
             selectedIndex = -1;
             System.out.println("Deselected index: " + idx);
         } else {
-            selectedPileView = pv;
+            selectedPile = pile;
             selectedIndex = idx;
             System.out.println("Selected index: " + idx);
         }
@@ -109,12 +108,24 @@ public class BoardView extends Pane {
         redraw(); // refresh the visuals after selection changes
     }
 
-    public boolean isSelected(PileView pv, int idx) {
-        return selectedPileView == pv && selectedIndex == idx;
+    public boolean isSelected(Pile pile, int idx) {
+        return selectedPile == pile && selectedIndex == idx;
+    }
+
+    public boolean hasSelection() {
+        return selectedPile != null && selectedIndex >= 0;
+    }
+
+    public Pile getSelectedPile() {
+        return selectedPile;
+    }
+
+    public int getSelectedIndex() {
+        return selectedIndex;
     }
 
     public void clearSelection() {
-        selectedPileView = null;
+        selectedPile = null;
         selectedIndex = -1;
         redraw();
     }

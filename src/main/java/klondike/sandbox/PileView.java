@@ -28,7 +28,9 @@ public class PileView extends Pane {
      * The function answers -> how are the cards arranged inside this pileView
      * 
      * Handler click is in this function because handlers live on nodes, and if
-     * you rebuild a node, you must reattach handlers
+     * you rebuild a node, you must reattach handlers. The PileView does NOT 
+     * decide what click means, it detects the click, identifies which index was 
+     * clicked, and reports to BoardView.
      * 
      * Handler is a function given to javaFx to run later when something happens
      */
@@ -48,10 +50,10 @@ public class PileView extends Pane {
             final int idx = i;
             view.setOnMouseClicked(e -> {
                 e.consume();
-                boardView.select(this, idx);
+                boardView.select(pile, idx);
             });
 
-            if (boardView.isSelected(this, i)) {
+            if (boardView.isSelected(pile, i)) {
                 view.setStyle(
                     "-fx-border-color: gold;" +
                     "-fx-border-width: 3;"
