@@ -92,7 +92,7 @@ To count the time it took to beat the game.
 
 ## History Progress Log
 
-### (Dec 15 - 21, 2025)
+### (Dec 15 - 28, 2025)
 - Sandbox learning
 
 ### (Dec 8 - 14, 2025)
@@ -102,7 +102,7 @@ then used the StackPane as the clicker (named `foundationContainer`)
 clicking will draw card, else recycle, then `redraw()` the pileView
 - Made into Maven Project -> added `pom.xml`  
 - Implemented Undo button
-- Sandboxing the project to explore around in javaFx and learn more. Running into some walls with FX.
+- Sandboxing the project to explore around in javaFx and learn more. Running into some walls.
 
 
 ### (Dec 1 - 7, 2025)

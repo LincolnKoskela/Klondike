@@ -2,21 +2,44 @@ package klondike.sandbox;
 
 import klondike.*;
 
+/**
+ * This class interprets sequences of user actions
+ */
 public class GameController {
 
     // pile & index
     private Pile selectedPile = null;
     private int selectedIndex = -1;
 
-    private final GameEngine engine;
-    private final BoardView boardView;
+    public void handleCardsClicked(Pile pile, int idx) {
 
-    public GameController(GameEngine engine, BoardView boardView) {
-        this.engine = engine;
-        this.boardView = boardView;
+        if (selectedPile == pile && selectedIndex == idx) {
+            selectedPile = null;
+            selectedIndex = -1;
+        } else {
+            selectedPile = pile;
+            selectedIndex = idx;
+        }
     }
 
-    public void handleCardSelection(Pile pile, int index, int col) {
-        Card card = pile.getCards().get(index);
+    public boolean isSelected(Pile pile, int idx) {
+        return selectedPile == pile && selectedIndex == idx;
+    }
+
+    public boolean hasSelection() {
+        return selectedPile != null && selectedIndex >= 0;
+    }
+
+    public Pile getPileSelected() {
+        return selectedPile;
+    }
+
+    public int getSelectedIndex() {
+        return selectedIndex;
+    }
+
+    public void clearSelection() {
+        selectedPile = null;
+        selectedIndex = -1;
     }
 }

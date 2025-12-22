@@ -130,6 +130,9 @@ public class BoardView extends Pane {
         redraw();
     }
 
+    /**
+     * UI reflects state
+     */
     public void redraw() {
         stockView.redraw();
         wasteView.redraw();
