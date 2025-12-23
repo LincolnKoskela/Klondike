@@ -9,6 +9,7 @@ import klondike.*;
 
 public class BoardView extends Pane {
     private final Board board;
+    private final GameController controller = new GameController();
 
     private final PileView stockView;
     private final PileCell stockCell;
@@ -124,6 +125,10 @@ public class BoardView extends Pane {
         return selectedIndex;
     }
 
+    public GameController getController() {
+        return controller;
+    }
+
     public void clearSelection() {
         selectedPile = null;
         selectedIndex = -1;
@@ -143,6 +148,9 @@ public class BoardView extends Pane {
         for (int col = 1; col <= 7; col++) {
             tableauViews[col].redraw();
         }
+    }
 
+    public void onUserAction() {
+        redraw();
     }
 }
