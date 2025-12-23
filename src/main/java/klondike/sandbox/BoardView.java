@@ -22,9 +22,6 @@ public class BoardView extends Pane {
     // indexed 1 based 1-7
     private final PileView[] tableauViews = new PileView[8];
 
-    private int selectedIndex = -1;
-    private Pile selectedPile = null;
-
     public BoardView(GameEngine engine) {
         this.board = engine.getBoard();
 
@@ -85,54 +82,8 @@ public class BoardView extends Pane {
         }
     }
 
-    /**
-     * Across the entire board, which card is selected right now?
-     * Select PileView at Index. 
-     * It's inside the board view because the boardView can see 
-     * all the piles at once.
-     * Selection is global UI state, so it should live in the first class
-     * that can see the entire UI -> BoardView
-     * @param pv PileView being selected
-     * @param idx Index within a given PileView
-     */
-    public void select(Pile pile, int idx) {
-        if (selectedPile == pile && selectedIndex == idx) {
-            selectedPile = null;
-            selectedIndex = -1;
-            System.out.println("Deselected index: " + idx);
-        } else {
-            selectedPile = pile;
-            selectedIndex = idx;
-            System.out.println("Selected index: " + idx);
-        }
-
-        redraw(); // refresh the visuals after selection changes
-    }
-
-    public boolean isSelected(Pile pile, int idx) {
-        return selectedPile == pile && selectedIndex == idx;
-    }
-
-    public boolean hasSelection() {
-        return selectedPile != null && selectedIndex >= 0;
-    }
-
-    public Pile getSelectedPile() {
-        return selectedPile;
-    }
-
-    public int getSelectedIndex() {
-        return selectedIndex;
-    }
-
     public GameController getController() {
         return controller;
-    }
-
-    public void clearSelection() {
-        selectedPile = null;
-        selectedIndex = -1;
-        redraw();
     }
 
     /**

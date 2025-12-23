@@ -50,10 +50,11 @@ public class PileView extends Pane {
             final int idx = i;
             view.setOnMouseClicked(e -> {
                 e.consume();
-                boardView.select(pile, idx);
+                boardView.getController().handleCardsClicked(pile, idx);
+                boardView.onUserAction(); // redraw() after state change
             });
 
-            if (boardView.isSelected(pile, i)) {
+            if (boardView.getController().isSelected(pile, idx)) {
                 view.setStyle(
                     "-fx-border-color: gold;" +
                     "-fx-border-width: 3;"
