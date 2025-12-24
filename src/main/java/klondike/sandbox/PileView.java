@@ -51,7 +51,7 @@ public class PileView extends Pane {
             view.setOnMouseClicked(e -> {
                 e.consume();
                 boardView.getController().handleCardsClicked(pile, idx);
-                boardView.onUserAction(); // redraw() after state change
+                System.out.print("Clicked. ");
             });
 
             if (boardView.getController().isSelected(pile, idx)) {

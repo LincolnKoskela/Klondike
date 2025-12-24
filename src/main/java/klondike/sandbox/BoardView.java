@@ -9,7 +9,8 @@ import klondike.*;
 
 public class BoardView extends Pane {
     private final Board board;
-    private final GameController controller = new GameController();
+    private final GameController controller;
+    private final PileRegistry registry = new PileRegistry();
 
     private final PileView stockView;
     private final PileCell stockCell;
@@ -24,6 +25,7 @@ public class BoardView extends Pane {
 
     public BoardView(GameEngine engine) {
         this.board = engine.getBoard();
+        this.controller = new GameController(engine, this);
 
         // create the views once
         this.stockView = new PileView(this, board.getStock(), 0);
@@ -33,8 +35,11 @@ public class BoardView extends Pane {
         this.wasteCell = new PileCell(new CardSlot("Waste"), wasteView);
 
         for (Card.Suit suit : Card.Suit.values()) {
+            Pile foundationPile = board.getFoundation(suit);
             PileView pv = new PileView(this, board.getFoundation(suit), 0);
             PileCell cell = new PileCell(new CardSlot(""), pv);
+
+            registry.registerFoundation(foundationPile, suit);
 
             foundationViews.put(suit, pv);
             foundationCells.put(suit, cell);
@@ -43,7 +48,10 @@ public class BoardView extends Pane {
         }
 
         for (int col = 1; col <= 7; col++) {
+            Pile tableauPile = board.getTableau(col);
             tableauViews[col] = new PileView(this, board.getTableau(col), UiMetrics.TABLEAU_Y_OFFSET);
+
+            registry.registerTableau(tableauPile, col);
         }
 
         getChildren().add(stockCell);
@@ -86,6 +94,10 @@ public class BoardView extends Pane {
         return controller;
     }
 
+    public PileRegistry getRegistry() {
+        return registry;
+    }
+
     /**
      * UI reflects state
      */
@@ -99,9 +111,5 @@ public class BoardView extends Pane {
         for (int col = 1; col <= 7; col++) {
             tableauViews[col].redraw();
         }
-    }
-
-    public void onUserAction() {
-        redraw();
     }
 }
