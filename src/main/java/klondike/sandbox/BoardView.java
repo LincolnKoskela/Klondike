@@ -1,8 +1,6 @@
 package klondike.sandbox;
 
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.Region;
-import javafx.geometry.Insets;
 import java.util.*;
 
 import klondike.*;
