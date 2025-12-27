@@ -9,13 +9,13 @@ import javafx.scene.layout.StackPane;
 public class PileCell extends StackPane {
 
     private final PileView pileView;
-    
+
     public PileCell(CardSlot slot, PileView pileView) {
         this.pileView = pileView;
 
         getChildren().addAll(slot, pileView);
         setAlignment(Pos.TOP_LEFT);
-        setPickOnBounds(true); // makes area clickable
+        setPickOnBounds(false); // makes area clickable
 
         setPrefSize(UiMetrics.CARD_W, UiMetrics.CARD_H);
     }  

@@ -50,16 +50,20 @@ public class PileView extends Pane {
             final int idx = i;
             view.setOnMouseClicked(e -> {
                 e.consume();
+
+                if (!card.isFaceUp()) return;
+                
                 boardView.getController().handleCardsClicked(pile, idx);
-                System.out.print("Clicked. ");
             });
 
-            if (boardView.getController().isSelected(pile, idx)) {
+            if (boardView.getController().isInSelectedRun(pile, idx)) {
                 view.setStyle(
-                    "-fx-border-color: gold;" +
+                    "-fx-border-color: gold;" + 
                     "-fx-border-width: 3;"
                 );
             }
+             
+            
 
             getChildren().add(view);
             currentY += yOffset;

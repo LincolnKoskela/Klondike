@@ -70,6 +70,15 @@ public class GameController {
         return selectedPile == pile && selectedIndex == idx;
     }
 
+    public boolean isInSelectedRun(Pile pile, int idx) {
+        if (!(pile instanceof Tableau)) return isSelected(pile, idx);
+
+        if (pile != selectedPile) return false;
+        if (selectedIndex < 0) return false;
+
+        return idx >= selectedIndex;
+    }
+
     public boolean hasSelection() {
         return selectedPile != null && selectedIndex >= 0;
     }
