@@ -31,6 +31,17 @@ public class GameController {
      */
     public void handleCardsClicked(Pile clickedPile, int clickedIndex) {
 
+        if (clickedPile instanceof Stock) {
+            clearSelection();
+
+            if (!engine.getBoard().getStock().isEmpty()) {
+                engine.draw();
+            } else {
+                engine.recycle();
+            }
+            boardView.redraw();
+        }
+
         // 1) if theres no selection, then select
         if (!hasSelection()) {
             select(clickedPile, clickedIndex);

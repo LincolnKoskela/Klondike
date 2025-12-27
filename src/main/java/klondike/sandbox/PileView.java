@@ -1,6 +1,8 @@
 package klondike.sandbox;
 
 import klondike.Pile;
+import klondike.Stock;
+import klondike.Waste;
 import klondike.Card;
 import java.util.*;
 
@@ -56,13 +58,21 @@ public class PileView extends Pane {
                 boardView.getController().handleCardsClicked(pile, idx);
             });
 
+            // Stock Clicking
+            view.setOnMouseClicked(e -> {
+                if (pile instanceof Stock || pile instanceof Waste) {
+                    e.consume();
+                    boardView.getController().handleCardsClicked(pile, idx);
+                }
+            });
+
             if (boardView.getController().isInSelectedRun(pile, idx)) {
                 view.setStyle(
                     "-fx-border-color: gold;" + 
                     "-fx-border-width: 3;"
                 );
             }
-             
+
             
 
             getChildren().add(view);
