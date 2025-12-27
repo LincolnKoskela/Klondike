@@ -15,7 +15,7 @@ public class PileCell extends StackPane {
 
         getChildren().addAll(slot, pileView);
         setAlignment(Pos.TOP_LEFT);
-        setPickOnBounds(false); // makes area clickable
+        setPickOnBounds(true); // make empty cols clickable
 
         setPrefSize(UiMetrics.CARD_W, UiMetrics.CARD_H);
     }  

@@ -72,6 +72,7 @@ public class GameController {
             clearSelection();
         } else {
             select(clickedPile, clickedIndex);
+            clearSelection();
         }
 
         boardView.redraw();
@@ -90,6 +91,11 @@ public class GameController {
         return idx >= selectedIndex;
     }
 
+    /**
+     * Selection means CardView or PileView was clicked, and player is
+     * in the middle of choosing cards to move.
+     * @return true if there is selection.
+     */
     public boolean hasSelection() {
         return selectedPile != null && selectedIndex >= 0;
     }
@@ -101,6 +107,7 @@ public class GameController {
     public int getSelectedIndex() {
         return selectedIndex;
     }
+
 
     public void clearSelection() {
         selectedPile = null;

@@ -51,19 +51,15 @@ public class PileView extends Pane {
 
             final int idx = i;
             view.setOnMouseClicked(e -> {
-                e.consume();
 
-                if (!card.isFaceUp()) return;
-                
-                boardView.getController().handleCardsClicked(pile, idx);
-            });
-
-            // Stock Clicking
-            view.setOnMouseClicked(e -> {
                 if (pile instanceof Stock || pile instanceof Waste) {
                     e.consume();
                     boardView.getController().handleCardsClicked(pile, idx);
-                }
+                } else {
+                    e.consume();
+                    if (!card.isFaceUp()) return;
+                    boardView.getController().handleCardsClicked(pile, idx);
+                }     
             });
 
             if (boardView.getController().isInSelectedRun(pile, idx)) {
