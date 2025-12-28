@@ -18,6 +18,16 @@ public class PileCell extends StackPane {
         setPickOnBounds(true); // make empty cols clickable
 
         setPrefSize(UiMetrics.CARD_W, UiMetrics.CARD_H);
+
+        /*
+         * only fires when the pile is empty 
+         */
+        setOnMouseClicked(e -> {
+            if (!pileView.isEmpty()) return;
+
+            e.consume();
+            pileView.getBoardView().getController().handleEmptyPileClicked(pileView.getPile());
+        });
     }  
 
     public PileView getPileView() {

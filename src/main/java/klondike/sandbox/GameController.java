@@ -78,6 +78,26 @@ public class GameController {
         boardView.redraw();
     }
 
+    public void handleEmptyPileClicked(Pile clickedPile) {
+        if (clickedPile instanceof Tableau) {
+            if (!hasSelection()) return;
+
+            boolean moved = tryMove(selectedPile, selectedIndex, clickedPile);
+            if (moved) clearSelection();
+            boardView.redraw();
+            return;
+        }
+
+        if (clickedPile instanceof Foundation) {
+            if (!hasSelection()) return;
+
+            boolean moved = tryMove(selectedPile, selectedIndex, clickedPile);
+            if (moved) clearSelection();
+            boardView.redraw();
+            return;
+        }
+    }
+
     public boolean isSelected(Pile pile, int idx) {
         return selectedPile == pile && selectedIndex == idx;
     }
@@ -107,7 +127,6 @@ public class GameController {
     public int getSelectedIndex() {
         return selectedIndex;
     }
-
 
     public void clearSelection() {
         selectedPile = null;

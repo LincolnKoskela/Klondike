@@ -20,6 +20,7 @@ public class BoardView extends Pane {
 
     // indexed 1 based 1-7
     private final PileView[] tableauViews = new PileView[8];
+    private final PileCell[] tableauCells = new PileCell[8];
 
     public BoardView(GameEngine engine) {
         this.board = engine.getBoard();
@@ -47,7 +48,14 @@ public class BoardView extends Pane {
 
         for (int col = 1; col <= 7; col++) {
             Pile tableauPile = board.getTableau(col);
-            tableauViews[col] = new PileView(this, board.getTableau(col), UiMetrics.TABLEAU_Y_OFFSET);
+            PileView pv = new PileView(this, tableauPile, UiMetrics.TABLEAU_Y_OFFSET);
+            tableauViews[col] = pv;
+
+            CardSlot slot = new CardSlot("");
+            slot.setOpacity(0); // translucent
+
+            PileCell cell = new PileCell(slot, pv);
+            tableauCells[col] = cell;
 
             registry.registerTableau(tableauPile, col);
         }
@@ -55,7 +63,7 @@ public class BoardView extends Pane {
         getChildren().add(stockCell);
         getChildren().add(wasteCell);
         for (int col = 1; col <= 7; col++) {
-            getChildren().add(tableauViews[col]);
+            getChildren().add(tableauCells[col]);
         }
 
         layoutPiles();
@@ -84,7 +92,7 @@ public class BoardView extends Pane {
 
         double ty = y0 + (UiMetrics.PILE_GAP_Y + UiMetrics.CARD_H);
         for (int col = 1; col <= 7; col++) {
-            tableauViews[col].relocate(x0 + (col - 1) * (UiMetrics.CARD_W + UiMetrics.PILE_GAP_X), ty);
+            tableauCells[col].relocate(x0 + (col - 1) * (UiMetrics.CARD_W + UiMetrics.PILE_GAP_X), ty);
         }
     }
 

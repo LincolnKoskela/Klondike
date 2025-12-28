@@ -4,6 +4,8 @@ import klondike.Pile;
 import klondike.Stock;
 import klondike.Waste;
 import klondike.Card;
+import klondike.Foundation;
+
 import java.util.*;
 
 import javafx.scene.layout.Pane;
@@ -26,6 +28,18 @@ public class PileView extends Pane {
         redraw();
     }
 
+    public boolean isEmpty() {
+        return pile.isEmpty();
+    }
+
+    public BoardView getBoardView() {
+        return boardView;
+    }
+
+    public Pile getPile() {
+        return pile;
+    }
+
     /**
      * The function answers -> how are the cards arranged inside this pileView
      * 
@@ -45,21 +59,23 @@ public class PileView extends Pane {
         for (int i = 0; i < cards.size(); i++) {
             Card card = cards.get(i);
 
-            // everytime redraw, you create new cardview
+            // everytime redraw, you create new cardview node
             CardView view = new CardView(card);
             view.setLayoutY(currentY);
 
             final int idx = i;
             view.setOnMouseClicked(e -> {
+                System.out.println("clicked." + idx);
+                e.consume();
 
-                if (pile instanceof Stock || pile instanceof Waste) {
-                    e.consume();
-                    boardView.getController().handleCardsClicked(pile, idx);
-                } else {
-                    e.consume();
-                    if (!card.isFaceUp()) return;
-                    boardView.getController().handleCardsClicked(pile, idx);
-                }     
+                if (pile instanceof Stock || pile instanceof Waste || pile instanceof Foundation) {
+                    int topIdx = pile.getCards().size()-1;
+                    boardView.getController().handleCardsClicked(pile, topIdx);
+                    return;
+                }
+
+                if (!card.isFaceUp()) return;
+                boardView.getController().handleCardsClicked(pile, idx);
             });
 
             if (boardView.getController().isInSelectedRun(pile, idx)) {
