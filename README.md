@@ -70,10 +70,10 @@ To count the time it took to beat the game.
 ## klondike GUI Architecture (JavaFX)
 | **Components** | **Responsibility** |
 |----------------|--------------------|
-| **GameApp** | JavaFX GUI. |
-| **CardSlot** | Represents a slot where playing cards will go. |
-| **CardView** | Visual representation of a playing card. |
-| **PileView** | Represents a pile of card objects. |
+| **GameApp** | ___ |
+| **CardSlot** | ___ |
+| **CardView** | ______ |
+| **PileView** | ___ |
 
 ## Future Roadmap
 | **Milestone** | **Description** |
@@ -91,6 +91,9 @@ To count the time it took to beat the game.
 - Version Control: Git & Github
 
 ## History Progress Log
+
+### (Dec 29 - Current)
+- Starting over (x3) 
 
 ### (Dec 15 - 28, 2025)
 - Sandbox learning
