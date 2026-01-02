@@ -1,6 +1,5 @@
 package klondike.ui;
 
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -14,15 +13,16 @@ import javafx.scene.shape.*;
  */
 public class CardSlot extends StackPane {
     private Rectangle rect;
-    private Label label;
 
     public CardSlot(String text) {
         this.rect = new Rectangle(UiMetrics.CARD_W, UiMetrics.CARD_H);
-        this.label = new Label(text);
+        Label label = new Label(text);
 
         applySpecs();
 
         getChildren().addAll(rect, label);
+
+        label.setStyle("-fx-font-size: 15px;");
     }
 
     /**
@@ -33,10 +33,7 @@ public class CardSlot extends StackPane {
         rect.setArcWidth(10);
         rect.setArcHeight(10);
         rect.setFill(Color.BLACK);
-        rect.setStroke(Color.GRAY);
+        rect.setStroke(Color.GRAY); // outline of shape
         rect.setStrokeWidth(3);
-
-        label.setTextFill(Color.WHITE);
-        label.setAlignment(Pos.CENTER);
     }
 }
