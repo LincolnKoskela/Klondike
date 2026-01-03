@@ -13,7 +13,7 @@ public class GameApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         StackPane root = new StackPane();
-        Scene scene = new Scene(root, 1200, 800, Color.DARKBLUE);
+        Scene scene = new Scene(root, 1200, 800, Color.DARKGREEN);
         root.setStyle("-fx-background-color: transparent;");
 
         primaryStage.setTitle("Klondike Solitaire");

@@ -27,6 +27,8 @@ public class CardView extends StackPane {
 
         updateAppearance();
         getChildren().addAll(rect, label);
+
+
         setAlignment(label, Pos.TOP_LEFT);
         setPadding(new Insets(5, 0,0,5));
     }
@@ -73,5 +75,14 @@ public class CardView extends StackPane {
             rect.setFill(Color.RED);
             rect.setStroke(Color.WHITE);
         }
+    }
+
+    /**
+     * Enables reusage later
+     * @param card
+     */
+    public void setCard(Card card) {
+        this.card = card;
+        updateAppearance();
     }
 }

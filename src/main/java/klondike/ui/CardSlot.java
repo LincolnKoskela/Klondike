@@ -18,6 +18,9 @@ public class CardSlot extends StackPane {
         this.rect = new Rectangle(UiMetrics.CARD_W, UiMetrics.CARD_H);
         Label label = new Label(text);
 
+        setMaxSize(UiMetrics.CARD_W, UiMetrics.CARD_H);
+        setMinSize(UiMetrics.CARD_W, UiMetrics.CARD_H);
+
         applySpecs();
 
         getChildren().addAll(rect, label);
