@@ -1,44 +1,71 @@
 package klondike.ui;
 
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import klondike.*;
 import java.util.*;
 
-public class PileView extends Pane{
-    private Pile pile;
-    private double yOffset = UiMetrics.Y_OFFSET;
+/**
+ * Abstract class PileView holds sync/updates. 
+ * Subclasses will override for layout specs, the abstract function.
+ */
+abstract class PileView extends Pane{
+    private final Pile pile;
+    private final List<CardView> cardViews = new ArrayList<>();
 
-    public PileView(Pile pile, double yOffset) {
+    public PileView(Pile pile) {
         this.pile = pile;
-        this.yOffset = yOffset;
-
         redraw();
     }
 
+    public Pile getPile() {
+        return pile;
+    }
+
     /**
-     * Redraw refreshes each card view. First clearing the visuals (nodes)
-     * Then pulls data from the model Pile. Loops through the pile and 
-     * refreshes the views
+     * Make the UI match the model (pile.getCards())
+     * 
+     * SYNCING: makes sure the right number of CardViews exist.
+     * making sure card.size and cardviews.size are always matching
+     * Syncing makes sure the number of UI nodes matches the number of model objects
+     * Model -> pile.getCards() UI -> cardViews + getChildren()
+     * 
+     * CASE A: model grows (added a card) -> Do i have fewer CardViews than cards
+     * 
+     * CASE B: model shrinks (card removed) -> Do I have more CardViews than cards
+     * if yes, remove extras from the ends
+     * 
+     * UPDATE + LAYOUT: make each view show the right card, the position it
+     * 
+     * 
      */
     public void redraw() {
-        getChildren().clear();
         List<Card> cards = pile.getCards();
-        double currentY = 0.0;
 
-        for (int i = 0; i < pile.size(); i++) {
-
-            final int idx = i;
-            Card card = cards.get(i);
-            CardView view = new CardView(card);
-
-            view.setLayoutY(currentY);
-            view.setOnMouseClicked(e -> {
-                System.out.println("Clicked Pile at index " + idx);
-            });
-
-            getChildren().add(view);
-            currentY += yOffset;
+        // SYNC: ensure have exactly one CardView per Card (by index)
+        while (cardViews.size() < cards.size()) {
+            CardView cv = new CardView(cards.get(cardViews.size()));
+            cardViews.add(cv);
+            getChildren().add(cv);
         }
+
+        while (cardViews.size() > cards.size()) {
+            CardView cv = cardViews.remove(cardViews.size()-1);
+            getChildren().remove(cv);
+        }
+
+        // UPDATE + LAYOUT: refresh appearance and stack them
+        for (int i = 0; i < cards.size(); i++) {
+            CardView cv = cardViews.get(i);
+            cv.setCard(cards.get(i));
+        }
+
+        layoutCards();
+
+        // widths are consistent, heights will grow in tableaus
+        setMinWidth(UiMetrics.CARD_W);
+        setMaxWidth(UiMetrics.CARD_W);
+        setPrefWidth(UiMetrics.CARD_W);
     }
+
+    protected abstract void layoutCards();
 }
