@@ -94,6 +94,16 @@ To count the time it took to beat the game.
 
 ### (Dec 29 - Current)
 - Starting over (x3) 
+- Created scene, stage in `GameApp` `start(...)` function
+- CardSlot layout
+- Cardview layout 
+- Debugged `Label` leaving the `CardView` and `CardSlot` due to not setting
+max and min sizes on the `StackPane`
+- UiMetrics class for consistency
+- A lot of progress this week was review so got a lot done
+- `PileView` is an abstract class that subclasses will extend, such as `TableauView`
+- Created `TableauView` and `FoundationView` extending off `PileView`
+
 
 ### (Dec 15 - 28, 2025)
 - Sandbox learning
