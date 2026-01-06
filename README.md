@@ -35,17 +35,11 @@ This project is playable from **console**.
 
 ## Features
 - Object Oriented Design
-Clear seperation of responsibilities across classes and interfaces
 - Complete Game Logic
-Implements Solitaire's core rules: alternating colors, descending order, foundation suit stacking,
-and stock/waste recycling
 - Player Perspective Rendering
-Each pile supports `toDisplay()` method for player facing views (showing only visible cards)
-- Debug friendly
-Each object has a `toString()` output for testing and debugging the internal state
-- `Timer` 
-To count the time it took to beat the game.
-- Undo functionality 
+- Timer Function
+- Undo Functionality 
+- Graphic Interface Design (JavaFX)
 
 ## klondike Architecture
 | **Components** | **Responsibility** |
@@ -70,10 +64,12 @@ To count the time it took to beat the game.
 ## klondike GUI Architecture (JavaFX)
 | **Components** | **Responsibility** |
 |----------------|--------------------|
-| **GameApp** | ___ |
-| **CardSlot** | ___ |
-| **CardView** | ______ |
-| **PileView** | ___ |
+| **GameApp** | Runs game application |
+| **CardSlot** | Empty slot of CardView |
+| **CardView** | Visual representation of a playing card (`Card`) |
+| **PileView** | Visually displays a pile of `CardViews` |
+| **BoardView** | Visual layout of a klondike board using `PileViews`, `GameEngine`, and `Board` |
+
 
 ## Future Roadmap
 | **Milestone** | **Description** |
