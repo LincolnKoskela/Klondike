@@ -103,6 +103,7 @@ max and min sizes on the `StackPane`
 - A lot of progress this week was review so got a lot done
 - `PileView` is an abstract class that subclasses will extend, such as `TableauView`
 - Created `TableauView` and `FoundationView` extending off `PileView`
+- Created `StockView` and `WasteView` extending off `PileView`
 
 
 ### (Dec 15 - 28, 2025)
