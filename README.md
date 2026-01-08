@@ -1,6 +1,8 @@
 # Klondike Solitaire (Java)
-Test your strategy and attention to detail playing the most raw, logic driven Klondike experience. 
-This project is playable from **console**. 
+Play the most raw form of Klondike Solitaire, playing from the **console**. 
+See *How to Run from the **Console*** section to play from terminal. 
+
+Currently constructing UI for the game using JavaFX to expand the project. 
 
 ## How to Run from the **Console**
 
@@ -25,13 +27,8 @@ This project is playable from **console**.
 ## Current State of Game
 - Playable from **console**
 - Making GUI using JavaFX
-- Sandboxing JavaFX
 
-
-![stateOfGame](src/main/resources/images/GameAppImages/9dec25.png)
-
-## Project Management
-[Klondike Board](https://github.com/users/LincolnKoskela/projects/1)
+![stateOfGame](src/main/resources/images/GameAppImages/8jan26.png)
 
 ## Features
 - Object Oriented Design
@@ -64,12 +61,17 @@ This project is playable from **console**.
 ## klondike GUI Architecture (JavaFX)
 | **Components** | **Responsibility** |
 |----------------|--------------------|
-| **GameApp** | Runs game application |
+| **BoardView** | Visual layout of a klondike board using `PileViews`, `GameEngine`, and `Board` |
 | **CardSlot** | Empty slot of CardView |
 | **CardView** | Visual representation of a playing card (`Card`) |
+| **FoundationView** | Extends `PileView` |
+| **GameApp** | Runs game application |
+| **PileCell** | StackPane layering `CardSlot` and `PileView` |
 | **PileView** | Visually displays a pile of `CardViews` |
-| **BoardView** | Visual layout of a klondike board using `PileViews`, `GameEngine`, and `Board` |
-
+| **StockView** | Extends `PileView` |
+| **TableauView** | Extends `PileView` |
+| **UiMetrics** | Static variables used for consistency while constructing UI nodes and board layout | 
+| **WasteView** | Extends `PileView` |
 
 ## Future Roadmap
 | **Milestone** | **Description** |
@@ -77,9 +79,6 @@ This project is playable from **console**.
 | **GameEngine completion** | Full movement management, stock/waste, foudations, and tableau's in fluidity. |
 | **Interactive terminal UI** | Add input commands for moves |
 | **Graphic interface** | Implement a GUI version. JavaFX, then JS/web, or Figma | 
-| **Save/load system** | Save game state and resume for later. |
-| **Make CPU strategies** | Make AI's to revert to specific strategies (ex. always select from tab before stock) |
-| **Statistical Analysis** | (ex. when x card is played, outcomes of winning changes) |
 
 ## Tech
 - Langauge: Java
@@ -100,6 +99,8 @@ max and min sizes on the `StackPane`
 - `PileView` is an abstract class that subclasses will extend, such as `TableauView`
 - Created `TableauView` and `FoundationView` extending off `PileView`
 - Created `StockView` and `WasteView` extending off `PileView`
+- Created `BoardView` using the pileviews and `UiMetrics` for custom layout
+- Stock to Waste clickable
 
 
 ### (Dec 15 - 28, 2025)
