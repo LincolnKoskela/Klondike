@@ -30,7 +30,7 @@ public class CardView extends StackPane {
 
 
         setAlignment(label, Pos.TOP_LEFT);
-        setPadding(new Insets(5, 0,0,5));
+        setPadding(new Insets(5, 0,0,10));
     }
 
     private String getRankSymbol(Card.Rank rank) {

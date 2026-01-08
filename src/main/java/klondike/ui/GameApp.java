@@ -12,7 +12,12 @@ public class GameApp extends Application {
     
     @Override
     public void start(Stage primaryStage) {
-        StackPane root = new StackPane();
+        GameEngine engine = new GameEngine(true);
+        engine.dealNewGame();
+
+        BoardView board = new BoardView(engine);
+
+        StackPane root = new StackPane(board);
         Scene scene = new Scene(root, 1200, 800, Color.DARKGREEN);
         root.setStyle("-fx-background-color: transparent;");
 
