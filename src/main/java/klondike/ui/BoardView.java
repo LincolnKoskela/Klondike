@@ -19,9 +19,14 @@ public class BoardView extends Pane {
     // selection handlers variables
     private boolean wasteSelected = false;
 
+    // card tracker & debug variables
+    private Card lastDrawnCard; // tracks last card that was drawn
+
+
     public BoardView (GameEngine engine) {
         this.engine = engine;
         this.board = engine.getBoard();
+        this.lastDrawnCard = board.getStock().topCard();
 
         this.stockView = new StockView(board.getStock());
         this.stockCell = new PileCell(new CardSlot("Stock"), stockView);
@@ -40,17 +45,45 @@ public class BoardView extends Pane {
 
         for (int col = 1; col <= 7; col++) {
 
-            final int destCol = col;
+            final int colIndex = col;
+
             tableauViews[col] = new TableauView(board.getTableau(col));
             getChildren().add(tableauViews[col]);
 
-            tableauViews[col].setOnMouseClicked(e -> {
-                if (!wasteSelected) return;
-                if (board.getWaste().isEmpty()) return;
 
-                engine.moveWasteToTableau(destCol);
-                wasteSelected = false;
-                redraw();
+            // ------------------- click handlers --------------------
+            tableauViews[col].setOnMouseClicked(e -> { // handles tableau clicks
+                Tableau src = board.getTableau(colIndex);
+                if (src.isEmpty()) return;
+
+                int topIndex = src.size() - 1;
+                Card top = src.getCard(topIndex);
+                if (!top.isFaceUp()) return;
+
+                int before = src.size(); // var that detects moves
+
+                // 1) Try Tableau -> Foundation
+                engine.moveTableauToFoundation(colIndex, top.getSuit());
+                if (src.size() < before) {
+                    redraw();
+                    return;
+                }
+
+                // 2) Try Tableau -> Tableau (left to right (skip itself))
+                for (int dest = 1; dest <= 7; dest++) {
+                    if (dest == colIndex) continue;
+
+                    // try moving 1 card, then 2 card, then 3... (until face down)
+                    for (int srcRow = topIndex; srcRow >= 0; srcRow--) {
+                        
+                    }
+
+                    engine.move(colIndex, topIndex, dest);
+                    if (src.size() < before) {
+                        redraw();
+                        return;
+                    }
+                }
             });
         }
 
@@ -59,22 +92,36 @@ public class BoardView extends Pane {
 
         // ------------------- click handlers -------------------------
         stockCell.setOnMouseClicked(e -> {
-            
             this.engine.draw();
-            Card card = board.getWaste().topCard();
             redraw();
-            System.out.println(card.toString() + " drawn from Stock.");
         });
 
+        // --------- Waste Clicks ------------
         wasteCell.setOnMouseClicked(e -> {
-            wasteSelected = !wasteSelected; // toggle selection
-            Card card = board.getWaste().topCard();
-            System.out.println("Selected " + card.toString());
+            if (board.getWaste().isEmpty()) return;
+
+            int before = board.getWaste().size();
+
+            // 1) Try Waste -> Foundation
+            Card top = board.getWaste().topCard();
+            engine.moveWastetoFoundation(top.getSuit());
+
+            // if it moved, stop
+            if (board.getWaste().size() < before) {
+                redraw();
+                return;
+            }
+
+            // 2) Otherwise try Waste -> Tableau (scanning left to right)
+            for (int col = 1; col <= 7; col++) {
+                engine.moveWasteToTableau(col);
+
+                if (board.getWaste().size() < before) {
+                    redraw();
+                    return;
+                }
+            }
         });
-
-        
-
-
 
         layoutPiles();
     }
@@ -105,6 +152,9 @@ public class BoardView extends Pane {
         }
     }
 
+    /**
+     * BoardView's redraw() using individual PilesViews redraw() function
+     */
     public void redraw() {
         stockView.redraw();
         wasteView.redraw();
