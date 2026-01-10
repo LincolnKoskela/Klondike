@@ -1,6 +1,6 @@
 # Klondike Solitaire (Java)
 Play the most raw form of Klondike Solitaire, playing from the **console**. 
-See *How to Run from the **Console*** section to play from terminal. 
+See *How to Run from the Console* section to play from terminal. 
 
 Currently constructing UI for the game using JavaFX to expand the project. 
 
@@ -55,7 +55,7 @@ Currently constructing UI for the game using JavaFX to expand the project.
 | **Time** | Counts the start and end time in seconds or minutes. |
 | **GameState** | Represents a frozen snapshot of the current game in action. | 
 | **Snapshot** | Creates a `GameState` of deep copies each piles `copy()` function. |
-| **InputController** | Input command mapping: Maps keys to command actions. |
+| **InputController** | Input command mapping: Maps keys to `Command` actions. |
 | **TextViews** | Displays text throughout the game and menus. |
 
 ## klondike GUI Architecture (JavaFX)
@@ -87,7 +87,7 @@ Currently constructing UI for the game using JavaFX to expand the project.
 
 ## History Progress Log
 
-### (Dec 29 - Current)
+### (Dec 29 - Current) 
 - Starting over (x3) 
 - Created scene, stage in `GameApp` `start(...)` function
 - CardSlot layout
@@ -101,6 +101,13 @@ max and min sizes on the `StackPane`
 - Created `StockView` and `WasteView` extending off `PileView`
 - Created `BoardView` using the pileviews and `UiMetrics` for custom layout
 - Stock to Waste clickable
+- Play from Waste to Tableau
+- Play from Tableau to Waste by a **single click**
+- Yes empty Tableau columns are clickable
+- Scrapping waste selection handlers and working on making each click, a single click move
+- Might be tough for tableaus, may need source clicks and destination clicks for tab to tab moves
+
+
 
 
 ### (Dec 15 - 28, 2025)
