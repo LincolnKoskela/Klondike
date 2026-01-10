@@ -192,6 +192,8 @@ public class GameEngine {
             board.getTableau(dest).push(card);
             board.getWaste().remove(card);
             moveCount++;
+
+            System.out.println("Placed " + card + " in column " + dest);
         }
     }
 
@@ -231,6 +233,8 @@ public class GameEngine {
         Card card = board.getStock().draw();
         board.getWaste().push(card);
         moveCount++;
+
+        System.out.println(card + " drawn from Stock.");
     }
 
     /**
