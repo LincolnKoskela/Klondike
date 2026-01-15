@@ -85,4 +85,18 @@ public class CardView extends StackPane {
         this.card = card;
         updateAppearance();
     }
+
+    public Card getCard() {
+        return card;
+    }
+
+    public void setHighlighted(boolean highlighted) {
+        if (highlighted) {
+            rect.setStroke(Color.GOLD);
+            rect.setStrokeWidth(3);
+        } else {
+            rect.setStroke(Color.BLACK);
+            rect.setStrokeWidth(1);
+        }
+    }
 }
