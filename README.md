@@ -106,6 +106,8 @@ max and min sizes on the `StackPane`
 - Yes empty Tableau columns are clickable
 - Scrapping waste selection handlers and working on making each click, a single click move
 - Might be tough for tableaus, may need source clicks and destination clicks for tab to tab moves
+- Added Highlights around selections
+- Tab -> Tab `engine` moves function properly using selections
 
 
 
