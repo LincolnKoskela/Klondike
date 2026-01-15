@@ -18,15 +18,14 @@ public class BoardView extends Pane {
 
     // selection handlers variables
     private boolean wasteSelected = false;
+    private int selectedSourceCol = -1;
+    private int selectedSourceRow = -1;
 
-    // card tracker & debug variables
-    private Card lastDrawnCard; // tracks last card that was drawn
 
 
     public BoardView (GameEngine engine) {
         this.engine = engine;
         this.board = engine.getBoard();
-        this.lastDrawnCard = board.getStock().topCard();
 
         this.stockView = new StockView(board.getStock());
         this.stockCell = new PileCell(new CardSlot("Stock"), stockView);
@@ -44,46 +43,23 @@ public class BoardView extends Pane {
         }
 
         for (int col = 1; col <= 7; col++) {
+            final int destCol = col; // loop tracker
 
-            final int colIndex = col;
-
-            tableauViews[col] = new TableauView(board.getTableau(col));
+            tableauViews[col] = new TableauView(board.getTableau(col), this, col);
             getChildren().add(tableauViews[col]);
 
 
-            // ------------------- click handlers --------------------
-            tableauViews[col].setOnMouseClicked(e -> { // handles tableau clicks
-                Tableau src = board.getTableau(colIndex);
-                if (src.isEmpty()) return;
+            // ------------------- attached click handlers --------------------
+            /* clicks are inside the constructor to wire up the controller buttons
+            clicks = pressing the already wired buttons */
+            tableauViews[col].setOnMouseClicked(e -> {
+                if (selectedSourceCol == -1) return; // nothing selected
+                if (destCol == selectedSourceCol) return; // clicked same pile
 
-                int topIndex = src.size() - 1;
-                Card top = src.getCard(topIndex);
-                if (!top.isFaceUp()) return;
+                engine.move(selectedSourceCol, selectedSourceRow, destCol);
 
-                int before = src.size(); // var that detects moves
-
-                // 1) Try Tableau -> Foundation
-                engine.moveTableauToFoundation(colIndex, top.getSuit());
-                if (src.size() < before) {
-                    redraw();
-                    return;
-                }
-
-                // 2) Try Tableau -> Tableau (left to right (skip itself))
-                for (int dest = 1; dest <= 7; dest++) {
-                    if (dest == colIndex) continue;
-
-                    // try moving 1 card, then 2 card, then 3... (until face down)
-                    for (int srcRow = topIndex; srcRow >= 0; srcRow--) {
-                        
-                    }
-
-                    engine.move(colIndex, topIndex, dest);
-                    if (src.size() < before) {
-                        redraw();
-                        return;
-                    }
-                }
+                clearSelection();
+                redraw();
             });
         }
 
@@ -165,6 +141,56 @@ public class BoardView extends Pane {
 
         for (int col = 1; col <= 7; col++) {
             tableauViews[col].redraw();
+        }
+    }
+
+    // --------- Tableau Run / Handler functions ---------
+    public void clearSelection() {
+        selectedSourceCol = -1;
+        selectedSourceRow = -1;
+    }
+
+    public void onTableauCardClicked(int clickedCol, int clickedRow) {
+        // if nothing selected yet
+        if (selectedSourceCol == -1) {
+            selectedSourceCol = clickedCol;
+            selectedSourceRow = clickedRow;
+
+            clearHighlights();
+            applyHighlight(clickedCol, clickedRow);
+            return;
+        }
+
+        // if clicking same tableau again, deselect
+        if (clickedCol == selectedSourceCol) {
+
+            clearHighlights();
+            clearSelection();
+            System.out.println("Deselected.");
+            return;
+        }
+
+        // otherwise, attempt to move the clicked col as destination
+        engine.move(selectedSourceCol, selectedSourceRow, clickedCol);
+
+        clearHighlights();
+        clearSelection();
+        redraw();
+    }
+    // -------------------------------------------------------
+
+    private void applyHighlight(int col, int startRow) {
+        for (int i = startRow; i < tableauViews[col].getCardViews().size(); i++) {
+            CardView cv = tableauViews[col].getCardViews().get(i);
+            cv.setHighlighted(true);
+        }
+    }
+
+    private void clearHighlights() {
+        for (int col = 1; col <= 7; col++) {
+            for (CardView cv : tableauViews[col].getCardViews()) {
+                cv.setHighlighted(false);
+            }
         }
     }
 }
