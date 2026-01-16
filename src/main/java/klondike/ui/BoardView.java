@@ -17,7 +17,6 @@ public class BoardView extends Pane {
     private final TableauView[] tableauViews = new TableauView[8]; // index 1based
 
     // selection handlers variables
-    private boolean wasteSelected = false;
     private int selectedSourceCol = -1;
     private int selectedSourceRow = -1;
 
@@ -40,6 +39,23 @@ public class BoardView extends Pane {
             foundationCells.put(suit, pc);
 
             getChildren().add(pc);
+
+            pc.setOnMouseClicked(e -> {
+                if (board.getFoundation(suit).isEmpty()) return; // clicking empty foundation, do no-thing
+
+                int before = board.getFoundation(suit).size();
+                
+                // Scan Left to Right Method
+                for (int col = 1; col <= 7; col++) {
+                    engine.moveFoundationToTableau(suit, col);
+                    
+                    if (board.getFoundation(suit).size() < before) {
+                        redraw();
+                        return;
+                    }
+                }
+                
+            });
         }
 
         for (int col = 1; col <= 7; col++) {
