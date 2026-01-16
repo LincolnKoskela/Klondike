@@ -41,20 +41,23 @@ public class BoardView extends Pane {
             getChildren().add(pc);
 
             pc.setOnMouseClicked(e -> {
-                if (board.getFoundation(suit).isEmpty()) return; // clicking empty foundation, do no-thing
 
-                int before = board.getFoundation(suit).size();
-                
-                // Scan Left to Right Method
-                for (int col = 1; col <= 7; col++) {
-                    engine.moveFoundationToTableau(suit, col);
-                    
-                    if (board.getFoundation(suit).size() < before) {
-                        redraw();
-                        return;
+                // no tableau selected -> meaning clicking foundation first
+                if (selectedSourceCol == -1) { 
+                    if (board.getFoundation(suit).isEmpty()) return;
+
+                    int before = board.getFoundation(suit).size();
+
+                    // Scan Left to Right
+                    for (int col = 1; col <= 7; col++) {
+                        engine.moveFoundationToTableau(suit, col);
+
+                        if (board.getFoundation(suit).size() < before) {
+                            redraw();
+                            return;
+                        }
                     }
                 }
-                
             });
         }
 
@@ -65,18 +68,18 @@ public class BoardView extends Pane {
             getChildren().add(tableauViews[col]);
 
 
-            // ------------------- attached click handlers --------------------
-            /* clicks are inside the constructor to wire up the controller buttons
-            clicks = pressing the already wired buttons */
-            tableauViews[col].setOnMouseClicked(e -> {
-                if (selectedSourceCol == -1) return; // nothing selected
-                if (destCol == selectedSourceCol) return; // clicked same pile
+            // // ------------------- attached click handlers --------------------
+            // /* clicks are inside the constructor to wire up the controller buttons
+            // clicks = pressing the already wired buttons */
+            // tableauViews[col].setOnMouseClicked(e -> {
+            //     if (selectedSourceCol == -1) return; // nothing selected
+            //     if (destCol == selectedSourceCol) return; // clicked same pile
 
-                engine.move(selectedSourceCol, selectedSourceRow, destCol);
+            //     engine.move(selectedSourceCol, selectedSourceRow, destCol);
 
-                clearSelection();
-                redraw();
-            });
+            //     clearSelection();
+            //     redraw();
+            // });
         }
 
         getChildren().add(stockCell);
@@ -193,6 +196,21 @@ public class BoardView extends Pane {
         clearSelection();
         redraw();
     }
+
+    public void tryTableauToFoundation(int sourceCol, Card.Suit suit) {
+        engine.moveTableauToFoundation(sourceCol, suit);
+        clearHighlights();
+        clearSelection();
+        redraw();
+    }
+
+    public boolean hasSelection() {
+        return selectedSourceCol != -1;
+    }
+
+    public int getSelectedSourceCol() {
+        return selectedSourceCol;
+    }
     // -------------------------------------------------------
 
     private void applyHighlight(int col, int startRow) {
@@ -208,5 +226,9 @@ public class BoardView extends Pane {
                 cv.setHighlighted(false);
             }
         }
+    }
+
+    public Board getBoard() {
+        return board;
     }
 }

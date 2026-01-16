@@ -21,7 +21,7 @@ public class TableauView extends PileView {
             final int row = i;
             CardView cv = cardViews.get(i);
             cv.relocate(0, i * yOffset);
-
+            
             /* adding this clicker makes each individual card inside
             a tableau clickable. Without this, when clicking tableaus,
             we'd only be able to click a column, not an individual cardview
@@ -29,12 +29,33 @@ public class TableauView extends PileView {
             cv.setOnMouseClicked(e -> {
                 if (!cv.getCard().isFaceUp()) return;
 
-                boardView.onTableauCardClicked(colIndex, row);
+                if (boardView.hasSelection() && colIndex != boardView.getSelectedSourceCol()) {
+                    boardView.onTableauCardClicked(colIndex, row);
+                    e.consume();
+                    return;
+                }
 
+                boolean isTopCard = (cv == cardViews.get(cardViews.size() - 1));
+
+                if (isTopCard && !boardView.hasSelection()) {
+                    Tableau tab = boardView.getBoard().getTableau(colIndex);
+                    int before = tab.size();
+
+                    boardView.tryTableauToFoundation(colIndex, cv.getCard().getSuit());
+
+                    // if it didn't move to foundation
+                    if (tab.size() == before) {
+                        boardView.onTableauCardClicked(colIndex, row);
+                    }
+
+                    e.consume();
+                    return;
+                }
+
+                // else wise ... normal selection / deselect logic / not top card ...
+                boardView.onTableauCardClicked(colIndex, row);
                 e.consume();
             });
-
-
         }
 
         setPrefHeight(
