@@ -191,3 +191,5 @@ max and min sizes on the `StackPane`
 - Might be tough for tableaus, may need source clicks and destination clicks for tab to tab moves
 - Added Highlights around selections
 - Tab -> Tab `engine` moves function properly using selections
+- Foundation -> Tableau on single click
+- Tab -> Tab works with single click feature for the foundation moves
