@@ -3,6 +3,7 @@ package klondike.ui;
 import klondike.*;
 import java.util.EnumMap;
 import javafx.scene.layout.*;
+import javafx.scene.control.Button;
 
 public class BoardView extends Pane {
     private final GameEngine engine;
@@ -20,11 +21,16 @@ public class BoardView extends Pane {
     private int selectedSourceCol = -1;
     private int selectedSourceRow = -1;
 
+    // Button (eventually move to a sidemenu once we get further in project)
+    private Button undo;
 
 
     public BoardView (GameEngine engine) {
         this.engine = engine;
         this.board = engine.getBoard();
+
+        this.undo = new Button("UNDO");
+        styleButton();
 
         this.stockView = new StockView(board.getStock());
         this.stockCell = new PileCell(new CardSlot("Stock"), stockView);
@@ -61,29 +67,35 @@ public class BoardView extends Pane {
             });
         }
 
+        /*  Tableau click handlers live in the TableauView.java,
+        clicking on individual CardViews. Since Cardviews call e.consume(),
+        clicks won't be affected by our click handling here within our loop.
+        Within this loop, we ensure we can click empty tableaus. 
+        SetPickOnBounds(true) in our constructor enables clicking on empty tabs.
+        CardView clicks will be handled first and consumed. If cardviews are 
+        'empty' then nothing will be e.consume()'d */
         for (int col = 1; col <= 7; col++) {
-            final int destCol = col; // loop tracker
+
+            final int destCol = col;
 
             tableauViews[col] = new TableauView(board.getTableau(col), this, col);
             getChildren().add(tableauViews[col]);
 
+            tableauViews[col].setOnMouseClicked(e -> {
+                if (selectedSourceCol == -1) return;
+                if (destCol == selectedSourceCol) return;
 
-            // // ------------------- attached click handlers --------------------
-            // /* clicks are inside the constructor to wire up the controller buttons
-            // clicks = pressing the already wired buttons */
-            // tableauViews[col].setOnMouseClicked(e -> {
-            //     if (selectedSourceCol == -1) return; // nothing selected
-            //     if (destCol == selectedSourceCol) return; // clicked same pile
-
-            //     engine.move(selectedSourceCol, selectedSourceRow, destCol);
-
-            //     clearSelection();
-            //     redraw();
-            // });
+                engine.move(selectedSourceCol, selectedSourceRow, destCol);
+                clearHighlights();
+                clearSelection();
+                redraw();
+            });
+            
         }
 
         getChildren().add(stockCell);
         getChildren().add(wasteCell);
+        getChildren().add(undo);
 
         // ------------------- click handlers -------------------------
         stockCell.setOnMouseClicked(e -> {
@@ -125,11 +137,17 @@ public class BoardView extends Pane {
             }
         });
 
+        // -------- Undo Button Clicker ----------
+        undo.setOnMouseClicked(e -> {
+            engine.undo();
+            redraw();
+        });
+
         layoutPiles();
     }
 
     /**
-     * Klondike board design
+     * Klondike board design (with button temporarily)
      */
     private void layoutPiles() {
        
@@ -138,6 +156,8 @@ public class BoardView extends Pane {
         double y0 = UiMetrics.Y0;
         double stepX = UiMetrics.STEP_X; // card width + gap_x -> one "step" 
         double fx = UiMetrics.F_X;
+
+        undo.relocate(x0, 5);
 
         stockCell.relocate(x0, y0);
         wasteCell.relocate(x0 + (stepX), y0);
@@ -152,6 +172,33 @@ public class BoardView extends Pane {
         for (int col = 1; col <= 7; col++) {
             tableauViews[col].relocate(x0 + (col - 1) * stepX, ty);
         }
+    }
+
+    /**
+     * Cool looking undo button dontcha!
+     */
+    private void styleButton() {
+        undo.setMaxWidth(Double.MAX_VALUE);
+        undo.setStyle(
+            "-fx-background-color: #262626;" + 
+            "-fx-border-color: #555;" +
+            "-fx-border-width: 1;" + 
+            "-fx-font-size: 12px;" + 
+            "-fx-font-weight: bold;" + 
+            "-fx-text-fill: white;"
+        );
+        undo.setOnMouseEntered(e -> undo.setStyle(
+            "-fx-background-color: #333333;" +
+            "-fx-font-weight: bold;" +
+            "-fx-text-fill: white;" +
+            "-fx-font-size: 12px;"
+        ));
+
+        undo.setOnMouseExited(e -> undo.setStyle(
+            "-fx-background-color: #262626;" +
+            "-fx-text-fill: white;" +
+            "-fx-font-size: 12px;"
+        ));
     }
 
     /**
