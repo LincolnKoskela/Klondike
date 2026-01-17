@@ -13,6 +13,11 @@ public class TableauView extends PileView {
         super(pile);
         this.boardView = boardView;
         this.colIndex = colIndex;
+
+        setMinSize(UiMetrics.CARD_W, UiMetrics.CARD_H);
+        setPrefSize(UiMetrics.CARD_W, UiMetrics.CARD_H);
+        setMaxSize(UiMetrics.CARD_W, Double.MAX_VALUE); // height can grow
+        setPickOnBounds(true); // empty slots clickable
     }
 
     @Override
