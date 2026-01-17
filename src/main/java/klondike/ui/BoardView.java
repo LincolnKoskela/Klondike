@@ -87,8 +87,15 @@ public class BoardView extends Pane {
 
         // ------------------- click handlers -------------------------
         stockCell.setOnMouseClicked(e -> {
-            this.engine.draw();
-            redraw();
+            if (board.getStock().isEmpty()) {
+                engine.recycle();
+                redraw();
+            } else {
+                engine.draw();
+                redraw();
+            }
+
+            
         });
 
         // --------- Waste Clicks ------------
