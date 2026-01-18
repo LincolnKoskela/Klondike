@@ -3,6 +3,9 @@ package klondike.ui;
 import klondike.*;
 import java.util.*;
 
+/**
+ * TableauView of PileView
+ */
 public class TableauView extends PileView {
 
     private final double yOffset = UiMetrics.Y_OFFSET;

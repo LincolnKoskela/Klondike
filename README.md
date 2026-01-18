@@ -25,8 +25,16 @@ Currently constructing UI for the game using JavaFX to expand the project.
 
 
 ## Current State of Game
-- Playable from **console**
-- Making GUI using JavaFX
+- Fully playable from **console**
+- Fully playable UI Version
+
+## Project Expansion Focus
+- 1) Add animations
+- 2) Detech Wins
+- 3) Timer on screen
+- 4) Side Menu leading to other pages within the application
+- 5) Other minor tweaks such as board layout adjustments, card visuals, backgrounds
+
 
 ![stateOfGame](src/main/resources/images/GameAppImages/17jan26.png)
 
@@ -193,3 +201,5 @@ max and min sizes on the `StackPane`
 - Tab -> Tab `engine` moves function properly using selections
 - Foundation -> Tableau on single click
 - Tab -> Tab works with single click feature for the foundation moves
+
+- Full Game Playable! 18JAN26 (w/ undo feature)

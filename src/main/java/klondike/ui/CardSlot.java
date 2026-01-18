@@ -5,7 +5,6 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 
-
 /**
  * A Cardslot is a Rectangle where a Playing Card would go.
  * Cardslot will be used in a PileCell, stacking PileView 

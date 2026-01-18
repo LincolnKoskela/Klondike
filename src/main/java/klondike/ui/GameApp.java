@@ -5,7 +5,6 @@ import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.*;
-import klondike.Card;
 import klondike.GameEngine;
 
 public class GameApp extends Application {

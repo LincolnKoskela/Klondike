@@ -24,7 +24,6 @@ public class BoardView extends Pane {
     // Button (eventually move to a sidemenu once we get further in project)
     private Button undo;
 
-
     public BoardView (GameEngine engine) {
         this.engine = engine;
         this.board = engine.getBoard();

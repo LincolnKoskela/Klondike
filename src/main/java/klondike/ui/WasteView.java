@@ -2,12 +2,14 @@ package klondike.ui;
 
 import klondike.*;
 
+/**
+ * WasteView extends PileView
+ */
 public class WasteView extends PileView {
     
     public WasteView(Pile pile) {
         super(pile);
     }
-
 
     /**
      * layout specific to pile. Only top card visually matters

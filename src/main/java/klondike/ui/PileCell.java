@@ -2,8 +2,10 @@ package klondike.ui;
 
 import javafx.geometry.Pos;
 import javafx.scene.layout.StackPane;
-import klondike.*;
 
+/**
+ * Stackpane layed CardSlot, and PileView on top
+ */
 public class PileCell extends StackPane{
     private PileView pileView;
 

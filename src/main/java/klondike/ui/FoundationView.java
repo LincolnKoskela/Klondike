@@ -2,6 +2,9 @@ package klondike.ui;
 
 import klondike.*;
 
+/**
+ * Foundation View
+ */
 public class FoundationView extends PileView {
 
     public FoundationView(Pile pile) {

@@ -8,6 +8,7 @@ import javafx.scene.shape.Rectangle;
 import klondike.Card;
 
 public class CardView extends StackPane {
+    
     private Card card;
     private Rectangle rect;
     private Label label;

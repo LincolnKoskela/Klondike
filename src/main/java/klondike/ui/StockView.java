@@ -1,6 +1,9 @@
 package klondike.ui;
 import klondike.*;
 
+/**
+ * StockView extended PileView
+ */
 public class StockView extends PileView {
     
     public StockView(Pile pile) {

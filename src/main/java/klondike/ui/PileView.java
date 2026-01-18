@@ -71,6 +71,4 @@ abstract class PileView extends Pane {
         setMaxWidth(UiMetrics.CARD_W);
         setPrefWidth(UiMetrics.CARD_W);
     }
-
-    
 }
