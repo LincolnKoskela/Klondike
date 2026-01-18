@@ -28,7 +28,7 @@ Currently constructing UI for the game using JavaFX to expand the project.
 - Playable from **console**
 - Making GUI using JavaFX
 
-![stateOfGame](src/main/resources/images/GameAppImages/8jan26.png)
+![stateOfGame](src/main/resources/images/GameAppImages/17jan26.png)
 
 ## Features
 - Object Oriented Design
