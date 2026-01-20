@@ -178,7 +178,7 @@ clicking will draw card, else recycle, then `redraw()` the pileView
 ### (Dec 15 - 28, 2025)
 - Sandbox learning
 
-### (Dec 29 - Current) 
+### (Dec 29, 2025 - Jan 19, 2026) 
 - Starting over (x3) 
 - Created scene, stage in `GameApp` `start(...)` function
 - CardSlot layout
@@ -203,3 +203,8 @@ max and min sizes on the `StackPane`
 - Tab -> Tab works with single click feature for the foundation moves
 
 - Full Game Playable! 18JAN26 (w/ undo feature)
+
+### (Jan 20, 2026 - Current) -> Focusing on Animations
+- Added `getTopCardView()` in `PileView` -> Animation helper function
+- Added `popTopCardView()` in `PileView` -> Animation helper function
+- Added `pushCardView(CardView cv)` in `PileView` -> Animation helper function
