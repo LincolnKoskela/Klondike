@@ -112,13 +112,18 @@ public class BoardView extends Pane {
         stockCell.setOnMouseClicked(e -> {
 
             if (animating) return; // Only one line animation at a time while in-flight
-            if (board.getStock().isEmpty()) return;
 
-            // 1) Peek at top node without removing yet
+            if (board.getStock().isEmpty()) {
+                engine.recycle();
+                redraw();
+                return;
+            }
+
+            // Get top node for Bounds measuring
             CardView moving = stockView.getTopCardView();
             if (moving == null) return;
 
-            // 2) Start position: where the card currently is (scene -> overlay coordinates)
+            // Measure start position in overlay coordinates
             Bounds startScene = moving.localToScene(moving.getBoundsInLocal());
             Bounds startOverlay = animationLayer.sceneToLocal(startScene);
 
@@ -129,32 +134,35 @@ public class BoardView extends Pane {
             moving.relocate(startOverlay.getMinX(), startOverlay.getMinY());
             animationLayer.getChildren().add(moving);
 
-            // 3) End position: where we watn it to land (wasteView's top left)
+            // End position: where we want it to land (wasteView's top left)
             Bounds wasteScene = wasteView.localToScene(wasteView.getBoundsInLocal());
             Bounds wasteOverlay = animationLayer.sceneToLocal(wasteScene);
 
             double dx = wasteOverlay.getMinX() - startOverlay.getMinX();
             double dy = wasteOverlay.getMinY() - startOverlay.getMinY();
 
-            // 4) Animate 
+            // Model update
+            engine.draw();
+
+            // Animate 
             animating = true;
-            TranslateTransition tt = new TranslateTransition(Duration.millis(250), moving);
+            TranslateTransition tt = new TranslateTransition(Duration.millis(200), moving);
             tt.setByX(dx);
             tt.setByY(dy);
 
             tt.setOnFinished(evt -> {
+                moving.setTranslateX(0);
+                moving.setTranslateY(0);
+
+                animationLayer.getChildren().remove(moving);
+
+                stockView.redraw();
+                wasteView.redraw();
+
                 animating = false;
             });
 
-            tt.play();
-
-            // if (board.getStock().isEmpty()) {
-            //     engine.recycle();
-            //     redraw();
-            // } else {
-            //     engine.draw();
-            //     redraw();
-            // }            
+            tt.play();         
         });
 
         // --------- Waste Clicks ------------
