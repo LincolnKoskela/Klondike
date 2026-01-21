@@ -185,7 +185,7 @@ clicking will draw card, else recycle, then `redraw()` the pileView
 - Cardview layout 
 - Debugged `Label` leaving the `CardView` and `CardSlot` due to not setting
 max and min sizes on the `StackPane`
-- UiMetrics class for consistency
+- `UiMetrics` class for consistency
 - A lot of progress this week was review so got a lot done
 - `PileView` is an abstract class that subclasses will extend, such as `TableauView`
 - Created `TableauView` and `FoundationView` extending off `PileView`
@@ -201,8 +201,7 @@ max and min sizes on the `StackPane`
 - Tab -> Tab `engine` moves function properly using selections
 - Foundation -> Tableau on single click
 - Tab -> Tab works with single click feature for the foundation moves
-
-- Full Game Playable! 18JAN26 (w/ undo feature)
+- Full Game Playable! **18JAN26** (w/ undo feature)
 
 ### (Jan 20, 2026 - Current) -> Focusing on Animations
 - Added `getTopCardView()` in `PileView` -> Animation helper function
