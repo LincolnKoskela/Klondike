@@ -71,4 +71,48 @@ abstract class PileView extends Pane {
         setMaxWidth(UiMetrics.CARD_W);
         setPrefWidth(UiMetrics.CARD_W);
     }
+
+    /**
+     * Animation helper. Key to animations.
+     * 
+     * Grab the top CardView in PileView
+     * @return top card
+     */
+    public CardView getTopCardView() {
+        if (cardViews.isEmpty()) return null;
+        return cardViews.get(cardViews.size()-1);
+    }
+
+    /**
+     * Animation helper. Key to animations.
+     * 
+     * Removes visual node only. Does NOT touch the engine.
+     * @return The node so we can animate it.
+     */
+    public CardView popTopCardView() {
+        if (cardViews.isEmpty()) return null;
+
+        CardView top = cardViews.remove(cardViews.size() - 1);
+        getChildren().remove(top);
+        return top;
+    }
+
+    /**
+     * Animation helper. Key to animations.
+     * 
+     * "This pile now owns the CardView, pushing it."
+     * It becomes the new topCardView.
+     * Layout rules apply!
+     * Think of it as your specific engine piles pushing functionality.
+     * @param cv CardView being pushed onto new Pile.
+     */
+    public void pushCardView(CardView cv) {
+        cardViews.add(cv);
+        getChildren().add(cv);
+        layoutCards();
+    }
+
+    public int size() {
+        return cardViews.size();
+    }
 }

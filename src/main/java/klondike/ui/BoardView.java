@@ -3,7 +3,11 @@ package klondike.ui;
 import klondike.*;
 import java.util.EnumMap;
 import javafx.scene.layout.*;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.control.Button;
+import javafx.geometry.Bounds;
+import javafx.animation.TranslateTransition;
+import javafx.util.Duration;
 
 public class BoardView extends Pane {
     private final GameEngine engine;
@@ -23,6 +27,10 @@ public class BoardView extends Pane {
 
     // Button (eventually move to a sidemenu once we get further in project)
     private Button undo;
+
+    // Animation fields
+    private final Pane animationLayer = new Pane();
+    private boolean animating = false;
 
     public BoardView (GameEngine engine) {
         this.engine = engine;
@@ -96,17 +104,57 @@ public class BoardView extends Pane {
         getChildren().add(wasteCell);
         getChildren().add(undo);
 
+        // Animation Constructing 
+        animationLayer.setPickOnBounds(false); // clicks pass thru empty overlay space
+        getChildren().add(animationLayer);
+
         // ------------------- click handlers -------------------------
         stockCell.setOnMouseClicked(e -> {
-            if (board.getStock().isEmpty()) {
-                engine.recycle();
-                redraw();
-            } else {
-                engine.draw();
-                redraw();
-            }
 
-            
+            if (animating) return; // Only one line animation at a time while in-flight
+            if (board.getStock().isEmpty()) return;
+
+            // 1) Peek at top node without removing yet
+            CardView moving = stockView.getTopCardView();
+            if (moving == null) return;
+
+            // 2) Start position: where the card currently is (scene -> overlay coordinates)
+            Bounds startScene = moving.localToScene(moving.getBoundsInLocal());
+            Bounds startOverlay = animationLayer.sceneToLocal(startScene);
+
+            // Remove from stock
+            stockView.popTopCardView();
+
+            // Put it into overlay at the exact same spot
+            moving.relocate(startOverlay.getMinX(), startOverlay.getMinY());
+            animationLayer.getChildren().add(moving);
+
+            // 3) End position: where we watn it to land (wasteView's top left)
+            Bounds wasteScene = wasteView.localToScene(wasteView.getBoundsInLocal());
+            Bounds wasteOverlay = animationLayer.sceneToLocal(wasteScene);
+
+            double dx = wasteOverlay.getMinX() - startOverlay.getMinX();
+            double dy = wasteOverlay.getMinY() - startOverlay.getMinY();
+
+            // 4) Animate 
+            animating = true;
+            TranslateTransition tt = new TranslateTransition(Duration.millis(250), moving);
+            tt.setByX(dx);
+            tt.setByY(dy);
+
+            tt.setOnFinished(evt -> {
+                animating = false;
+            });
+
+            tt.play();
+
+            // if (board.getStock().isEmpty()) {
+            //     engine.recycle();
+            //     redraw();
+            // } else {
+            //     engine.draw();
+            //     redraw();
+            // }            
         });
 
         // --------- Waste Clicks ------------
@@ -160,7 +208,6 @@ public class BoardView extends Pane {
 
         stockCell.relocate(x0, y0);
         wasteCell.relocate(x0 + (stepX), y0);
-        
 
         Card.Suit[] order = {Card.Suit.HEARTS, Card.Suit.CLUBS, Card.Suit.SPADES, Card.Suit.DIAMONDS};
         for (int i = 0 ; i < order.length; i++) {
