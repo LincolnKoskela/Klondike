@@ -30,6 +30,7 @@ public class BoardView extends Pane {
 
     // Animation fields
     private final Pane animationLayer = new Pane();
+    private final AnimationManager animator;
     private boolean animating = false;
 
     public BoardView (GameEngine engine) {
@@ -103,10 +104,8 @@ public class BoardView extends Pane {
         getChildren().add(stockCell);
         getChildren().add(wasteCell);
         getChildren().add(undo);
-
-        // Animation Constructing 
-        animationLayer.setPickOnBounds(false); // clicks pass thru empty overlay space
         getChildren().add(animationLayer);
+        animator = new AnimationManager(animationLayer);
 
         // ------------------- click handlers -------------------------
         stockCell.setOnMouseClicked(e -> {
@@ -117,52 +116,16 @@ public class BoardView extends Pane {
                 engine.recycle();
                 redraw();
                 return;
-            }
-
-            // Get top node for Bounds measuring
-            CardView moving = stockView.getTopCardView();
-            if (moving == null) return;
-
-            // Measure start position in overlay coordinates
-            Bounds startScene = moving.localToScene(moving.getBoundsInLocal());
-            Bounds startOverlay = animationLayer.sceneToLocal(startScene);
-
-            // Remove from stock
-            stockView.popTopCardView();
-
-            // Put it into overlay at the exact same spot
-            moving.relocate(startOverlay.getMinX(), startOverlay.getMinY());
-            animationLayer.getChildren().add(moving);
-
-            // End position: where we want it to land (wasteView's top left)
-            Bounds wasteScene = wasteView.localToScene(wasteView.getBoundsInLocal());
-            Bounds wasteOverlay = animationLayer.sceneToLocal(wasteScene);
-
-            double dx = wasteOverlay.getMinX() - startOverlay.getMinX();
-            double dy = wasteOverlay.getMinY() - startOverlay.getMinY();
-
-            // Model update
-            engine.draw();
-
-            // Animate 
+            } 
             animating = true;
-            TranslateTransition tt = new TranslateTransition(Duration.millis(200), moving);
-            tt.setByX(dx);
-            tt.setByY(dy);
-
-            tt.setOnFinished(evt -> {
-                moving.setTranslateX(0);
-                moving.setTranslateY(0);
-
-                animationLayer.getChildren().remove(moving);
-
-                stockView.redraw();
-                wasteView.redraw();
-
-                animating = false;
-            });
-
-            tt.play();         
+            
+            animator.animateTopCardToNode(stockView,
+                wasteView, 
+                () -> engine.draw(), 
+                () -> {
+                    redraw();
+                    animating = false;
+                });
         });
 
         // --------- Waste Clicks ------------
