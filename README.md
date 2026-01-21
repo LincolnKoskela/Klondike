@@ -32,8 +32,9 @@ Currently constructing UI for the game using JavaFX to expand the project.
 - 1) Add animations
 - 2) Detech Wins
 - 3) Timer on screen
-- 4) Side Menu leading to other pages within the application
-- 5) Other minor tweaks such as board layout adjustments, card visuals, backgrounds
+- 4) Other minor tweaks such as board layout adjustments, card visuals, backgrounds
+- 5) Side Menu leading to other pages within the application (maybe) just want side menu tbh
+
 
 
 ![stateOfGame](src/main/resources/images/GameAppImages/17jan26.png)
@@ -69,6 +70,7 @@ Currently constructing UI for the game using JavaFX to expand the project.
 ## klondike GUI Architecture (JavaFX)
 | **Components** | **Responsibility** |
 |----------------|--------------------|
+| **AnimationManager** | Handles lifting, travel, and placement of cards |
 | **BoardView** | Visual layout of a klondike board using `PileViews`, `GameEngine`, and `Board` |
 | **CardSlot** | Empty slot of CardView |
 | **CardView** | Visual representation of a playing card (`Card`) |
@@ -207,3 +209,9 @@ max and min sizes on the `StackPane`
 - Added `getTopCardView()` in `PileView` -> Animation helper function
 - Added `popTopCardView()` in `PileView` -> Animation helper function
 - Added `pushCardView(CardView cv)` in `PileView` -> Animation helper function
+- Added Animation Layer Stock -> Waste using a `Pane` to temporarily place 
+`CardView` into third party. After performing animation, goes to where it's suppose to be
+which is the `WasteView`. StockView -> AnimationLayerPane -> WasteView
+- Created `AnimationManger` class which handles lifting, transporting, and placing 
+of `CardViews`. 
+- Used `AnimationManager` class to be used in `BoardView` for cleaner architecture
