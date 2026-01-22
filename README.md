@@ -215,3 +215,6 @@ which is the `WasteView`. StockView -> AnimationLayerPane -> WasteView
 - Created `AnimationManger` class which handles lifting, transporting, and placing 
 of `CardViews`. 
 - Used `AnimationManager` class to be used in `BoardView` for cleaner architecture
+- Added `foundationSplash(node)` to Manager class
+- Implemented foundationSplash effects Waste -> Found && Tableau -> Found
+- Added Audio Dependency to `Pom.xlm` file
