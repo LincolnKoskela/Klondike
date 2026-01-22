@@ -5,6 +5,8 @@ import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
+import javafx.animation.ScaleTransition;
+import javafx.animation.SequentialTransition;
 
 /**
  * Animation Manager = UI choreography helper.
@@ -108,5 +110,23 @@ public class AnimationManager {
         });
 
         tt.play();
+    }
+
+    /**
+     * 
+     * @param foundationNode
+     */
+    public void foundationSplash(Node foundationNode) {
+        // quick "pop" effect
+        ScaleTransition up = new ScaleTransition(Duration.millis(90), foundationNode);
+        up.setToX(1.08);
+        up.setToY(1.08);
+
+        ScaleTransition down = new ScaleTransition(Duration.millis(120), foundationNode);
+        down.setToX(1.0);
+        down.setToY(1.0);
+
+        SequentialTransition splash = new SequentialTransition(up, down);
+        splash.play();
     }
 }

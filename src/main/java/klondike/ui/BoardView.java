@@ -3,11 +3,7 @@ package klondike.ui;
 import klondike.*;
 import java.util.EnumMap;
 import javafx.scene.layout.*;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.control.Button;
-import javafx.geometry.Bounds;
-import javafx.animation.TranslateTransition;
-import javafx.util.Duration;
 
 public class BoardView extends Pane {
     private final GameEngine engine;
@@ -119,9 +115,13 @@ public class BoardView extends Pane {
             } 
             animating = true;
             
-            animator.animateTopCardToNode(stockView,
+            animator.animateTopCardToNode(
+                stockView,
                 wasteView, 
-                () -> engine.draw(), 
+                () -> {
+                    engine.draw(); 
+                },
+                
                 () -> {
                     redraw();
                     animating = false;
@@ -141,6 +141,9 @@ public class BoardView extends Pane {
             // if it moved, stop
             if (board.getWaste().size() < before) {
                 redraw();
+
+                FoundationView fv = foundationViews.get(top.getSuit());
+                animator.foundationSplash(fv);
                 return;
             }
 
