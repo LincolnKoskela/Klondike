@@ -7,6 +7,9 @@ import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import javafx.animation.ScaleTransition;
 import javafx.animation.SequentialTransition;
+import javafx.animation.FadeTransition;
+import javafx.animation.ParallelTransition;
+import javafx.scene.effect.DropShadow;
 
 /**
  * Animation Manager = UI choreography helper.
@@ -117,7 +120,13 @@ public class AnimationManager {
      * @param foundationNode
      */
     public void foundationSplash(Node foundationNode) {
-        // quick "pop" effect
+
+        DropShadow glow = new DropShadow();
+        glow.setRadius(25);
+        glow.setSpread(0.35);
+        foundationNode.setEffect(glow);
+        
+        // ----- POP then scale back up -----
         ScaleTransition up = new ScaleTransition(Duration.millis(90), foundationNode);
         up.setToX(1.08);
         up.setToY(1.08);
@@ -126,7 +135,29 @@ public class AnimationManager {
         down.setToX(1.0);
         down.setToY(1.0);
 
-        SequentialTransition splash = new SequentialTransition(up, down);
-        splash.play();
+        SequentialTransition pop = new SequentialTransition(up, down);
+
+        // ----- FLASH (quick opacity dip and return) -----
+        FadeTransition flashDown = new FadeTransition(Duration.millis(70), foundationNode);
+        flashDown.setToValue(0.75);
+
+        FadeTransition flashUp = new FadeTransition(Duration.millis(110), foundationNode);
+        flashUp.setToValue(1.0);
+
+        SequentialTransition flash = new SequentialTransition(flashDown, flashUp);
+
+        // Play pop + flash together
+        ParallelTransition combo = new ParallelTransition(pop, flash);
+
+        // Clean up once finished
+        combo.setOnFinished(e -> {
+            foundationNode.setEffect(null);
+
+            foundationNode.setScaleX(1.0);
+            foundationNode.setScaleY(1.0);
+            foundationNode.setOpacity(1.0);
+        });
+
+        combo.play();
     }
 }

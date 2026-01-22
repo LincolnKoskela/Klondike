@@ -272,10 +272,20 @@ public class BoardView extends Pane {
     }
 
     public void tryTableauToFoundation(int sourceCol, Card.Suit suit) {
+
+        int before = board.getTableau(sourceCol).size();
+
         engine.moveTableauToFoundation(sourceCol, suit);
+
+
         clearHighlights();
         clearSelection();
         redraw();
+
+        if (board.getTableau(sourceCol).size() < before) {
+            animator.foundationSplash(foundationViews.get(suit));
+        }
+        
     }
 
     public boolean hasSelection() {
