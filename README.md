@@ -28,16 +28,19 @@ Currently constructing UI for the game using JavaFX to expand the project.
 - Fully playable from **console**
 - Fully playable UI Version
 
+![stateOfGame](src/main/resources/images/GameAppImages/17jan26.png)
+
 ## Project Expansion Focus
-- 1) Add animations
+- 1) Click Waste -> Invalid move (no valid move) -> Animate shake  
 - 2) Detech Wins
 - 3) Timer on screen
-- 4) Other minor tweaks such as board layout adjustments, card visuals, backgrounds
-- 5) Side Menu leading to other pages within the application (maybe) just want side menu tbh
+- 4) Deal New Game button
+- 5) Drag Feature -> bringing down from foundation to tabs, if two tabs accept, only gives on option (scanned left-to-right)
+- 6) Other minor tweaks such as board layout adjustments, card visuals, backgrounds
+- 7) Side Menu leading to other pages within the application (maybe) just want side menu tbh
 
+## Bugs
 
-
-![stateOfGame](src/main/resources/images/GameAppImages/17jan26.png)
 
 ## Features
 - Object Oriented Design
@@ -218,3 +221,4 @@ of `CardViews`.
 - Added `foundationSplash(node)` to Manager class
 - Implemented foundationSplash effects Waste -> Found && Tableau -> Found
 - Added Audio Dependency to `Pom.xlm` file
+- Added win animation w/ `winPop(Pane, Runnable)`
