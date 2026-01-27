@@ -28,6 +28,7 @@ public class BoardView extends Pane {
     private final Pane animationLayer = new Pane();
     private final AnimationManager animator;
     private boolean animating = false;
+    private boolean winShown = false;
 
     public BoardView (GameEngine engine) {
         this.engine = engine;
@@ -41,6 +42,7 @@ public class BoardView extends Pane {
         this.wasteView = new WasteView(board.getWaste());
         this.wasteCell = new PileCell(new CardSlot("Waste"), wasteView);
 
+        // ----------- Foundation Handlers -----------------
         for (Card.Suit suit : Card.Suit.values()) {
             FoundationView fv = new FoundationView(board.getFoundation(suit));
             PileCell pc = new PileCell(new CardSlot(""), fv);
@@ -130,20 +132,32 @@ public class BoardView extends Pane {
 
         // --------- Waste Clicks ------------
         wasteCell.setOnMouseClicked(e -> {
+            if (animating) return;
             if (board.getWaste().isEmpty()) return;
 
             int before = board.getWaste().size();
 
-            // 1) Try Waste -> Foundation
+            // 1) Try Waste -> Foundation: animate Waste -> Foundation
             Card top = board.getWaste().topCard();
-            engine.moveWastetoFoundation(top.getSuit());
+            Card.Suit suit = top.getSuit();
+            FoundationView fv = foundationViews.get(suit);
 
-            // if it moved, stop
+            engine.moveWastetoFoundation(suit);
+
+            // If card moved to foundation: animate Waste -> Foundation
             if (board.getWaste().size() < before) {
-                redraw();
+                animating = true;
 
-                FoundationView fv = foundationViews.get(top.getSuit());
-                animator.foundationSplash(fv);
+                animator.animateTopCardToNode(wasteView,
+                    fv,
+                    null, 
+                    () -> {
+                        redraw();
+                        animator.foundationSplash(fv);
+                        animating = false;
+                    }
+                );
+
                 return;
             }
 
@@ -269,6 +283,7 @@ public class BoardView extends Pane {
         clearHighlights();
         clearSelection();
         redraw();
+        checkWin();
     }
 
     public void tryTableauToFoundation(int sourceCol, Card.Suit suit) {
@@ -281,8 +296,10 @@ public class BoardView extends Pane {
         clearHighlights();
         clearSelection();
         redraw();
+        checkWin();
 
         if (board.getTableau(sourceCol).size() < before) {
+            checkWin();
             animator.foundationSplash(foundationViews.get(suit));
         }
         
@@ -309,6 +326,16 @@ public class BoardView extends Pane {
             for (CardView cv : tableauViews[col].getCardViews()) {
                 cv.setHighlighted(false);
             }
+        }
+    }
+
+    private void checkWin() {
+        if (winShown) return;
+
+        if (board.isGameWon()) {
+            winShown = true;
+            animating = true;
+            animator.winPop(animationLayer, () -> animating = false);
         }
     }
 

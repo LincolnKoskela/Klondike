@@ -10,6 +10,13 @@ import javafx.animation.SequentialTransition;
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.geometry.Pos;
+import javafx.animation.Animation;
+
 
 /**
  * Animation Manager = UI choreography helper.
@@ -160,4 +167,78 @@ public class AnimationManager {
 
         combo.play();
     }
+
+    public void winPop(Pane overlayHost, Runnable onFinished) {
+
+        // Build the win overlay and catch mouse clicks 
+        StackPane winLayer = new StackPane();
+        winLayer.setPickOnBounds(true); 
+
+        // Dim Background
+        Rectangle dim = new Rectangle(overlayHost.getWidth(), overlayHost.getHeight());
+        dim.widthProperty().bind(overlayHost.widthProperty());
+        dim.heightProperty().bind(overlayHost.heightProperty());
+        dim.setFill(Color.rgb(0, 0, 0, 0.0)); // fully transparent 0.0
+
+        // Text
+        Label text = new Label("YOU WIN!");
+        text.setStyle("-fx-font-size: 56px; -fx-font-weight: 900; -fx-text-fill: white;");
+        text.setOpacity(0);
+        text.setScaleX(0.7); // draw label at 70% of its normal size, as it'll grow into its size
+        text.setScaleY(0.7);
+
+        winLayer.getChildren().addAll(dim, text);
+        StackPane.setAlignment(text, Pos.CENTER);
+
+        overlayHost.getChildren().add(winLayer);
+
+        /* Animates the nodes opacity (0 -> 1), while the colors alpha (0.55)
+        controls how dark 
+        the overlay is when fully visible... 
+        The darkest it'll go is 0.55
+
+        So think of it like the ocean, setFromValue(0) is the submarine surfaced.
+        setFromValue(1) is the deepest the sub can submerge into ocean depths.
+        dim.setFill(... opacity(0.55)) is the depth limit 0.55 fathoms. 
+        We can never go deeper than color's alpha 0.55 or we'll implode.
+        the overlay reaches full descent, but the darkness is capped at 0.55.
+        */
+        FadeTransition dimIn = new FadeTransition(Duration.millis(250), dim);
+        dimIn.setFromValue(0);
+        dimIn.setToValue(1);
+        dim.setFill(Color.rgb(0, 0, 0, 0.55));
+
+        // Starts at opacity 0 and fades into fully visible text
+        FadeTransition textFade = new FadeTransition(Duration.millis(180), text);
+        textFade.setFromValue(0);
+        textFade.setToValue(1);
+
+        // Over its duration, visually scale up the text to 110% of its normal size
+        ScaleTransition popUp = new ScaleTransition(Duration.millis(180), text);
+        popUp.setToX(1.1);
+        popUp.setToY(1.1);
+
+        // Settles the text back into original state
+        ScaleTransition settle = new ScaleTransition(Duration.millis(140), text);
+        settle.setToX(1.0);
+        settle.setToY(1.0);
+
+        // Create a sequential of animations
+        SequentialTransition seq =
+            new SequentialTransition(dimIn, textFade, popUp, settle);
+
+
+        /* setOnFinished -> when the animation is done.
+        winLayer.setonmouse -> allow user to click overlay.
+        When clicked, clear everything up. */
+        seq.setOnFinished(e -> {
+            winLayer.setOnMouseClicked(ev -> {
+                overlayHost.getChildren().remove(winLayer);
+                if (onFinished != null) onFinished.run();
+            });
+        });
+
+        seq.play();
+    }
+    
 }

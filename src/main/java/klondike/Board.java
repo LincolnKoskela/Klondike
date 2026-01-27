@@ -37,7 +37,6 @@ public class Board {
         for (int i = 1; i <= getColumns(); i++) {
             this.tableaus.add(new Tableau());
         }
-
     }
 
     // get me
