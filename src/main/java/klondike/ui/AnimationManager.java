@@ -168,11 +168,21 @@ public class AnimationManager {
         combo.play();
     }
 
+    /**
+     * This function is a win animation, once every single card in the tableau
+     * is flipped. 
+     * @param overlayHost
+     * @param onFinished
+     */
     public void winPop(Pane overlayHost, Runnable onFinished) {
 
         // Build the win overlay and catch mouse clicks 
         StackPane winLayer = new StackPane();
         winLayer.setPickOnBounds(true); 
+
+        winLayer.prefWidthProperty().bind(overlayHost.widthProperty());
+        winLayer.prefHeightProperty().bind(overlayHost.heightProperty());
+        winLayer.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
         // Dim Background
         Rectangle dim = new Rectangle(overlayHost.getWidth(), overlayHost.getHeight());
@@ -238,6 +248,24 @@ public class AnimationManager {
             });
         });
 
+        seq.play();
+    }
+
+    public void shake(Node node) {
+
+        // small left-right shake
+        TranslateTransition left = new TranslateTransition(Duration.millis(50), node);
+        left.setByX(-6);
+
+        TranslateTransition right = new TranslateTransition(Duration.millis(100), node);
+        right.setByX(12);
+
+        TranslateTransition back = new TranslateTransition(Duration.millis(50), node);
+        back.setByX(-6);
+
+        SequentialTransition seq = new SequentialTransition(left, right, back);
+
+        seq.setOnFinished(e -> node.setTranslateX(0));
         seq.play();
     }
     

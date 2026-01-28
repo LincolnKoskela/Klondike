@@ -102,7 +102,22 @@ public class BoardView extends Pane {
         getChildren().add(stockCell);
         getChildren().add(wasteCell);
         getChildren().add(undo);
+        
+        /* makes overlay hands of setManaged(false), making it 
+        so children don't get laid out in ways not specifed */
+        animationLayer.setManaged(false);
+        animationLayer.setPickOnBounds(false);
+        animationLayer.relocate(0, 0);
+
+        animationLayer.minWidthProperty().bind(widthProperty());
+        animationLayer.minHeightProperty().bind(heightProperty());
+        animationLayer.prefWidthProperty().bind(widthProperty());
+        animationLayer.prefHeightProperty().bind(heightProperty());
+        animationLayer.maxWidthProperty().bind(widthProperty());
+        animationLayer.maxHeightProperty().bind(heightProperty());
+
         getChildren().add(animationLayer);
+
         animator = new AnimationManager(animationLayer);
 
         // ------------------- click handlers -------------------------
@@ -170,6 +185,9 @@ public class BoardView extends Pane {
                     return;
                 }
             }
+
+            // no valid moves
+            animator.shake(wasteCell);
         });
 
         // -------- Undo Button Clicker ----------
