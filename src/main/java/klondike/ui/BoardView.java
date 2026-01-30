@@ -3,7 +3,12 @@ package klondike.ui;
 import klondike.*;
 import java.util.EnumMap;
 import javafx.scene.layout.*;
+import javafx.util.Duration;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 
 public class BoardView extends Pane {
     private final GameEngine engine;
@@ -28,7 +33,16 @@ public class BoardView extends Pane {
     private final Pane animationLayer = new Pane();
     private final AnimationManager animator;
     private boolean animating = false;
+
+    // Timer fields
+    private Label timerLabel;
+    private Timeline uiTimer; // series of events thread
+    private Time gameTimer; // stopwatch
+
+    // Win fields 
     private boolean winShown = false;
+    private Pane winPane;
+
 
     public BoardView (GameEngine engine) {
         this.engine = engine;
@@ -36,6 +50,18 @@ public class BoardView extends Pane {
 
         this.undo = new Button("UNDO");
         styleButton();
+
+        gameTimer = new Time();
+        gameTimer.start();
+
+        styleTimer();
+        getChildren().add(timerLabel);
+
+        uiTimer = new Timeline(
+            new KeyFrame(Duration.seconds(1), e -> updateTimerLabel())
+        );
+        uiTimer.setCycleCount(Animation.INDEFINITE); // repeat forever
+        uiTimer.play();
 
         this.stockView = new StockView(board.getStock());
         this.stockCell = new PileCell(new CardSlot("Stock"), stockView);
@@ -88,6 +114,8 @@ public class BoardView extends Pane {
             getChildren().add(tableauViews[col]);
 
             tableauViews[col].setOnMouseClicked(e -> {
+                if (animating) return;
+
                 if (selectedSourceCol == -1) return;
                 if (destCol == selectedSourceCol) return;
 
@@ -102,19 +130,6 @@ public class BoardView extends Pane {
         getChildren().add(stockCell);
         getChildren().add(wasteCell);
         getChildren().add(undo);
-        
-        /* makes overlay hands of setManaged(false), making it 
-        so children don't get laid out in ways not specifed */
-        animationLayer.setManaged(false);
-        animationLayer.setPickOnBounds(false);
-        animationLayer.relocate(0, 0);
-
-        animationLayer.minWidthProperty().bind(widthProperty());
-        animationLayer.minHeightProperty().bind(heightProperty());
-        animationLayer.prefWidthProperty().bind(widthProperty());
-        animationLayer.prefHeightProperty().bind(heightProperty());
-        animationLayer.maxWidthProperty().bind(widthProperty());
-        animationLayer.maxHeightProperty().bind(heightProperty());
 
         getChildren().add(animationLayer);
 
@@ -212,6 +227,8 @@ public class BoardView extends Pane {
 
         undo.relocate(x0, 5);
 
+        timerLabel.relocate((x0 * 3) - 15, 5);
+
         stockCell.relocate(x0, y0);
         wasteCell.relocate(x0 + (stepX), y0);
 
@@ -253,6 +270,17 @@ public class BoardView extends Pane {
         ));
     }
 
+    private void styleTimer() {
+        timerLabel = new Label("Time: 0:00");
+        timerLabel.setStyle("""
+            
+            -fx-font-size: 16px;
+            -fx-font-weight: bold;
+            -fx-text-fill: white;
+                    
+        """);
+    }
+
     /**
      * BoardView's redraw() using individual PilesViews redraw() function
      */
@@ -276,6 +304,9 @@ public class BoardView extends Pane {
     }
 
     public void onTableauCardClicked(int clickedCol, int clickedRow) {
+
+        if (animating) return;
+
         // if nothing selected yet
         if (selectedSourceCol == -1) {
             selectedSourceCol = clickedCol;
@@ -295,6 +326,14 @@ public class BoardView extends Pane {
             return;
         }
 
+        if (!isValidCol(selectedSourceCol) || !isValidCol(clickedCol)) {
+            System.out.println("Invalid col: src=" + selectedSourceCol + " dest= " + clickedCol);
+            clearHighlights();
+            clearSelection();
+            redraw();
+            return;
+        }
+
         // otherwise, attempt to move the clicked col as destination
         engine.move(selectedSourceCol, selectedSourceRow, clickedCol);
 
@@ -302,6 +341,7 @@ public class BoardView extends Pane {
         clearSelection();
         redraw();
         checkWin();
+        
     }
 
     public void tryTableauToFoundation(int sourceCol, Card.Suit suit) {
@@ -314,11 +354,10 @@ public class BoardView extends Pane {
         clearHighlights();
         clearSelection();
         redraw();
-        checkWin();
 
         if (board.getTableau(sourceCol).size() < before) {
-            checkWin();
             animator.foundationSplash(foundationViews.get(suit));
+            checkWin();
         }
         
     }
@@ -347,14 +386,88 @@ public class BoardView extends Pane {
         }
     }
 
+    /**
+     * Convert elapsed time (using Time.java gameTimer) and convert to 
+     * readable digital time 
+     */
+    private void updateTimerLabel() {
+        long seconds = gameTimer.getElapsedTime();
+        long mins = seconds / 60;
+        long secs = seconds % 60;
+
+        timerLabel.setText(
+            String.format("Time: %d:%02d", mins, secs)
+        );
+    }
+
+    private void showWinUI() {
+        if (winPane != null) return;
+
+        winPane = new Pane();
+        winPane.setPickOnBounds(true);
+        winPane.setStyle("-fx-background-color: rgba(0,0,0,0.55;)");
+
+        // cover the whole board
+        winPane.prefWidthProperty().bind(widthProperty());
+        winPane.prefHeightProperty().bind(heightProperty());
+
+        Label winLabel = new Label("YOU WIN!");
+        winLabel.setStyle(
+            "-fx-font-size: 48px;" + 
+            "-fx-font-weight: 900;" + 
+            "-fx-text-fill: white;"
+        );
+
+        Button newGameButton = new Button("Deal New Game");
+        newGameButton.setStyle(
+            "-fx-font-size: 16px;" + 
+            "-fx-font-weight: bold;"
+        );
+
+        // center manually
+        winLabel.layoutXProperty().bind(widthProperty().subtract(winLabel.widthProperty()).divide(2));
+        winLabel.layoutYProperty().bind(heightProperty().divide(2).subtract(80));
+
+        newGameButton.layoutXProperty().bind(widthProperty().subtract(newGameButton.widthProperty()).divide(2));
+        newGameButton.layoutYProperty().bind(heightProperty().divide(2));
+
+        winPane.getChildren().addAll(winLabel, newGameButton);
+
+        newGameButton.setOnAction(e -> {
+
+            animating = false;
+
+            getChildren().remove(winPane);
+            winPane = null;
+            winShown = false;
+
+            // reset model
+            engine.dealNewGame();
+
+            // reset any UI selections and highlights
+            clearHighlights();
+            clearSelection();
+
+            redraw();
+        });
+
+        getChildren().add(winPane);
+    }
+
     private void checkWin() {
+        System.out.println("Checkwin called. isGameWon=" + board.isGameWon());
+
         if (winShown) return;
 
         if (board.isGameWon()) {
             winShown = true;
             animating = true;
-            animator.winPop(animationLayer, () -> animating = false);
+            showWinUI();
         }
+    }
+
+    private boolean isValidCol(int col) {
+        return col >= 1 && col <= 7;
     }
 
     public Board getBoard() {
