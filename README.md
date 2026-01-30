@@ -30,16 +30,14 @@ Currently constructing UI for the game using JavaFX to expand the project.
 
 ![stateOfGame](src/main/resources/images/GameAppImages/17jan26.png)
 
+![winGameState](src/main/resources/images/GameAppImages/30jan26.png)
+
 ## Project Expansion Focus
-- 3) Timer on screen
-- 4) Deal New Game button
-- 5) Drag Feature -> bringing down from foundation to tabs, if two tabs accept, only gives on option (scanned left-to-right)
-- 6) Other minor tweaks such as board layout adjustments, card visuals, backgrounds
-- 7) Side Menu leading to other pages within the application (maybe) just want side menu tbh
-- 8) Fix win game animation. Its so bugged. Plus it doesn't end the game. It needs to end the game.
-
-## Bugs
-
+- 1) Deal New Game button
+- 2) Drag Feature -> bringing down from foundation to tabs, if two tabs accept, only gives on option (scanned left-to-right)
+- 3) Other minor tweaks such as board layout adjustments, card visuals, backgrounds
+- 4) Side Menu leading to other pages within the application (maybe) just want side menu tbh
+- 5) Fix win game animation. Its so bugged. Plus it doesn't end the game. It needs to end the game.
 
 ## Features
 - Object Oriented Design
@@ -222,3 +220,7 @@ of `CardViews`.
 - Added Audio Dependency to `Pom.xlm` file
 - Added win animation w/ `winPop(Pane, Runnable)` (it's very bugged, need to fix and will eventually)
 - Added `shake(node)` feature for clicking waste with no valid moves
+- Removed `winPop` and winning animation for now
+- Added Timer to screen
+- Simple win detection where `showWinUI()` shows a label "YOU WIN" 
+and has a Deal New Game button to restart the game.
