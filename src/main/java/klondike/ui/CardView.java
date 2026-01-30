@@ -75,6 +75,7 @@ public class CardView extends StackPane {
         } else {
             rect.setFill(Color.RED);
             rect.setStroke(Color.WHITE);
+            label.setText("");
         }
     }
 
