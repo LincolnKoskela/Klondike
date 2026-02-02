@@ -205,7 +205,7 @@ max and min sizes on the `StackPane`
 - Tab -> Tab works with single click feature for the foundation moves
 - Full Game Playable! **18JAN26** (w/ undo feature)
 
-### (Jan 20, 2026 - Current) -> Focusing on Animations
+### (Jan 20 - 31, 2026) -> Focusing on Animations
 - Added `getTopCardView()` in `PileView` -> Animation helper function
 - Added `popTopCardView()` in `PileView` -> Animation helper function
 - Added `pushCardView(CardView cv)` in `PileView` -> Animation helper function
@@ -224,3 +224,7 @@ of `CardViews`.
 - Added Timer to screen
 - Simple win detection where `showWinUI()` shows a label "YOU WIN" 
 and has a Deal New Game button to restart the game.
+
+
+### (Feb 01, 2026 - Current) -> Focusing an minor expansion ideas
+- Added simple sidemenu - needs engine game moves linked to it
