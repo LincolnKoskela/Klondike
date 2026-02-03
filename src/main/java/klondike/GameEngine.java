@@ -40,6 +40,19 @@ public class GameEngine {
      * The stock cards are all face down.
      */
     public void dealNewGame() {
+
+        /* Reset the game */
+        board.clear();
+        history.clear();
+        deck = new Deck(true);
+        deck.shuffle();
+
+        gameOver = false;
+        count = 0;
+        moveCount = 0;
+        snapshot = new Snapshot();
+
+
         int column = 1;
         boolean tabsFilled = false;
 
