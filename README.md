@@ -91,7 +91,7 @@ Currently constructing UI for the game using JavaFX to expand the project.
 | **Graphic interface** | Implement a GUI version. JavaFX, then JS/web, or Figma | 
 
 ## Tech
-- Langauge: Java
+- Langauge: Java & JavaFX
 - IDE: VS CODE
 - Version Control: Git & Github
 
@@ -228,3 +228,9 @@ and has a Deal New Game button to restart the game.
 
 ### (Feb 01, 2026 - Current) -> Focusing an minor expansion ideas
 - Added simple sidemenu - needs engine game moves linked to it
+- Added runnables to `SideMenu` to link engine moves to the buttons
+- Edited `dealNewGame()` function  in `GameEngine` to reset the whole board / 
+game state instead of just reshuffling
+- Added `doNewGame()` and `doUndo()` functions inside `BoardView` to use
+inside `GameApp`, linking those functions to the sideMenu runnables
+- Removed dealNewGame button when winPane is shown at the end of a game
