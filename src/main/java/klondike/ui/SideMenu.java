@@ -8,12 +8,15 @@ public class SideMenu extends VBox {
     private Button undo;
     private Button restartGame;
 
-    public SideMenu() {
+    public SideMenu(Runnable onUndo, Runnable onNewGame) {
         this.undo = new Button("UNDO");
         this.restartGame = new Button("New Game");
 
         applyStyle();
         configureLayout();
+
+        undo.setOnAction(e -> onUndo.run());
+        restartGame.setOnAction(e -> onNewGame.run());
     }
     
     /**
