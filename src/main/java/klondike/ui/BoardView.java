@@ -378,7 +378,7 @@ public class BoardView extends Pane {
         }
     }
 
-    private void clearHighlights() {
+    public void clearHighlights() {
         for (int col = 1; col <= 7; col++) {
             for (CardView cv : tableauViews[col].getCardViews()) {
                 cv.setHighlighted(false);
@@ -418,40 +418,37 @@ public class BoardView extends Pane {
             "-fx-text-fill: white;"
         );
 
-        Button newGameButton = new Button("Deal New Game");
-        newGameButton.setStyle(
-            "-fx-font-size: 16px;" + 
-            "-fx-font-weight: bold;"
-        );
-
         // center manually
         winLabel.layoutXProperty().bind(widthProperty().subtract(winLabel.widthProperty()).divide(2));
         winLabel.layoutYProperty().bind(heightProperty().divide(2).subtract(80));
 
-        newGameButton.layoutXProperty().bind(widthProperty().subtract(newGameButton.widthProperty()).divide(2));
-        newGameButton.layoutYProperty().bind(heightProperty().divide(2));
+        winPane.getChildren().add(winLabel);
 
-        winPane.getChildren().addAll(winLabel, newGameButton);
-
-        newGameButton.setOnAction(e -> {
-
+        winPane.setOnMouseClicked(e -> {
             animating = false;
+            winShown = false;
 
             getChildren().remove(winPane);
             winPane = null;
-            winShown = false;
-
-            // reset model
-            engine.dealNewGame();
-
-            // reset any UI selections and highlights
-            clearHighlights();
-            clearSelection();
-
-            redraw();
         });
 
         getChildren().add(winPane);
+    }
+
+    public void doUndo() {
+        engine.undo();
+        clearHighlights();
+        clearSelection();
+        redraw();
+    }
+
+    public void doNewGame() {
+        engine.dealNewGame();
+        clearHighlights();
+        clearSelection();
+        winShown = false;
+        animating = false;
+        redraw();
     }
 
     private void checkWin() {
@@ -468,6 +465,10 @@ public class BoardView extends Pane {
 
     private boolean isValidCol(int col) {
         return col >= 1 && col <= 7;
+    }
+
+    public Time getTimer() {
+        return gameTimer;
     }
 
     public Board getBoard() {
