@@ -10,12 +10,6 @@ import javafx.animation.SequentialTransition;
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.geometry.Pos;
-import javafx.animation.Animation;
 
 
 /**
