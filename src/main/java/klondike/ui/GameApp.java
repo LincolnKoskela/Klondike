@@ -2,7 +2,6 @@ package klondike.ui;
 
 import javafx.application.*;
 import javafx.geometry.Pos;
-import javafx.geometry.Side;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -17,7 +16,10 @@ public class GameApp extends Application {
         engine.dealNewGame();
 
         BoardView board = new BoardView(engine);
-        SideMenu sideMenu = new SideMenu();
+        SideMenu sideMenu = new SideMenu(
+            () -> board.doUndo(),
+            () -> board.doNewGame()
+        );
 
         StackPane root = new StackPane(board, sideMenu);
         StackPane.setAlignment(sideMenu, Pos.TOP_RIGHT);
