@@ -33,6 +33,12 @@ public class Time {
         running = false;
     }
 
+    public void reset() {
+        startTime = null;
+        endTime = null;
+        running = false;
+    }
+
     /**
      * Gets the elapsed time in seconds.
      * If still running, calculates from start until now.
