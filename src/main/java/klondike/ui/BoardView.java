@@ -443,11 +443,14 @@ public class BoardView extends Pane {
     }
 
     public void doNewGame() {
+        winShown = false;
+        animating = false;
+        gameTimer.reset();
+        gameTimer.start();
         engine.dealNewGame();
         clearHighlights();
         clearSelection();
-        winShown = false;
-        animating = false;
+
         redraw();
     }
 
@@ -457,6 +460,7 @@ public class BoardView extends Pane {
         if (winShown) return;
 
         if (board.isGameWon()) {
+            gameTimer.stop();
             winShown = true;
             animating = true;
             showWinUI();
