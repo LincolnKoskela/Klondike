@@ -47,7 +47,7 @@ public class SideMenu extends VBox {
             ));
 
             b.setOnMouseExited(e -> b.setStyle(
-                "-fx-background-color: #262626" + 
+                "-fx-background-color: #262626;" + 
                 "-fx-text-fill: white;" + 
                 "-fx-font-size: 12px;"
             ));
