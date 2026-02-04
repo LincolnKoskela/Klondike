@@ -28,16 +28,16 @@ Currently constructing UI for the game using JavaFX to expand the project.
 - Fully playable from **console**
 - Fully playable UI Version
 
-![stateOfGame](src/main/resources/images/GameAppImages/17jan26.png)
+![stateOfGame](src/main/resources/images/GameAppImages/4feb26.png)
 
 ![winGameState](src/main/resources/images/GameAppImages/30jan26.png)
 
 ## Project Expansion Focus
-- 1) Deal New Game button
-- 2) Drag Feature -> bringing down from foundation to tabs, if two tabs accept, only gives on option (scanned left-to-right)
-- 3) Other minor tweaks such as board layout adjustments, card visuals, backgrounds
-- 4) Side Menu leading to other pages within the application (maybe) just want side menu tbh
-- 5) Fix win game animation. Its so bugged. Plus it doesn't end the game. It needs to end the game.
+- 1) Drag Feature -> bringing down from foundation to tabs, if two tabs accept, only gives on option (scanned left-to-right)
+- 2) Other minor tweaks such as board layout adjustments, card visuals, backgrounds
+- 3) Side Menu leading to other pages within the application (maybe) just want side menu tbh
+- 4) Fix win game animation. Its so bugged. Plus it doesn't end the game. It needs to end the game.
+- 5) Add sound splashes?
 
 ## Features
 - Object Oriented Design
@@ -78,6 +78,7 @@ Currently constructing UI for the game using JavaFX to expand the project.
 | **GameApp** | Runs game application |
 | **PileCell** | StackPane layering `CardSlot` and `PileView` |
 | **PileView** | Visually displays a pile of `CardViews` |
+| **SideMenu** | Side menu with toggle buttons |
 | **StockView** | Extends `PileView` |
 | **TableauView** | Extends `PileView` |
 | **UiMetrics** | Static variables used for consistency while constructing UI nodes and board layout | 
@@ -234,3 +235,5 @@ game state instead of just reshuffling
 - Added `doNewGame()` and `doUndo()` functions inside `BoardView` to use
 inside `GameApp`, linking those functions to the sideMenu runnables
 - Removed dealNewGame button when winPane is shown at the end of a game
+- Added SideMenu feature with `deal new game` button
+- Reset timer upon starting new game
