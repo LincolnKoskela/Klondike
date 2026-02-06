@@ -38,15 +38,23 @@ public class BoardView extends Pane {
     private Label timerLabel;
     private Timeline uiTimer; // series of events thread
     private Time gameTimer; // stopwatch
+    private boolean paused = false; // pause flagger
+    private Pane pausePane; // click overlay to resume
 
     // Win fields 
     private boolean winShown = false;
     private Pane winPane;
 
+    // Move count field
+    private int moveCount;
+    private Label moveCountLabel;
+
 
     public BoardView (GameEngine engine) {
         this.engine = engine;
         this.board = engine.getBoard();
+
+        moveCount = engine.getMoveCount();
 
         this.undo = new Button("UNDO");
         styleButton();
@@ -56,6 +64,9 @@ public class BoardView extends Pane {
 
         styleTimer();
         getChildren().add(timerLabel);
+
+        styleMoveCountLabel();
+        getChildren().add(moveCountLabel);
 
         uiTimer = new Timeline(
             new KeyFrame(Duration.seconds(1), e -> updateTimerLabel())
@@ -91,6 +102,7 @@ public class BoardView extends Pane {
                         engine.moveFoundationToTableau(suit, col);
 
                         if (board.getFoundation(suit).size() < before) {
+                            updateMoveCount();
                             redraw();
                             return;
                         }
@@ -114,12 +126,14 @@ public class BoardView extends Pane {
             getChildren().add(tableauViews[col]);
 
             tableauViews[col].setOnMouseClicked(e -> {
+
                 if (animating) return;
 
                 if (selectedSourceCol == -1) return;
                 if (destCol == selectedSourceCol) return;
 
                 engine.move(selectedSourceCol, selectedSourceRow, destCol);
+                updateMoveCount();
                 clearHighlights();
                 clearSelection();
                 redraw();
@@ -142,6 +156,7 @@ public class BoardView extends Pane {
 
             if (board.getStock().isEmpty()) {
                 engine.recycle();
+                updateMoveCount();
                 redraw();
                 return;
             } 
@@ -162,6 +177,7 @@ public class BoardView extends Pane {
 
         // --------- Waste Clicks ------------
         wasteCell.setOnMouseClicked(e -> {
+
             if (animating) return;
             if (board.getWaste().isEmpty()) return;
 
@@ -173,6 +189,7 @@ public class BoardView extends Pane {
             FoundationView fv = foundationViews.get(suit);
 
             engine.moveWastetoFoundation(suit);
+            updateMoveCount();
 
             // If card moved to foundation: animate Waste -> Foundation
             if (board.getWaste().size() < before) {
@@ -196,6 +213,7 @@ public class BoardView extends Pane {
                 engine.moveWasteToTableau(col);
 
                 if (board.getWaste().size() < before) {
+                    updateMoveCount();
                     redraw();
                     return;
                 }
@@ -207,7 +225,9 @@ public class BoardView extends Pane {
 
         // -------- Undo Button Clicker ----------
         undo.setOnMouseClicked(e -> {
+
             engine.undo();
+            updateMoveCount();
             redraw();
         });
 
@@ -228,6 +248,7 @@ public class BoardView extends Pane {
         undo.relocate(x0, 5);
 
         timerLabel.relocate((x0 * 3) - 15, 5);
+        moveCountLabel.relocate((x0 * 4 + 15), 5);
 
         stockCell.relocate(x0, y0);
         wasteCell.relocate(x0 + (stepX), y0);
@@ -273,6 +294,17 @@ public class BoardView extends Pane {
     private void styleTimer() {
         timerLabel = new Label("Time: 0:00");
         timerLabel.setStyle("""
+            
+            -fx-font-size: 16px;
+            -fx-font-weight: bold;
+            -fx-text-fill: white;
+                    
+        """);
+    }
+
+    private void styleMoveCountLabel() {
+        moveCountLabel = new Label("Move Count: 0");
+        moveCountLabel.setStyle("""
             
             -fx-font-size: 16px;
             -fx-font-weight: bold;
@@ -400,12 +432,16 @@ public class BoardView extends Pane {
         );
     }
 
+    private void updateMoveCount() {
+        moveCountLabel.setText("Moves: " + moveCount);
+    }
+
     private void showWinUI() {
         if (winPane != null) return;
 
         winPane = new Pane();
         winPane.setPickOnBounds(true);
-        winPane.setStyle("-fx-background-color: rgba(0,0,0,0.55;)");
+        winPane.setStyle("-fx-background-color: rgba(0,0,0,0.55);");
 
         // cover the whole board
         winPane.prefWidthProperty().bind(widthProperty());
@@ -452,6 +488,46 @@ public class BoardView extends Pane {
         clearSelection();
 
         redraw();
+    }
+
+    public void pauseGame() {
+        if (paused) return;
+        paused = true;
+        animating = true; // blocks moves
+        gameTimer.freeze();
+
+        pausePane = new Pane();
+        pausePane.setPickOnBounds(true);
+        pausePane.setStyle("-fx-background-color: rgba(0,0,0,0.55);");
+        pausePane.prefWidthProperty().bind(widthProperty());
+        pausePane.prefHeightProperty().bind(heightProperty());
+
+        Label pauseLabel = new Label("PAUSED GAME");
+        pauseLabel.setStyle(
+            "-fx-font-size: 48px;" + 
+            "-fx-font-weight: 900;" + 
+            "-fx-text-fill: white;"
+        );
+
+        // center manually
+        pauseLabel.layoutXProperty().bind(widthProperty().subtract(pauseLabel.widthProperty()).divide(2));
+        pauseLabel.layoutYProperty().bind(heightProperty().divide(2).subtract(80));
+
+        pausePane.getChildren().add(pauseLabel);
+
+        pausePane.setOnMouseClicked(e -> resumeGame());
+
+        getChildren().add(pausePane);
+    }
+
+    public void resumeGame() {
+        if (!paused) return;
+        paused = false;
+        animating = false;
+        gameTimer.unFreeze();
+
+        getChildren().remove(pausePane);
+        pausePane = null;
     }
 
     private void checkWin() {

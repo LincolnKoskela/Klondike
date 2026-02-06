@@ -18,7 +18,8 @@ public class GameApp extends Application {
         BoardView board = new BoardView(engine);
         SideMenu sideMenu = new SideMenu(
             () -> board.doUndo(),
-            () -> board.doNewGame()
+            () -> board.doNewGame(), 
+            () -> board.pauseGame()
         );
 
         StackPane root = new StackPane(board, sideMenu);

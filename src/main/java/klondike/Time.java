@@ -5,12 +5,16 @@ import java.time.Instant;
 
 /**
  * Simple stopwatch to detect seconds elapsed from hitting play
- * to exiting game or if game is won
+ * to exiting game or if game is won.
+ * 
+ * startTime -> when this run started
+ * pasuedAccumulated -> all previous runs added together
+ * running -> should time current increase
  */
 public class Time {
     private Instant startTime;
-    private Instant endTime;
     private boolean running;
+    private Duration pausedAccumulated = Duration.ZERO;
 
     /**
      * Start the counter
@@ -18,24 +22,31 @@ public class Time {
     public void start() {
         startTime = Instant.now();
         running = true;
-        endTime = null;
     }
 
-    /**
-     * Stop the counter
-     * @throws IllegalStateException if the counter was NOT started
-     */
-    public void stop() {
-        if (!running) {
-            throw new IllegalStateException("Counter has not been started.");
-        }
-        endTime = Instant.now();
+    public void freeze() {
+        if (!running) return;
+
+        pausedAccumulated = pausedAccumulated.plus(
+            Duration.between(startTime, Instant.now())
+        );
         running = false;
+    }
+
+    public void unFreeze() {
+        if (running) return;
+
+        startTime = Instant.now();
+        running = true;
+    }
+
+    public void stop() {
+        freeze();
     }
 
     public void reset() {
         startTime = null;
-        endTime = null;
+        pausedAccumulated = Duration.ZERO;
         running = false;
     }
 
@@ -46,17 +57,21 @@ public class Time {
      * @throws IllegalStateException if the counter was never stated.
      */
     public long getElapsedTime() {
-        if (startTime == null) {
+        if (startTime == null && pausedAccumulated.isZero()) {
             throw new IllegalStateException("Counter has not been started.");
         }
-        // if running, end = now | else end = endtime
-        Instant end = running ? Instant.now() : endTime;
-        return Duration.between(startTime, end).getSeconds();
+
+        Duration total = pausedAccumulated;
+
+        if (running) {
+            total = total.plus(Duration.between(startTime, Instant.now()));
+        }
+
+        return total.getSeconds();
     }
 
     public double getMinutes() {
-        long seconds = getElapsedTime();
-        return seconds / 60.0;
+        return getElapsedTime() / 60.0;
     }
 
     public static void main(String[] args) {

@@ -7,16 +7,19 @@ import javafx.scene.control.Button;
 public class SideMenu extends VBox {
     private Button undo;
     private Button restartGame;
+    private Button pause;
 
-    public SideMenu(Runnable onUndo, Runnable onNewGame) {
+    public SideMenu(Runnable onUndo, Runnable onNewGame, Runnable onPause) {
         this.undo = new Button("UNDO");
         this.restartGame = new Button("New Game");
+        this.pause = new Button("Pause Game");
 
         applyStyle();
         configureLayout();
 
         undo.setOnAction(e -> onUndo.run());
         restartGame.setOnAction(e -> onNewGame.run());
+        pause.setOnAction(e -> onPause.run());
     }
     
     /**
@@ -30,7 +33,7 @@ public class SideMenu extends VBox {
             "-fx-border-width: 1;"
         );
 
-        for (Button b : new Button[] {undo, restartGame}) {
+        for (Button b : new Button[] {undo, restartGame, pause}) {
             b.setMaxWidth(Double.MAX_VALUE);
             b.setStyle(
                 "-fx-background-color: #262626;" + 
@@ -58,6 +61,6 @@ public class SideMenu extends VBox {
         setSpacing(6);
         setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
         setPrefWidth(160);
-        getChildren().addAll(undo, restartGame);
+        getChildren().addAll(undo, restartGame, pause);
     }
 }

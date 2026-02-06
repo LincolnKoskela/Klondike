@@ -30,14 +30,12 @@ Currently constructing UI for the game using JavaFX to expand the project.
 
 ![stateOfGame](src/main/resources/images/GameAppImages/4feb26.png)
 
-![winGameState](src/main/resources/images/GameAppImages/30jan26.png)
+![winGameState](src/main/resources/images/GameAppImages/4feb26winstate.png)
 
 ## Project Expansion Focus
-- 1) Drag Feature -> bringing down from foundation to tabs, if two tabs accept, only gives on option (scanned left-to-right)
-- 2) Other minor tweaks such as board layout adjustments, card visuals, backgrounds
-- 3) Side Menu leading to other pages within the application (maybe) just want side menu tbh
-- 4) Fix win game animation. Its so bugged. Plus it doesn't end the game. It needs to end the game.
-- 5) Add sound splashes?
+- 1) Move count on screen
+- 2) Turn into Desktop application
+- 3) Make updates 
 
 ## Features
 - Object Oriented Design
