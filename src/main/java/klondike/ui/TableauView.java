@@ -39,6 +39,7 @@ public class TableauView extends PileView {
 
                 if (boardView.hasSelection() && colIndex != boardView.getSelectedSourceCol()) {
                     boardView.onTableauCardClicked(colIndex, row);
+                    boardView.updateMoveCount();
                     e.consume();
                     return;
                 }
@@ -54,6 +55,8 @@ public class TableauView extends PileView {
                     // if it didn't move to foundation
                     if (tab.size() == before) {
                         boardView.onTableauCardClicked(colIndex, row);
+                    } else {
+                        boardView.updateMoveCount();
                     }
 
                     e.consume();

@@ -33,9 +33,9 @@ Currently constructing UI for the game using JavaFX to expand the project.
 ![winGameState](src/main/resources/images/GameAppImages/4feb26winstate.png)
 
 ## Project Expansion Focus
-- 1) Move count on screen
 - 2) Turn into Desktop application
 - 3) Make updates 
+- 4) Leaderboard for fast times. Win Count. idk get creative
 
 ## Features
 - Object Oriented Design
@@ -235,3 +235,4 @@ inside `GameApp`, linking those functions to the sideMenu runnables
 - Removed dealNewGame button when winPane is shown at the end of a game
 - Added SideMenu feature with `deal new game` button
 - Reset timer upon starting new game
+- Added move count

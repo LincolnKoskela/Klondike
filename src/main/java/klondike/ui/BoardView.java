@@ -46,15 +46,12 @@ public class BoardView extends Pane {
     private Pane winPane;
 
     // Move count field
-    private int moveCount;
     private Label moveCountLabel;
 
 
     public BoardView (GameEngine engine) {
         this.engine = engine;
         this.board = engine.getBoard();
-
-        moveCount = engine.getMoveCount();
 
         this.undo = new Button("UNDO");
         styleButton();
@@ -66,7 +63,9 @@ public class BoardView extends Pane {
         getChildren().add(timerLabel);
 
         styleMoveCountLabel();
+        moveCountLabel.setMouseTransparent(true);
         getChildren().add(moveCountLabel);
+
 
         uiTimer = new Timeline(
             new KeyFrame(Duration.seconds(1), e -> updateTimerLabel())
@@ -167,6 +166,7 @@ public class BoardView extends Pane {
                 wasteView, 
                 () -> {
                     engine.draw(); 
+                    updateMoveCount();
                 },
                 
                 () -> {
@@ -303,7 +303,7 @@ public class BoardView extends Pane {
     }
 
     private void styleMoveCountLabel() {
-        moveCountLabel = new Label("Move Count: 0");
+        moveCountLabel = new Label("Moves: 0");
         moveCountLabel.setStyle("""
             
             -fx-font-size: 16px;
@@ -432,8 +432,14 @@ public class BoardView extends Pane {
         );
     }
 
-    private void updateMoveCount() {
-        moveCountLabel.setText("Moves: " + moveCount);
+    /**
+     * Updates move count after a successful move. Needs to be public
+     * so tableauViews can update.
+     */
+    public void updateMoveCount() {
+        int mc = engine.getMoveCount();
+        System.out.println("Engine movecount: " + mc);
+        moveCountLabel.setText("Moves: " + mc);
     }
 
     private void showWinUI() {
@@ -486,6 +492,7 @@ public class BoardView extends Pane {
         engine.dealNewGame();
         clearHighlights();
         clearSelection();
+        updateMoveCount();
 
         redraw();
     }
