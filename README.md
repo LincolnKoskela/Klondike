@@ -9,10 +9,7 @@ Play Klondike Solitaire in two ways:
 
 ### Install 
 1. Go to **Releases** page of this repository
-2. Download the latest file:
-
-   KlondikeSolitaire-1.0.msi
-
+2. Download the latest file: `KlondikeSolitaire-1.0.msi`
 3. Double-click the `.msi` file
 4. After installation
 - Press the **Windows key**
