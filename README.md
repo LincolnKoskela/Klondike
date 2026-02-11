@@ -1,8 +1,26 @@
 # Klondike Solitaire (Java)
-Play the most raw form of Klondike Solitaire, playing from the **console**. 
-See *How to Run from the Console* section to play from terminal. 
 
-Currently constructing UI for the game using JavaFX to expand the project. 
+Play Klondike Solitaire in two ways: 
+
+- Console Version (terminal based) 
+- Desktop Application (JavaFX GUI w/ windows installer)
+
+## Desktop Version (Windows)
+
+### Install 
+1. Go to **Releases** page of this repository
+2. Download the latest file:
+   ```bash
+   KlondikeSolitaire-1.0.msi
+   ```
+3. Double-click the `.msi` file
+4. After installation
+- Press the **Windows key**
+- Type: `KlondikeSolitaire`
+- Click to launch the app
+
+---
+
 
 ## How to Run from the **Console**
 
@@ -23,26 +41,22 @@ Currently constructing UI for the game using JavaFX to expand the project.
    java -cp src/main/java klondike.Play
    ```
 
+## Packaging
+This project uses:
 
-## Current State of Game
-- Fully playable from **console**
-- Fully playable UI Version
+- Java Modules
+- Maven
+- JavaFX
+- jlink (custom runtime image)
+- jpackage (Windows installer)
+- WiX Toolset (MSI builder backend)
 
-![stateOfGame](src/main/resources/images/GameAppImages/4feb26.png)
-
-![winGameState](src/main/resources/images/GameAppImages/4feb26winstate.png)
-
-## Project Expansion Focus
-- 2) Turn into Desktop application
-- 3) Make updates 
-- 4) Leaderboard for fast times. Win Count. idk get creative
+The application ships with a bundled Java runtime and does not require Java to be installed on the target system.
 
 ## Features
 - Object Oriented Design
 - Complete Game Logic
 - Player Perspective Rendering
-- Timer Function
-- Undo Functionality 
 - Graphic Interface Design (JavaFX)
 
 ## klondike Architecture
@@ -90,11 +104,16 @@ Currently constructing UI for the game using JavaFX to expand the project.
 | **Graphic interface** | Implement a GUI version. JavaFX, then JS/web, or Figma | 
 
 ## Tech
-- Langauge: Java & JavaFX
-- IDE: VS CODE
-- Version Control: Git & Github
+- Language: Java (JDK 17)
+- UI Framework: JavaFX
+- Build Tool: Maven
+- Packaging: jlink & jpackage
+- Installer Backend: WiX Toolset (Windows MSI)
+- Version ControlL Git & Github
 
-## History Progress Log (Project Commenced 16 Sept 2025)
+
+
+## History Progress Log (Project Commenced 16 Sept 2025 - Complete 10 Feb 2026)
 
 ### (Oct 20-26, 2025) **started tracking**
 
@@ -225,7 +244,7 @@ of `CardViews`.
 and has a Deal New Game button to restart the game.
 
 
-### (Feb 01, 2026 - Current) -> Focusing an minor expansion ideas
+### (Feb 01 - 10, 2026) -> Focusing an minor expansion ideas
 - Added simple sidemenu - needs engine game moves linked to it
 - Added runnables to `SideMenu` to link engine moves to the buttons
 - Edited `dealNewGame()` function  in `GameEngine` to reset the whole board / 
@@ -236,3 +255,6 @@ inside `GameApp`, linking those functions to the sideMenu runnables
 - Added SideMenu feature with `deal new game` button
 - Reset timer upon starting new game
 - Added move count
+- Game compiled into java application **10FEB2026**
+
+### (11FEB2026 - Current) -> Making updates on game application
