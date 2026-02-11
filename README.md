@@ -10,9 +10,9 @@ Play Klondike Solitaire in two ways:
 ### Install 
 1. Go to **Releases** page of this repository
 2. Download the latest file:
-   ```bash
+
    KlondikeSolitaire-1.0.msi
-   ```
+
 3. Double-click the `.msi` file
 4. After installation
 - Press the **Windows key**
@@ -51,7 +51,7 @@ This project uses:
 - jpackage (Windows installer)
 - WiX Toolset (MSI builder backend)
 
-The application ships with a bundled Java runtime and does not require Java to be installed on the target system.
+The application does not require java to be installed.
 
 ## Features
 - Object Oriented Design
@@ -96,13 +96,6 @@ The application ships with a bundled Java runtime and does not require Java to b
 | **UiMetrics** | Static variables used for consistency while constructing UI nodes and board layout | 
 | **WasteView** | Extends `PileView` |
 
-## Future Roadmap
-| **Milestone** | **Description** |
-|----------------|--------------------|
-| **GameEngine completion** | Full movement management, stock/waste, foudations, and tableau's in fluidity. **Finished 24NOV25** |
-| **Interactive terminal UI** | Add input commands for moves |
-| **Graphic interface** | Implement a GUI version. JavaFX, then JS/web, or Figma | 
-
 ## Tech
 - Language: Java (JDK 17)
 - UI Framework: JavaFX
@@ -110,8 +103,6 @@ The application ships with a bundled Java runtime and does not require Java to b
 - Packaging: jlink & jpackage
 - Installer Backend: WiX Toolset (Windows MSI)
 - Version ControlL Git & Github
-
-
 
 ## History Progress Log (Project Commenced 16 Sept 2025 - Complete 10 Feb 2026)
 
