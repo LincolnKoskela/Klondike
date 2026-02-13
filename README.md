@@ -1,8 +1,7 @@
 # Klondike Solitaire (Java)
 
-Play Klondike Solitaire in two ways: 
+Play Klondike Solitaire 
 
-- Console Version (terminal based) 
 - Desktop Application (JavaFX GUI w/ windows installer)
 
 ## Desktop Version (Windows)
@@ -16,27 +15,9 @@ Play Klondike Solitaire in two ways:
 - Type: `KlondikeSolitaire`
 - Click to launch the app
 
+⚠ Windows may show a SmartScreen warning because the installer is unsigned. Click "More info" → "Run anyway" to proceed.
+
 ---
-
-
-## How to Run from the **Console**
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/LincolnKoskela/Klondike.git
-   ```
-
-2. **Open the project in VS Code or any IDE**
-
-3. **Compile all `.java` files**
-   ```bash
-   javac src/main/java/klondike/*.java
-   ```
-
-4. **Run the game**
-   ```bash
-   java -cp src/main/java klondike.Play
-   ```
 
 ## Packaging
 This project uses:
@@ -68,13 +49,9 @@ The application does not require java to be installed.
 | **Board** | Holds all piles, manages layout, and provides getters and clear/reset functions. |
 | **GameEngine** | Controls rules, moves, validations, and overall game progression (`initial deal`, `move`, `checkWin`). |
 | **Deck** | Creates and shuffles a standard 52-card deck. |
-| **Play** | User plays the game, it's the intermediary between gameengine and player.
-| **Command (Interface)** | Allows maps to associate keyboard input with `GameEngine` action. | 
 | **Time** | Counts the start and end time in seconds or minutes. |
 | **GameState** | Represents a frozen snapshot of the current game in action. | 
 | **Snapshot** | Creates a `GameState` of deep copies each piles `copy()` function. |
-| **InputController** | Input command mapping: Maps keys to `Command` actions. |
-| **TextViews** | Displays text throughout the game and menus. |
 
 ## klondike GUI Architecture (JavaFX)
 | **Components** | **Responsibility** |
