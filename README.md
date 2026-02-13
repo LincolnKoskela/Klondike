@@ -78,6 +78,12 @@ The application does not require java to be installed.
 - Installer Backend: WiX Toolset (Windows MSI)
 - Version ControlL Git & Github
 
+## Upcoming Features
+- 3 Card Klondike
+- Personal Leaderboard
+- Different layouts options
+- Main menu
+
 ## History Progress Log (Project Commenced 16 Sept 2025 - Complete 10 Feb 2026)
 
 ### (Oct 20-26, 2025) **started tracking**
