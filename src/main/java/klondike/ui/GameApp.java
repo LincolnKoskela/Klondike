@@ -7,25 +7,16 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.*;
 import klondike.GameEngine;
+import javafx.scene.control.Button;
 
 public class GameApp extends Application {
     
     @Override
     public void start(Stage primaryStage) {
-        GameEngine engine = new GameEngine(true);
-        engine.dealNewGame();
 
-        BoardView board = new BoardView(engine);
-        SideMenu sideMenu = new SideMenu(
-            () -> board.doUndo(),
-            () -> board.doNewGame(), 
-            () -> board.pauseGame()
-        );
+        MainMenuView menu = new MainMenuView(primaryStage);
 
-        StackPane root = new StackPane(board, sideMenu);
-        StackPane.setAlignment(sideMenu, Pos.TOP_RIGHT);
-        Scene scene = new Scene(root, 1200, 800, Color.DARKGREEN);
-        root.setStyle("-fx-background-color: transparent;");
+        Scene scene = new Scene(menu.getRoot(), 1200, 800, Color.DARKGREEN);
 
         primaryStage.setTitle("Klondike Solitaire");
         primaryStage.setScene(scene);
