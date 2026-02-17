@@ -228,4 +228,5 @@ inside `GameApp`, linking those functions to the sideMenu runnables
 - Added move count
 - Game compiled into java application **10FEB2026**
 
-### (11FEB2026 - Current) -> Making updates on game application
+### (16FEB2026 - Current) -> Making updates on game application
+- Added main menu with a start button `MainMenuView.java`
