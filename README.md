@@ -62,9 +62,14 @@ The application does not require java to be installed.
 | **CardView** | Visual representation of a playing card (`Card`) |
 | **FoundationView** | Extends `PileView` |
 | **GameApp** | Runs game application |
+| **HowToPlayView** | Scene to read how to play | 
+| **MainMenuView** | Handles Main Menu and its button action|
+| **MainMenuList** | Displays list of buttons on Main Menu |
 | **PileCell** | StackPane layering `CardSlot` and `PileView` |
 | **PileView** | Visually displays a pile of `CardViews` |
+| **SettingView** | Scene to adjust settings |
 | **SideMenu** | Side menu with toggle buttons |
+| **StatView** | Scene to view career stats |
 | **StockView** | Extends `PileView` |
 | **TableauView** | Extends `PileView` |
 | **UiMetrics** | Static variables used for consistency while constructing UI nodes and board layout | 
@@ -230,3 +235,7 @@ inside `GameApp`, linking those functions to the sideMenu runnables
 
 ### (16FEB2026 - Current) -> Making updates on game application
 - Added main menu with a start button `MainMenuView.java`
+- Added `MainMenuList.java` - the menu that'll be displayed at the main menu
+- Added `SettingView.java` as a new scene (scene not complete)
+- Added `HowToPlayView.java` as a new scene (scene not complete)
+- Added `StatView.java` as a new scene (scene not complete)
