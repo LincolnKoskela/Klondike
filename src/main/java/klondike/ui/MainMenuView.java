@@ -4,6 +4,8 @@ import java.util.Stack;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import klondike.GameEngine;
@@ -11,9 +13,13 @@ import klondike.GameEngine;
 public class MainMenuView {
     
     private StackPane root;
+    private Label title;
 
     public MainMenuView(Stage stage) {
         root = new StackPane();
+
+        title = new Label("Klondike Solitaire");
+        styleTitle();
 
         MainMenuList mainMenu = new MainMenuList(
             () -> {
@@ -53,10 +59,21 @@ public class MainMenuView {
                 stage.close();
             });
 
-            root.getChildren().add(mainMenu);
+            StackPane.setAlignment(title, Pos.TOP_CENTER);
+
+            root.setStyle("-fx-background-color: Darkgreen;");
+            root.getChildren().addAll(mainMenu, title);
     }   
 
     public StackPane getRoot() {
         return root;
+    }
+
+    private void styleTitle() {
+        title.setStyle(
+            "-fx-font-size: 90px;" + 
+            "-fx-font-weight: bold;" + 
+            "-fx-text-fill: white;"
+        );
     }
 }

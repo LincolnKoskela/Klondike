@@ -87,9 +87,13 @@ The application does not require java to be installed.
 - 3 Card Klondike
 - Personal Leaderboard
 - Different layouts options
-- Main menu
+- Main menu (in progress)
 
-## History Progress Log (Project Commenced 16 Sept 2025 - Complete 10 Feb 2026)
+## History Progress Log 
+
+- Project Commenced: 16 Sept 2025
+- Engine finished: 24 Nov 2025
+- v1.0.0 released: 10 Feb 2026
 
 ### (Oct 20-26, 2025) **started tracking**
 
@@ -239,3 +243,4 @@ inside `GameApp`, linking those functions to the sideMenu runnables
 - Added `SettingView.java` as a new scene (scene not complete)
 - Added `HowToPlayView.java` as a new scene (scene not complete)
 - Added `StatView.java` as a new scene (scene not complete)
+- Added title to main menu
