@@ -6,6 +6,9 @@ Play Klondike Solitaire
 
 ## Desktop Version (Windows)
 
+![stateOfGame](src/main/resources/images/GameAppImages/26feb26.png)
+![stateOfGame](src/main/resources/images/GameAppImages/26feb26(2).png)
+
 ### Install 
 1. Go to **Releases** page of this repository
 2. Download the latest file: `KlondikeSolitaire-1.0.msi`
