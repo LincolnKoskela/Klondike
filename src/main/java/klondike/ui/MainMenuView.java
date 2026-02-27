@@ -1,12 +1,10 @@
 package klondike.ui;
 
-import java.util.Stack;
-
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import klondike.GameEngine;
 
@@ -14,6 +12,7 @@ public class MainMenuView {
     
     private StackPane root;
     private Label title;
+    private VBox menuScreenLayout;
 
     public MainMenuView(Stage stage) {
         root = new StackPane();
@@ -59,10 +58,16 @@ public class MainMenuView {
                 stage.close();
             });
 
-            StackPane.setAlignment(title, Pos.TOP_CENTER);
+        StackPane container = new StackPane();
+        VBox menulayout = new VBox(50);
+        menulayout.setAlignment(Pos.CENTER);
 
-            root.setStyle("-fx-background-color: Darkgreen;");
-            root.getChildren().addAll(mainMenu, title);
+        menulayout.getChildren().addAll(title, mainMenu);
+        container.getChildren().add(menulayout);
+        container.setPadding(new Insets(0, 0, 200, 0));
+
+        root.setStyle("-fx-background-color: radial-gradient(center 50% 30%, radius 60%, #0f7a0f, #013300)");
+        root.getChildren().addAll(container);
     }   
 
     public StackPane getRoot() {
@@ -73,7 +78,7 @@ public class MainMenuView {
         title.setStyle(
             "-fx-font-size: 90px;" + 
             "-fx-font-weight: bold;" + 
-            "-fx-text-fill: white;"
+            "-fx-text-fill: linear-gradient(to bottom, #cfcfcf 0%, white 50%, #cfcfcf 100%);"
         );
     }
 }

@@ -244,3 +244,4 @@ inside `GameApp`, linking those functions to the sideMenu runnables
 - Added `HowToPlayView.java` as a new scene (scene not complete)
 - Added `StatView.java` as a new scene (scene not complete)
 - Added title to main menu
+- Styling Main Menu

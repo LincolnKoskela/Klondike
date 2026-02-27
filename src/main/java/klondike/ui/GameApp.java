@@ -1,13 +1,9 @@
 package klondike.ui;
 
 import javafx.application.*;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.*;
-import klondike.GameEngine;
-import javafx.scene.control.Button;
 
 public class GameApp extends Application {
     
