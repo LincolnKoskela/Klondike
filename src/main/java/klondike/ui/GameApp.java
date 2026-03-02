@@ -12,7 +12,7 @@ public class GameApp extends Application {
 
         MainMenuView menu = new MainMenuView(primaryStage);
 
-        Scene scene = new Scene(menu.getRoot(), 1200, 800, Color.DARKGREEN);
+        Scene scene = new Scene(menu, 1200, 800, Color.DARKGREEN);
 
         primaryStage.setTitle("Klondike Solitaire");
         primaryStage.setScene(scene);

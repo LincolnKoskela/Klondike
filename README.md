@@ -1,6 +1,6 @@
 # Klondike Solitaire (Java)
 
-Play Klondike Solitaire 
+Play Klondike Solitaire
 
 - Desktop Application (JavaFX GUI w/ windows installer)
 
@@ -240,7 +240,7 @@ inside `GameApp`, linking those functions to the sideMenu runnables
 - Added move count
 - Game compiled into java application **10FEB2026**
 
-### (16FEB2026 - Current) -> Making updates on game application
+### (16 - 28 FEB, 2026) -> Making updates on game application
 - Added main menu with a start button `MainMenuView.java`
 - Added `MainMenuList.java` - the menu that'll be displayed at the main menu
 - Added `SettingView.java` as a new scene (scene not complete)
@@ -248,3 +248,6 @@ inside `GameApp`, linking those functions to the sideMenu runnables
 - Added `StatView.java` as a new scene (scene not complete)
 - Added title to main menu
 - Styling Main Menu
+
+### (March 2026) -> Expanding v1.0.0
+- Added side menu exit button : returns to the main menu

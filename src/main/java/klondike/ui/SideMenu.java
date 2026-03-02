@@ -8,11 +8,14 @@ public class SideMenu extends VBox {
     private Button undo;
     private Button restartGame;
     private Button pause;
+    private Button exit;
 
-    public SideMenu(Runnable onUndo, Runnable onNewGame, Runnable onPause) {
+    public SideMenu(Runnable onUndo, Runnable onNewGame, Runnable onPause, 
+        Runnable onExit) {
         this.undo = new Button("UNDO");
         this.restartGame = new Button("New Game");
         this.pause = new Button("Pause Game");
+        this.exit = new Button("Exit Game");
 
         applyStyle();
         configureLayout();
@@ -20,6 +23,8 @@ public class SideMenu extends VBox {
         undo.setOnAction(e -> onUndo.run());
         restartGame.setOnAction(e -> onNewGame.run());
         pause.setOnAction(e -> onPause.run());
+        exit.setOnAction(e -> onExit.run());
+        
     }
     
     /**
@@ -33,7 +38,7 @@ public class SideMenu extends VBox {
             "-fx-border-width: 1;"
         );
 
-        for (Button b : new Button[] {undo, restartGame, pause}) {
+        for (Button b : new Button[] {undo, restartGame, pause, exit}) {
             b.setMaxWidth(Double.MAX_VALUE);
             b.setStyle(
                 "-fx-background-color: #262626;" + 
@@ -43,7 +48,7 @@ public class SideMenu extends VBox {
             );
 
             b.setOnMouseEntered(e -> b.setStyle(
-                "-fx-background-color: #9b3c3cff;" + 
+                "-fx-background-color: rgb(9, 107, 9);" + 
                 "-fx-font-weight: bold;" +
                 "-fx-text-fill: white;" + 
                 "-fx-font-size: 12px;" 
@@ -61,6 +66,6 @@ public class SideMenu extends VBox {
         setSpacing(6);
         setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
         setPrefWidth(160);
-        getChildren().addAll(undo, restartGame, pause);
+        getChildren().addAll(undo, restartGame, pause, exit);
     }
 }

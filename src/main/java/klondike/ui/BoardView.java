@@ -26,7 +26,7 @@ public class BoardView extends Pane {
     private int selectedSourceCol = -1;
     private int selectedSourceRow = -1;
 
-    // Button (eventually move to a sidemenu once we get further in project)
+    // Button 
     private Button undo;
 
     // Animation fields
