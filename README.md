@@ -251,3 +251,4 @@ inside `GameApp`, linking those functions to the sideMenu runnables
 
 ### (March 2026) -> Expanding v1.0.0
 - Added side menu exit button : returns to the main menu
+- Added `Back to Menu` buttons for each stage

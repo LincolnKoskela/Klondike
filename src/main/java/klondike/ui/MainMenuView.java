@@ -18,6 +18,7 @@ public class MainMenuView extends StackPane {
         styleTitle();
 
         MainMenuList mainMenu = new MainMenuList(
+            // start game
             () -> {
                 GameEngine engine = new GameEngine(true);
                 engine.dealNewGame();
@@ -29,6 +30,10 @@ public class MainMenuView extends StackPane {
                     () -> stage.getScene().setRoot(this)
                 );
 
+                // if (board.isPaused()) {
+                //     sideMenu.disableNewGameButton();
+                // }
+
                 StackPane gameRoot = new StackPane(board, sideMenu);
                 StackPane.setAlignment(sideMenu, Pos.TOP_RIGHT);
                 gameRoot.setStyle("-fx-background-color: darkgreen;");
@@ -36,21 +41,26 @@ public class MainMenuView extends StackPane {
                 stage.getScene().setRoot(gameRoot);
 
             },
+
+            // setting view
             () -> {
-                SettingsView settingsView = new SettingsView(stage);
+                SettingsView settingsView = new SettingsView(() -> stage.getScene().setRoot(this));
                 stage.getScene().setRoot(settingsView);
             },
             
+            // stats
             () -> {
-                StatView statView = new StatView(stage);
+                StatView statView = new StatView(() -> stage.getScene().setRoot(this));
                 stage.getScene().setRoot(statView);
             },
             
+            // how to play display
             () -> {
-                HowToPlayView howTo = new HowToPlayView(stage);
+                HowToPlayView howTo = new HowToPlayView(() -> stage.getScene().setRoot(this));
                 stage.getScene().setRoot(howTo);
             }, 
             
+            // Exit application
             () -> 
             {
                 stage.close();

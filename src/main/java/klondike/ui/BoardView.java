@@ -39,7 +39,6 @@ public class BoardView extends Pane {
     private Timeline uiTimer; // series of events thread
     private Time gameTimer; // stopwatch
     private boolean paused = false; // pause flagger
-
     private Pane pausePane; // click overlay to resume
 
     // Win fields 
@@ -526,6 +525,10 @@ public class BoardView extends Pane {
         pausePane.setOnMouseClicked(e -> resumeGame());
 
         getChildren().add(pausePane);
+    }
+
+    public boolean isPaused() {
+        return paused;
     }
 
     public void resumeGame() {

@@ -68,4 +68,11 @@ public class SideMenu extends VBox {
         setPrefWidth(160);
         getChildren().addAll(undo, restartGame, pause, exit);
     }
+
+    /**
+     * if game is pasued, disable the new game button
+     */
+    public void disableNewGameButton() {
+        restartGame.setDisable(true);
+    }
 }
